@@ -1,4 +1,4 @@
-const CACHE_NAME = "ap2-fisi-tracker-v3.1.5"; // rev: wiso-cards-update
+const CACHE_NAME = "ap2-fisi-tracker-v3.1.5-rev2"; // rev: fix-import-and-stats
 const ASSETS = [
 	"index.html",
 	"glossar.html",
@@ -17,8 +17,8 @@ const ASSETS = [
 	"assets/js/lucide.min.js?v=3.1.5",
 	"assets/js/confetti.js?v=3.1.5",
 	"assets/js/data.js?v=3.1.5",
-	"assets/js/questions.js?v=3.1.5",
-	"assets/js/app.js?v=3.1.5",
+	"assets/js/questions.js?v=3.1.5.1",
+	"assets/js/app.js?v=3.1.5.1",
 	"assets/js/skripte.js?v=3.1.5",
 	"assets/js/subnet.js?v=3.1.5",
 	"assets/js/sql.js?v=3.1.5",
