@@ -157,12 +157,26 @@ const app = {
           const cardData = app.state.anki?.[card.id];
           return (
             cardData &&
-            ((cardData.nextReview > 0 && cardData.nextReview <= now) ||
-              cardData.level <= 2 ||
+            (cardData.nextReview > 0 && cardData.nextReview <= now ||
               cardData.confidence >= 2 ||
               cardData.markedHard)
           );
         });
+    },
+
+    getCardLearningState(cardData, now = Date.now()) {
+      if (
+        !cardData ||
+        cardData.level === 0 ||
+        cardData.confidence >= 2 ||
+        cardData.markedHard
+      ) {
+        return "urgent";
+      }
+      if (cardData.nextReview > 0 && cardData.nextReview <= now) {
+        return "toLearn";
+      }
+      return "known";
     },
 
     toggleBookmark(cardId) {
@@ -470,15 +484,10 @@ const app = {
           const counts = cards.reduce(
             (result, card) => {
               const cardData = app.state.anki?.[card.id];
-
-              if (!cardData || cardData.level === 0) {
+              const state = this.getCardLearningState(cardData, now);
+              if (state === "toLearn") {
                 result.toLearn++;
-              } else if (
-                (cardData.nextReview > 0 && cardData.nextReview <= now) ||
-                cardData.level <= 2 ||
-                cardData.confidence >= 2 ||
-                cardData.markedHard
-              ) {
+              } else if (state === "urgent") {
                 result.urgent++;
               } else {
                 result.known++;
