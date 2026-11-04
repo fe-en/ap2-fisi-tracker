@@ -1115,6 +1115,10 @@
           <!-- 2. Question View -->
           <div id="ankiQuestionView" class="hidden flex flex-col items-center justify-center text-center space-y-6 py-6">
             <span id="ankiCardCounter" class="font-mono text-xs text-dark-dim uppercase tracking-widest">Karte 1 von 10</span>
+            <span id="ankiCardTopic" class="hidden inline-flex items-center gap-1.5 rounded-full border border-orange-400/30 bg-orange-400/10 px-2.5 py-1 text-[10px] font-mono text-orange-300">
+              <i data-lucide="folder" class="h-3 w-3"></i>
+              <span>Bereich</span>
+            </span>
             <div id="ankiQuestionText" class="text-xl sm:text-2xl font-bold text-white max-w-xl leading-relaxed">
               Frage wird geladen...
             </div>
@@ -1130,6 +1134,10 @@
 
           <!-- 3. Answer View -->
           <div id="ankiAnswerView" class="hidden flex flex-col space-y-5">
+            <div id="ankiAnswerTopic" class="hidden inline-flex items-center gap-1.5 self-center rounded-full border border-orange-400/30 bg-orange-400/10 px-2.5 py-1 text-[10px] font-mono text-orange-300">
+              <i data-lucide="folder" class="h-3 w-3"></i>
+              <span>Bereich</span>
+            </div>
             <!-- Question muted at top -->
             <div class="p-3.5 rounded-lg border border-dark-border bg-dark-bg/60 text-xs text-dark-muted">
               <span class="text-[10px] font-mono uppercase tracking-wider text-dark-dim block mb-1">Frage:</span>

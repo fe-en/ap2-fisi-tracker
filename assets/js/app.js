@@ -753,6 +753,22 @@ const app = {
       if (ansQElement) ansQElement.textContent = card.q;
       document.getElementById("ankiAnswerText").textContent = card.a;
 
+      const cardTopic = app.findTopic(this.getStatsTopicId(card));
+      const cardTopicTitle = cardTopic?.title || "";
+      const topicElements = [
+        document.getElementById("ankiCardTopic"),
+        document.getElementById("ankiAnswerTopic"),
+      ];
+      topicElements.forEach((element) => {
+        if (!element) return;
+        const label = element.querySelector("span");
+        if (label) label.textContent = cardTopicTitle;
+        element.classList.toggle(
+          "hidden",
+          this.currentTopicId !== "__global__" || !cardTopicTitle,
+        );
+      });
+
       document.getElementById("ankiQuestionView").classList.remove("hidden");
       document.getElementById("ankiAnswerView").classList.add("hidden");
 
