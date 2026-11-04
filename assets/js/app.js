@@ -310,7 +310,6 @@ const app = {
       this.renderBatchSelector();
       this.renderAnkiDeckOverview();
       this.showAnkiTab("deck");
-      document.getElementById("globalWeaknessTabs")?.classList.add("hidden");
       document.getElementById("globalWeaknessDistribution")?.classList.add("hidden");
       document.getElementById("globalWeaknessCardsControls")?.classList.remove("hidden");
 
@@ -377,7 +376,6 @@ const app = {
       this.renderBatchSelector();
       this.renderAnkiDeckOverview();
       this.showAnkiTab("deck");
-      document.getElementById("globalWeaknessTabs")?.classList.add("hidden");
       document.getElementById("globalWeaknessDistribution")?.classList.add("hidden");
       document.getElementById("globalWeaknessCardsControls")?.classList.remove("hidden");
 
@@ -513,13 +511,12 @@ const app = {
         statsContainer.classList.remove("hidden");
         app.refreshIcons();
       }
-      document.getElementById("globalWeaknessTabs")?.classList.remove("hidden");
       this.renderGlobalWeaknessDistribution();
-      this.showGlobalWeaknessTab("cards");
+      this.showGlobalWeaknessTab("distribution");
 
       this.renderBatchSelector();
-      this.renderAnkiDeckOverview();
-      this.showAnkiTab("deck");
+      document.getElementById("ankiDeckOverview")?.classList.add("hidden");
+      document.getElementById("ankiRecommendationView")?.classList.remove("hidden");
       document.getElementById("ankiModeView").classList.remove("hidden");
       document.getElementById("ankiQuestionView").classList.add("hidden");
       document.getElementById("ankiAnswerView").classList.add("hidden");
@@ -532,21 +529,13 @@ const app = {
 
     showGlobalWeaknessTab(tab) {
       const distribution = document.getElementById("globalWeaknessDistribution");
-      const cardsTab = document.getElementById("globalWeaknessCardsTab");
-      const distributionTab = document.getElementById("globalWeaknessDistributionTab");
-      if (!distribution || !cardsTab || !distributionTab) return;
+      if (!distribution) return;
 
       const showDistribution = tab === "distribution";
       distribution.classList.toggle("hidden", !showDistribution);
       document.getElementById("ankiTopicStats")?.classList.toggle("hidden", showDistribution);
-      document.getElementById("globalWeaknessCardsControls")?.classList.toggle("hidden", showDistribution);
-      document.querySelector("#ankiModeView > .grid")?.classList.toggle("hidden", showDistribution);
-      cardsTab.classList.toggle("bg-dark-card", !showDistribution);
-      cardsTab.classList.toggle("text-white", !showDistribution);
-      cardsTab.classList.toggle("text-dark-muted", showDistribution);
-      distributionTab.classList.toggle("bg-dark-card", showDistribution);
-      distributionTab.classList.toggle("text-white", showDistribution);
-      distributionTab.classList.toggle("text-dark-muted", !showDistribution);
+      document.getElementById("globalWeaknessCardsControls")?.classList.remove("hidden");
+      document.querySelector("#ankiModeView > .grid")?.classList.remove("hidden");
     },
 
     renderGlobalWeaknessDistribution() {

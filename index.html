@@ -656,37 +656,17 @@
         <div class="lg:col-span-5 flex flex-col gap-4">
           <!-- Anki deck overview -->
           <div class="p-4 sm:p-5 rounded-xl border border-dark-border bg-dark-card">
-            <div class="inline-flex w-full rounded-lg bg-dark-bg border border-dark-border p-1 text-xs font-mono mb-4">
-              <button id="dashboardWeaknessTab" type="button" onclick="app.anki.openGlobalWeaknesses()" class="flex-1 rounded-md bg-dark-card px-3 py-2 text-white transition-colors">
+            <button
+              type="button"
+              onclick="app.anki.openGlobalWeaknesses()"
+              class="w-full min-h-28 rounded-xl border border-orange-500/30 bg-orange-500/5 px-4 py-5 text-left hover:border-orange-400/60 hover:bg-orange-500/10 transition-colors"
+            >
+              <span class="flex items-center gap-2 text-orange-400 font-mono text-xs font-bold">
+                <i data-lucide="alert-triangle" class="w-4 h-4"></i>
                 Globale Schwächen
-              </button>
-              <button id="dashboardLearningTab" type="button" onclick="app.showDashboardAnkiTab('learning')" class="flex-1 rounded-md px-3 py-2 text-dark-muted hover:text-white transition-colors">
-                Lernen
-              </button>
-            </div>
-            <div id="dashboardWeaknessView">
-              <div class="flex items-center gap-2 mb-2">
-                <i data-lucide="alert-triangle" class="w-4 h-4 text-orange-400"></i>
-                <span class="font-mono text-[11px] uppercase tracking-wider text-dark-muted font-bold">
-                  Fällige und unsichere Karten
-                </span>
-              </div>
-              <p class="text-sm text-white leading-relaxed">
-                Wiederhole mit einem Klick nur Karten, die heute fällig sind oder die du noch nicht sicher kannst.
-              </p>
-            </div>
-            <div id="dashboardLearningView" class="hidden">
-              <div class="flex items-center justify-between mb-3">
-                <div class="flex items-center gap-2">
-                  <i data-lucide="layers" class="w-4 h-4 text-emerald-400"></i>
-                  <span class="font-mono text-[11px] uppercase tracking-wider text-dark-muted font-bold">
-                    Lernkarten
-                  </span>
-                </div>
-              </div>
-              <p class="text-[11px] text-dark-dim mb-3">New, Learn und Due pro Deck</p>
-              <div id="dashboardAnkiDeckOverview"></div>
-            </div>
+              </span>
+              <span class="block mt-2 text-sm font-semibold text-white">Fällige Karten wiederholen</span>
+            </button>
           </div>
           <!-- 80-Days Activity Heatmap -->
           <div class="p-4 sm:p-5 rounded-xl border border-dark-border bg-dark-card flex-1 flex flex-col justify-between">
@@ -1054,16 +1034,6 @@
             <div id="ankiRecommendationView" class="hidden space-y-4">
             <!-- Stats Container -->
             <div id="ankiTopicStats" class="hidden"></div>
-            <div id="globalWeaknessTabs" class="hidden max-w-lg mx-auto w-full">
-              <div class="inline-flex w-full rounded-lg bg-dark-bg border border-dark-border p-1 text-xs font-mono">
-                <button id="globalWeaknessCardsTab" type="button" onclick="app.anki.showGlobalWeaknessTab('cards')" class="flex-1 rounded-md bg-dark-card px-3 py-2 text-white transition-colors">
-                  Karten
-                </button>
-                <button id="globalWeaknessDistributionTab" type="button" onclick="app.anki.showGlobalWeaknessTab('distribution')" class="flex-1 rounded-md px-3 py-2 text-dark-muted hover:text-white transition-colors">
-                  Verteilung
-                </button>
-              </div>
-            </div>
             <div id="globalWeaknessDistribution" class="hidden max-w-lg mx-auto w-full text-left"></div>
 
             <!-- Session Settings (Stapelgröße & Active Recall Loop) -->
