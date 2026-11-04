@@ -1066,6 +1066,17 @@
               <p class="text-xs text-dark-muted mt-1">Wähle deinen Trainingsmodus für dieses Thema.</p>
             </div>
 
+            <div class="inline-flex w-full max-w-lg mx-auto rounded-lg bg-dark-bg border border-dark-border p-1 text-xs font-mono">
+              <button id="ankiDeckTab" type="button" onclick="app.anki.showAnkiTab('deck')" class="flex-1 rounded-md bg-dark-card px-3 py-2 text-white transition-colors">
+                Lernen
+              </button>
+              <button id="ankiRecommendationTab" type="button" onclick="app.anki.showAnkiTab('recommendation')" class="flex-1 rounded-md px-3 py-2 text-dark-muted hover:text-white transition-colors">
+                Empfehlung
+              </button>
+            </div>
+
+            <div id="ankiDeckOverview" class="max-w-lg mx-auto w-full rounded-xl border border-dark-border bg-dark-bg/60 p-4 text-left"></div>
+            <div id="ankiRecommendationView" class="hidden space-y-4">
             <!-- Stats Container -->
             <div id="ankiTopicStats" class="hidden"></div>
             <div id="globalWeaknessTabs" class="hidden max-w-lg mx-auto w-full">
@@ -1147,6 +1158,7 @@
                 </div>
                 <p class="text-xs text-dark-muted">Nur Karten trainieren, die du zuletzt geraten oder falsch hattest.</p>
               </button>
+            </div>
             </div>
           </div>
 

@@ -179,6 +179,79 @@ const app = {
       return "known";
     },
 
+    selectDeck(topicId) {
+      const questions = window.ANKI_QUESTIONS || {};
+      const cards = questions[topicId] || [];
+      if (!cards.length) return;
+      this.currentTopicId = topicId;
+      this.allTopicCards = [...cards];
+      this.cards = [...cards];
+      this.start("spaced");
+    },
+
+    renderAnkiDeckOverview() {
+      const container = document.getElementById("ankiDeckOverview");
+      if (!container) return;
+      const questions = window.ANKI_QUESTIONS || {};
+      const now = Date.now();
+      const topics = [];
+      AP2_DATA.forEach((category) => {
+        category.topics.forEach((topic) => {
+          const cards = questions[topic.id] || [];
+          if (!cards.length) return;
+          const counts = cards.reduce(
+            (result, card) => {
+              const state = this.getCardLearningState(app.state.anki?.[card.id], now);
+              if (!app.state.anki?.[card.id] || app.state.anki[card.id].level === 0) {
+                result.newCards++;
+              } else if (state === "urgent") {
+                result.learn++;
+              } else if (state === "toLearn") {
+                result.due++;
+              }
+              return result;
+            },
+            { newCards: 0, learn: 0, due: 0 },
+          );
+          topics.push({ topic, total: cards.length, ...counts });
+        });
+      });
+
+      container.innerHTML = `
+        <div class="grid grid-cols-[minmax(0,1fr)_4rem_4rem_4rem] gap-2 px-2 pb-2 text-[10px] font-mono text-dark-muted">
+          <span>Deck</span><span class="text-center">New</span><span class="text-center">Learn</span><span class="text-center">Due</span>
+        </div>
+        <div class="space-y-0.5">
+          ${topics.map(({ topic, total, newCards, learn, due }) => `
+            <button type="button" onclick="app.anki.selectDeck('${topic.id}')" class="w-full grid grid-cols-[minmax(0,1fr)_4rem_4rem_4rem] gap-2 items-center rounded-lg px-2 py-2 text-left hover:bg-dark-card transition-colors">
+              <span class="truncate text-sm text-white">${topic.title}</span>
+              <span class="text-center text-xs text-sky-300">${newCards}</span>
+              <span class="text-center text-xs text-rose-300">${learn}</span>
+              <span class="text-center text-xs text-emerald-300">${due}</span>
+            </button>
+          `).join("")}
+        </div>
+        <p class="mt-3 px-2 text-[10px] text-dark-muted">Klicke auf ein Deck, um die Karten im Spaced-Repetition-Modus zu lernen.</p>
+      `;
+    },
+
+    showAnkiTab(tab) {
+      const deck = document.getElementById("ankiDeckOverview");
+      const recommendation = document.getElementById("ankiRecommendationView");
+      const deckTab = document.getElementById("ankiDeckTab");
+      const recommendationTab = document.getElementById("ankiRecommendationTab");
+      if (!deck || !recommendation || !deckTab || !recommendationTab) return;
+      const showDeck = tab === "deck";
+      deck.classList.toggle("hidden", !showDeck);
+      recommendation.classList.toggle("hidden", showDeck);
+      deckTab.classList.toggle("bg-dark-card", showDeck);
+      deckTab.classList.toggle("text-white", showDeck);
+      deckTab.classList.toggle("text-dark-muted", !showDeck);
+      recommendationTab.classList.toggle("bg-dark-card", !showDeck);
+      recommendationTab.classList.toggle("text-white", !showDeck);
+      recommendationTab.classList.toggle("text-dark-muted", showDeck);
+    },
+
     toggleBookmark(cardId) {
       if (!app.state.bookmarks) app.state.bookmarks = [];
       const currentCard = this.cards && this.cards[this.currentIndex];
@@ -237,6 +310,8 @@ const app = {
       }
 
       this.renderBatchSelector();
+      this.renderAnkiDeckOverview();
+      this.showAnkiTab("deck");
       document.getElementById("globalWeaknessTabs")?.classList.add("hidden");
       document.getElementById("globalWeaknessDistribution")?.classList.add("hidden");
       document.getElementById("globalWeaknessCardsControls")?.classList.remove("hidden");
@@ -302,6 +377,8 @@ const app = {
       }
 
       this.renderBatchSelector();
+      this.renderAnkiDeckOverview();
+      this.showAnkiTab("deck");
       document.getElementById("globalWeaknessTabs")?.classList.add("hidden");
       document.getElementById("globalWeaknessDistribution")?.classList.add("hidden");
       document.getElementById("globalWeaknessCardsControls")?.classList.remove("hidden");
@@ -443,6 +520,8 @@ const app = {
       this.showGlobalWeaknessTab("cards");
 
       this.renderBatchSelector();
+      this.renderAnkiDeckOverview();
+      this.showAnkiTab("deck");
       document.getElementById("ankiModeView").classList.remove("hidden");
       document.getElementById("ankiQuestionView").classList.add("hidden");
       document.getElementById("ankiAnswerView").classList.add("hidden");
