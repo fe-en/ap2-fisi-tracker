@@ -463,61 +463,63 @@ const app = {
       if (!container) return;
       const allQuestions = window.ANKI_QUESTIONS || {};
       const now = Date.now();
-      const weaknessCardIds = new Set(
-        this.getGlobalWeaknessCards(now).map((card) => card.id),
-      );
-      const weaknessCards = Object.entries(allQuestions).flatMap(([topicId, cards]) =>
-        cards
-          .filter((card) => weaknessCardIds.has(card.id))
-          .map((card) => ({ topicId, card })),
-      );
-      const weaknessByTopic = [];
+      const distributionByTopic = [];
       AP2_DATA.forEach((category) => {
         category.topics.forEach((topic) => {
-          const topicCards = weaknessCards.filter(({ topicId }) => topicId === topic.id);
-          if (topicCards.length === 0) return;
-          const totalTopicCards = allQuestions[topic.id]?.length || 0;
-          const due = topicCards.filter(({ card }) => {
-            const cardData = app.state.anki[card.id];
-            return cardData.nextReview > 0 && cardData.nextReview <= now;
-          }).length;
-          weaknessByTopic.push({
-            topic,
-            count: topicCards.length,
-            totalTopicCards,
-            due,
-          });
+          const cards = allQuestions[topic.id] || [];
+          const counts = cards.reduce(
+            (result, card) => {
+              const cardData = app.state.anki?.[card.id];
+              const urgent =
+                cardData &&
+                ((cardData.nextReview > 0 && cardData.nextReview <= now) ||
+                  cardData.level <= 2 ||
+                  cardData.confidence >= 2 ||
+                  cardData.markedHard);
+
+              if (urgent) {
+                result.urgent++;
+              } else if (!cardData || cardData.level === 0) {
+                result.toLearn++;
+              } else {
+                result.known++;
+              }
+              return result;
+            },
+            { toLearn: 0, known: 0, urgent: 0 },
+          );
+          distributionByTopic.push({ topic, total: cards.length, ...counts });
         });
       });
-      if (weaknessByTopic.length === 0) {
-        container.innerHTML = '<p class="text-xs text-dark-muted text-center py-4">Noch keine globalen Schwächen erfasst.</p>';
-        return;
-      }
-      const maxWeaknesses = Math.max(...weaknessByTopic.map(({ count }) => count));
-      const totalWeaknesses = weaknessCards.length;
-      weaknessByTopic.sort((a, b) => b.count - a.count || b.due - a.due);
+      const totalCards = distributionByTopic.reduce((sum, item) => sum + item.total, 0);
       container.innerHTML = `
         <div class="flex items-center justify-between gap-3 mb-3">
           <div>
             <h4 class="text-sm font-bold text-white">Verteilung nach Thema</h4>
-            <p class="text-[11px] text-dark-muted mt-0.5">${totalWeaknesses} Karten in ${weaknessByTopic.length} Themen</p>
+            <p class="text-[11px] text-dark-muted mt-0.5">${totalCards} Karten insgesamt</p>
           </div>
           <i data-lucide="bar-chart-3" class="w-4 h-4 text-orange-400"></i>
         </div>
+        <div class="flex flex-wrap gap-x-3 gap-y-1 mb-4 text-[10px] font-mono text-dark-muted">
+          <span><i class="inline-block w-2 h-2 rounded-full bg-sky-400 mr-1"></i>To learn</span>
+          <span><i class="inline-block w-2 h-2 rounded-full bg-emerald-400 mr-1"></i>Known</span>
+          <span><i class="inline-block w-2 h-2 rounded-full bg-rose-400 mr-1"></i>Urgent</span>
+        </div>
         <div class="space-y-3">
-          ${weaknessByTopic.map(({ topic, count, totalTopicCards, due }) => {
-            const share = totalTopicCards > 0
-              ? Math.round((count / totalTopicCards) * 100)
-              : 0;
-            const width = Math.max(Math.round((count / maxWeaknesses) * 100), 4);
+          ${distributionByTopic.map(({ topic, total, toLearn, known, urgent }) => {
+            const toLearnWidth = total > 0 ? (toLearn / total) * 100 : 0;
+            const knownWidth = total > 0 ? (known / total) * 100 : 0;
+            const urgentWidth = total > 0 ? (urgent / total) * 100 : 0;
             return `
               <div class="text-[11px] font-mono">
                 <div class="flex items-center justify-between gap-2 mb-1">
                   <span class="text-white truncate" title="${topic.title}">${topic.title}</span>
-                  <span class="text-dark-muted shrink-0">${count} / ${totalTopicCards} · ${share}%</span>
+                  <span class="text-dark-muted shrink-0">${toLearn} · ${known} · ${urgent}</span>
                 </div>
-                <div class="h-1.5 rounded-full bg-dark-border overflow-hidden">
-                  <div class="h-full rounded-full bg-orange-400" style="width: ${width}%"></div>
+                <div class="h-2 rounded-full bg-dark-border overflow-hidden flex" title="To learn: ${toLearn}, Known: ${known}, Urgent: ${urgent}">
+                  <div class="h-full bg-sky-400" style="width: ${toLearnWidth}%"></div>
+                  <div class="h-full bg-emerald-400" style="width: ${knownWidth}%"></div>
+                  <div class="h-full bg-rose-400" style="width: ${urgentWidth}%"></div>
                 </div>
               </div>
             `;
