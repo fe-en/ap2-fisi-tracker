@@ -76,6 +76,7 @@ const app = {
     repetitionCount: 0,
     batchSize: "all",
     loopEnabled: true,
+    cardTopicMap: {},
 
     setBatchSize(size) {
       this.batchSize = size;
@@ -128,6 +129,125 @@ const app = {
       const id = cardId || (this.cards && this.cards[this.currentIndex] && this.cards[this.currentIndex].id);
       if (!id || !app.state.bookmarks) return false;
       return app.state.bookmarks.includes(id);
+    },
+
+    getCardTopicId(cardId) {
+      if (!this.cardTopicMap[cardId]) {
+        const questions = window.ANKI_QUESTIONS || {};
+        for (const [topicId, cards] of Object.entries(questions)) {
+          if (cards.some((card) => card.id === cardId)) {
+            this.cardTopicMap[cardId] = topicId;
+            break;
+          }
+        }
+      }
+      return this.cardTopicMap[cardId] || null;
+    },
+
+    getStatsTopicId(card) {
+      if (this.currentTopicId !== "__global__") return this.currentTopicId;
+      return this.getCardTopicId(card?.id) || "__global__";
+    },
+
+    getGlobalWeaknessCards(now = Date.now()) {
+      const questions = window.ANKI_QUESTIONS || {};
+      return Object.values(questions)
+        .flat()
+        .filter((card) => {
+          const cardData = app.state.anki?.[card.id];
+          return (
+            cardData &&
+            (cardData.nextReview > 0 && cardData.nextReview <= now ||
+              cardData.confidence >= 2 ||
+              cardData.markedHard)
+          );
+        });
+    },
+
+    getCardLearningState(cardData, now = Date.now()) {
+      if (
+        !cardData ||
+        cardData.level === 0 ||
+        cardData.confidence >= 2 ||
+        cardData.markedHard
+      ) {
+        return "urgent";
+      }
+      if (cardData.nextReview > 0 && cardData.nextReview <= now) {
+        return "toLearn";
+      }
+      return "known";
+    },
+
+    selectDeck(topicId) {
+      const questions = window.ANKI_QUESTIONS || {};
+      const cards = questions[topicId] || [];
+      if (!cards.length) return;
+      this.open(topicId);
+      this.start("spaced");
+    },
+
+    renderAnkiDeckOverview(targetId = "ankiDeckOverview") {
+      const container = document.getElementById(targetId);
+      if (!container) return;
+      const questions = window.ANKI_QUESTIONS || {};
+      const now = Date.now();
+      const topics = [];
+      AP2_DATA.forEach((category) => {
+        category.topics.forEach((topic) => {
+          const cards = questions[topic.id] || [];
+          if (!cards.length) return;
+          const counts = cards.reduce(
+            (result, card) => {
+              const state = this.getCardLearningState(app.state.anki?.[card.id], now);
+              if (!app.state.anki?.[card.id] || app.state.anki[card.id].level === 0) {
+                result.newCards++;
+              } else if (state === "urgent") {
+                result.learn++;
+              } else if (state === "toLearn") {
+                result.due++;
+              }
+              return result;
+            },
+            { newCards: 0, learn: 0, due: 0 },
+          );
+          topics.push({ topic, total: cards.length, ...counts });
+        });
+      });
+
+      container.innerHTML = `
+        <div class="grid grid-cols-[minmax(0,1fr)_4rem_4rem_4rem] gap-2 px-2 pb-2 text-[10px] font-mono text-dark-muted">
+          <span>Deck</span><span class="text-center">New</span><span class="text-center">Learn</span><span class="text-center">Due</span>
+        </div>
+        <div class="space-y-0.5">
+          ${topics.map(({ topic, total, newCards, learn, due }) => `
+            <button type="button" onclick="app.anki.selectDeck('${topic.id}')" class="w-full grid grid-cols-[minmax(0,1fr)_4rem_4rem_4rem] gap-2 items-center rounded-lg px-2 py-2 text-left hover:bg-dark-card transition-colors">
+              <span class="truncate text-sm text-white">${topic.title}</span>
+              <span class="text-center text-xs text-sky-300">${newCards}</span>
+              <span class="text-center text-xs text-rose-300">${learn}</span>
+              <span class="text-center text-xs text-emerald-300">${due}</span>
+            </button>
+          `).join("")}
+        </div>
+        <p class="mt-3 px-2 text-[10px] text-dark-muted">Klicke auf ein Deck, um die Karten im Spaced-Repetition-Modus zu lernen.</p>
+      `;
+    },
+
+    showAnkiTab(tab) {
+      const deck = document.getElementById("ankiDeckOverview");
+      const recommendation = document.getElementById("ankiRecommendationView");
+      const deckTab = document.getElementById("ankiDeckTab");
+      const recommendationTab = document.getElementById("ankiRecommendationTab");
+      if (!deck || !recommendation || !deckTab || !recommendationTab) return;
+      const showDeck = tab === "deck";
+      deck.classList.toggle("hidden", !showDeck);
+      recommendation.classList.toggle("hidden", showDeck);
+      deckTab.classList.toggle("bg-dark-card", showDeck);
+      deckTab.classList.toggle("text-white", showDeck);
+      deckTab.classList.toggle("text-dark-muted", !showDeck);
+      recommendationTab.classList.toggle("bg-dark-card", !showDeck);
+      recommendationTab.classList.toggle("text-white", !showDeck);
+      recommendationTab.classList.toggle("text-dark-muted", showDeck);
     },
 
     toggleBookmark(cardId) {
@@ -188,6 +308,11 @@ const app = {
       }
 
       this.renderBatchSelector();
+      this.renderAnkiDeckOverview();
+      this.showAnkiTab("deck");
+      document.getElementById("ankiModeTabs")?.classList.remove("hidden");
+      document.getElementById("globalWeaknessDistribution")?.classList.add("hidden");
+      document.getElementById("globalWeaknessCardsControls")?.classList.remove("hidden");
 
       const statsContainer = document.getElementById("ankiTopicStats");
       if (statsContainer) {
@@ -250,6 +375,11 @@ const app = {
       }
 
       this.renderBatchSelector();
+      this.renderAnkiDeckOverview();
+      this.showAnkiTab("deck");
+      document.getElementById("ankiModeTabs")?.classList.remove("hidden");
+      document.getElementById("globalWeaknessDistribution")?.classList.add("hidden");
+      document.getElementById("globalWeaknessCardsControls")?.classList.remove("hidden");
 
       // Statistiken laden
       if (!app.state.ankiStats) app.state.ankiStats = {};
@@ -343,6 +473,139 @@ const app = {
       document.body.style.overflow = "hidden";
     },
 
+    openGlobalWeaknesses() {
+      const cards = this.getGlobalWeaknessCards();
+      this.currentTopicId = "__global__";
+      this.cardTopicMap = {};
+      cards.forEach((card) => this.getCardTopicId(card.id));
+      this.allTopicCards = [...cards];
+      this.cards = [...cards];
+      document.getElementById("ankiTopicTitle").textContent = "Globale Schwachstellen";
+
+      const rBtn = document.getElementById("ankiHeaderReportBtn");
+      if (rBtn) {
+        rBtn.classList.add("hidden");
+        rBtn.classList.remove("inline-flex");
+      }
+      const bmBtn = document.getElementById("ankiHeaderBookmarkBtn");
+      if (bmBtn) {
+        bmBtn.classList.add("hidden");
+        bmBtn.classList.remove("inline-flex");
+      }
+
+      const now = Date.now();
+      const dueCount = cards.filter((card) => {
+        const data = app.state.anki?.[card.id];
+        return data && data.nextReview > 0 && data.nextReview <= now;
+      }).length;
+      const weakCount = cards.filter((card) => {
+        const data = app.state.anki?.[card.id];
+        return data && (data.level <= 2 || data.confidence >= 2 || data.markedHard);
+      }).length;
+      const statsContainer = document.getElementById("ankiTopicStats");
+      if (statsContainer) {
+        statsContainer.innerHTML = `
+          <div class="p-3 bg-dark-warning/10 border border-dark-warning/30 rounded-xl text-xs font-mono text-amber-300 text-center max-w-lg mx-auto flex items-center justify-center gap-2 mt-4">
+            <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-400 shrink-0"></i>
+            <span><strong>${weakCount} Schwachstellen</strong> · ${dueCount} heute fällig · alle Themen zusammengeführt.</span>
+          </div>
+        `;
+        statsContainer.classList.remove("hidden");
+        app.refreshIcons();
+      }
+      this.renderGlobalWeaknessDistribution();
+      this.showGlobalWeaknessTab("distribution");
+
+      this.renderBatchSelector();
+      document.getElementById("ankiModeTabs")?.classList.add("hidden");
+      document.getElementById("ankiDeckOverview")?.classList.add("hidden");
+      document.getElementById("ankiRecommendationView")?.classList.remove("hidden");
+      document.getElementById("ankiModeView").classList.remove("hidden");
+      document.getElementById("ankiQuestionView").classList.add("hidden");
+      document.getElementById("ankiAnswerView").classList.add("hidden");
+      document.getElementById("ankiFinishView").classList.add("hidden");
+      document.getElementById("ankiModeBadge").classList.add("hidden");
+      document.getElementById("ankiProgress").style.width = "0%";
+      document.getElementById("ankiModal").classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+    },
+
+    showGlobalWeaknessTab(tab) {
+      const distribution = document.getElementById("globalWeaknessDistribution");
+      if (!distribution) return;
+
+      const showDistribution = tab === "distribution";
+      distribution.classList.toggle("hidden", !showDistribution);
+      document.getElementById("ankiTopicStats")?.classList.toggle("hidden", showDistribution);
+      document.getElementById("globalWeaknessCardsControls")?.classList.remove("hidden");
+      document.querySelector("#ankiModeView > .grid")?.classList.remove("hidden");
+    },
+
+    renderGlobalWeaknessDistribution() {
+      const container = document.getElementById("globalWeaknessDistribution");
+      if (!container) return;
+      const allQuestions = window.ANKI_QUESTIONS || {};
+      const now = Date.now();
+      const distributionByTopic = [];
+      AP2_DATA.forEach((category) => {
+        category.topics.forEach((topic) => {
+          const cards = allQuestions[topic.id] || [];
+          const counts = cards.reduce(
+            (result, card) => {
+              const cardData = app.state.anki?.[card.id];
+              const state = this.getCardLearningState(cardData, now);
+              if (state === "toLearn") {
+                result.toLearn++;
+              } else if (state === "urgent") {
+                result.urgent++;
+              } else {
+                result.known++;
+              }
+              return result;
+            },
+            { toLearn: 0, known: 0, urgent: 0 },
+          );
+          distributionByTopic.push({ topic, total: cards.length, ...counts });
+        });
+      });
+      const totalCards = distributionByTopic.reduce((sum, item) => sum + item.total, 0);
+      container.innerHTML = `
+        <div class="flex items-center justify-between gap-3 mb-3">
+          <div>
+            <h4 class="text-sm font-bold text-white">Verteilung nach Thema</h4>
+            <p class="text-[11px] text-dark-muted mt-0.5">${totalCards} Karten insgesamt</p>
+          </div>
+          <i data-lucide="bar-chart-3" class="w-4 h-4 text-orange-400"></i>
+        </div>
+        <div class="flex flex-wrap gap-x-3 gap-y-1 mb-4 text-[10px] font-mono text-dark-muted">
+          <span><i class="inline-block w-2 h-2 rounded-full bg-emerald-400 mr-1"></i>Known</span>
+          <span><i class="inline-block w-2 h-2 rounded-full bg-sky-400 mr-1"></i>To learn</span>
+          <span><i class="inline-block w-2 h-2 rounded-full bg-rose-400 mr-1"></i>Urgent</span>
+        </div>
+        <div class="space-y-3">
+          ${distributionByTopic.map(({ topic, total, toLearn, known, urgent }) => {
+            const toLearnWidth = total > 0 ? (toLearn / total) * 100 : 0;
+            const knownWidth = total > 0 ? (known / total) * 100 : 0;
+            const urgentWidth = total > 0 ? (urgent / total) * 100 : 0;
+            return `
+              <div class="text-[11px] font-mono">
+                <div class="flex items-center justify-between gap-2 mb-1">
+                  <span class="text-white truncate" title="${topic.title}">${topic.title}</span>
+                  <span class="text-dark-muted shrink-0">${toLearn} · ${known} · ${urgent}</span>
+                </div>
+                <div class="h-2 rounded-full bg-dark-border overflow-hidden flex" title="To learn: ${toLearn}, Known: ${known}, Urgent: ${urgent}">
+                  <div class="h-full bg-emerald-400" style="width: ${knownWidth}%"></div>
+                  <div class="h-full bg-sky-400" style="width: ${toLearnWidth}%"></div>
+                  <div class="h-full bg-rose-400" style="width: ${urgentWidth}%"></div>
+                </div>
+              </div>
+            `;
+          }).join("")}
+        </div>
+      `;
+      app.refreshIcons();
+    },
+
     start(mode) {
       this.mode = mode;
       this.currentIndex = 0;
@@ -351,14 +614,16 @@ const app = {
 
       // Global Stats tracken (Session zählt ab Start)
       if (!app.state.ankiStats) app.state.ankiStats = {};
-      if (!app.state.ankiStats[this.currentTopicId]) {
+      if (this.currentTopicId !== "__global__" && !app.state.ankiStats[this.currentTopicId]) {
         app.state.ankiStats[this.currentTopicId] = {
           total: 0,
           correct: 0,
           sessions: 0,
         };
       }
-      app.state.ankiStats[this.currentTopicId].sessions++;
+      if (this.currentTopicId !== "__global__") {
+        app.state.ankiStats[this.currentTopicId].sessions++;
+      }
       app.save();
       app.updateStats(); // UI sofort aktualisieren
 
@@ -370,6 +635,10 @@ const app = {
         const filtered = pool.filter((card) => {
           const cardData = app.state.anki?.[card.id];
           if (!cardData) return false;
+          if (this.currentTopicId === "__global__") {
+            const isDue = cardData.nextReview > 0 && cardData.nextReview <= Date.now();
+            return isDue || cardData.level <= 2 || cardData.confidence >= 2 || cardData.markedHard;
+          }
           return cardData.confidence === 2 || cardData.confidence === 3 || cardData.level === 1;
         });
 
@@ -384,10 +653,23 @@ const app = {
         pool = filtered;
       }
 
-      // Karten für diese Session mischen (Fisher-Yates Shuffle)
-      for (let i = pool.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [pool[i], pool[j]] = [pool[j], pool[i]];
+      if (mode === "weaknesses" && this.currentTopicId === "__global__") {
+        const now = Date.now();
+        pool.sort((a, b) => {
+          const aData = app.state.anki[a.id];
+          const bData = app.state.anki[b.id];
+          const aDue = aData.nextReview > 0 && aData.nextReview <= now;
+          const bDue = bData.nextReview > 0 && bData.nextReview <= now;
+          if (aDue !== bDue) return aDue ? -1 : 1;
+          if (aData.level !== bData.level) return aData.level - bData.level;
+          return (aData.nextReview || 0) - (bData.nextReview || 0);
+        });
+      } else {
+        // Karten für diese Session mischen (Fisher-Yates Shuffle)
+        for (let i = pool.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [pool[i], pool[j]] = [pool[j], pool[i]];
+        }
       }
 
       // Stapelgröße anwenden (falls numerisch gewählt und kleiner als Pool)
@@ -471,6 +753,22 @@ const app = {
       if (ansQElement) ansQElement.textContent = card.q;
       document.getElementById("ankiAnswerText").textContent = card.a;
 
+      const cardTopic = app.findTopic(this.getStatsTopicId(card));
+      const cardTopicTitle = cardTopic?.title || "";
+      const topicElements = [
+        document.getElementById("ankiCardTopic"),
+        document.getElementById("ankiAnswerTopic"),
+      ];
+      topicElements.forEach((element) => {
+        if (!element) return;
+        const label = element.querySelector("span");
+        if (label) label.textContent = cardTopicTitle;
+        element.classList.toggle(
+          "hidden",
+          this.currentTopicId !== "__global__" || !cardTopicTitle,
+        );
+      });
+
       document.getElementById("ankiQuestionView").classList.remove("hidden");
       document.getElementById("ankiAnswerView").classList.add("hidden");
 
@@ -502,20 +800,21 @@ const app = {
       // Global-Stats: confidence < 2 zählt als "richtig beantwortet"
       const isCorrect = confidence < 2;
 
+      const currentCard = this.cards[this.currentIndex];
+      const statsTopicId = this.getStatsTopicId(currentCard);
       if (!app.state.ankiStats) app.state.ankiStats = {};
-      if (!app.state.ankiStats[this.currentTopicId]) {
-        app.state.ankiStats[this.currentTopicId] = {
+      if (!app.state.ankiStats[statsTopicId]) {
+        app.state.ankiStats[statsTopicId] = {
           total: 0,
           correct: 0,
           sessions: 0,
         };
       }
-      const gStats = app.state.ankiStats[this.currentTopicId];
+      const gStats = app.state.ankiStats[statsTopicId];
       gStats.total++;
       if (isCorrect) gStats.correct++;
 
       // Card-Data mit erweitertem Schema (rückwärtskompatibel)
-      const currentCard = this.cards[this.currentIndex];
       const cardId = currentCard.id;
       if (!app.state.anki) app.state.anki = {};
       if (!app.state.anki[cardId]) {
@@ -682,7 +981,8 @@ const app = {
     openReportModal() {
       if (!this.cards || !this.cards[this.currentIndex]) return;
       const card = this.cards[this.currentIndex];
-      const topic = app.findTopic(this.currentTopicId);
+      const topicId = this.getStatsTopicId(card);
+      const topic = app.findTopic(topicId);
       const topicTitle = topic ? topic.title : `Thema ${this.currentTopicId}`;
 
       // Ansicht zurücksetzen
@@ -731,14 +1031,15 @@ const app = {
     getReportPayload() {
       if (!this.cards || !this.cards[this.currentIndex]) return null;
       const card = this.cards[this.currentIndex];
-      const topic = app.findTopic(this.currentTopicId);
-      const topicTitle = topic ? topic.title : `Thema ${this.currentTopicId}`;
+      const topicId = this.getStatsTopicId(card);
+      const topic = app.findTopic(topicId);
+      const topicTitle = topic ? topic.title : `Thema ${topicId}`;
       const feedback = (document.getElementById("reportFeedbackText")?.value || "").trim();
 
       return {
         tracker: "AP2 FISI Tracker",
         topicTitle,
-        topicId: this.currentTopicId,
+        topicId,
         cardNumber: this.currentIndex + 1,
         totalCards: this.cards.length,
         cardId: card.id,
@@ -2255,7 +2556,6 @@ const app = {
           console.log('[AP2] ✅ Alle Themen erledigt!');
         }
       }
-
       // Globale Karteikarten-Statistiken berechnen
       let learnedCardsGlobal = 0;
       let knownCards = 0;
@@ -2344,6 +2644,11 @@ const app = {
         if (strongestEl) strongestEl.textContent = "—";
         if (weakestEl) weakestEl.textContent = "—";
       }
+
+      if (this.anki?.renderAnkiDeckOverview) {
+        this.anki.renderAnkiDeckOverview("dashboardAnkiDeckOverview");
+      }
+
     } catch (err) {
       console.error('[AP2] updateStats Fehler:', err);
       const recShort = document.getElementById('recShort');
@@ -2357,6 +2662,24 @@ const app = {
       this._statsRAF = null;
       this.updateStats();
     });
+  },
+
+  showDashboardAnkiTab(tab) {
+    const weakness = document.getElementById("dashboardWeaknessView");
+    const learning = document.getElementById("dashboardLearningView");
+    const weaknessTab = document.getElementById("dashboardWeaknessTab");
+    const learningTab = document.getElementById("dashboardLearningTab");
+    if (!weakness || !learning || !weaknessTab || !learningTab) return;
+
+    const showLearning = tab === "learning";
+    weakness.classList.toggle("hidden", showLearning);
+    learning.classList.toggle("hidden", !showLearning);
+    weaknessTab.classList.toggle("bg-dark-card", !showLearning);
+    weaknessTab.classList.toggle("text-white", !showLearning);
+    weaknessTab.classList.toggle("text-dark-muted", showLearning);
+    learningTab.classList.toggle("bg-dark-card", showLearning);
+    learningTab.classList.toggle("text-white", showLearning);
+    learningTab.classList.toggle("text-dark-muted", !showLearning);
   },
 
   applyFilter() {

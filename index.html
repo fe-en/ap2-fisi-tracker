@@ -654,57 +654,25 @@
 
         <!-- Right: Focus Station & Heatmap (5 Cols) -->
         <div class="lg:col-span-5 flex flex-col gap-4">
-          <!-- Pomodoro Focus Station -->
-          <div class="p-4 sm:p-5 rounded-xl border border-dark-border bg-dark-card flex flex-col justify-between">
-            <div class="flex items-center justify-between mb-1.5">
-              <div class="flex items-center gap-2">
-                <i data-lucide="clock" class="w-4 h-4 text-dark-muted"></i>
-                <span class="font-mono text-[11px] uppercase tracking-wider text-dark-muted font-bold">
-                  Focus Timer
+          <!-- Anki deck overview -->
+          <div class="p-4 sm:p-5 rounded-xl border border-dark-border bg-dark-card">
+            <button
+              type="button"
+              onclick="app.anki.openGlobalWeaknesses()"
+              class="group relative w-full min-h-28 overflow-hidden rounded-xl border border-orange-400/30 bg-gradient-to-br from-orange-500/15 via-dark-bg/60 to-dark-bg px-4 py-4 text-left shadow-[inset_3px_0_0_rgba(251,146,60,0.8)] transition-all hover:-translate-y-0.5 hover:border-orange-300/70 hover:shadow-[inset_4px_0_0_rgba(251,146,60,1),0_10px_28px_rgba(249,115,22,0.12)] focus:outline-none focus:ring-2 focus:ring-orange-400/70"
+              aria-label="Globale Schwächen öffnen"
+            >
+              <span class="pointer-events-none absolute -right-7 -top-8 h-24 w-24 rounded-full bg-orange-400/10 blur-2xl transition-opacity group-hover:opacity-100"></span>
+              <span class="relative flex items-start justify-between gap-3">
+                <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-orange-300/30 bg-orange-400/15 text-orange-300">
+                  <i data-lucide="layers-3" class="h-4 w-4"></i>
                 </span>
-              </div>
-              <!-- Presets -->
-              <div class="flex items-center gap-1">
-                <button
-                  onclick="app.setPomoTime(15)"
-                  class="px-2 py-0.5 rounded text-[10px] font-mono text-dark-muted hover:text-white border border-dark-border bg-dark-bg hover:border-dark-strong transition-colors"
-                >
-                  15m
-                </button>
-                <button
-                  onclick="app.setPomoTime(25)"
-                  class="px-2 py-0.5 rounded text-[10px] font-mono text-dark-muted hover:text-white border border-dark-border bg-dark-bg hover:border-dark-strong transition-colors"
-                >
-                  25m
-                </button>
-                <button
-                  onclick="app.setPomoTime(45)"
-                  class="px-2 py-0.5 rounded text-[10px] font-mono text-dark-muted hover:text-white border border-dark-border bg-dark-bg hover:border-dark-strong transition-colors"
-                >
-                  45m
-                </button>
-              </div>
-            </div>
-
-            <!-- Digital Readout + Play Button -->
-            <div class="flex items-center justify-between my-1.5">
-              <div id="pomoTimer" class="font-mono text-3xl sm:text-4xl font-black text-white tabular-nums tracking-tight">
-                25:00
-              </div>
-              <button
-                id="pomoBtn"
-                onclick="app.togglePomodoro()"
-                class="w-10 h-10 rounded-lg bg-dark-border hover:bg-emerald-600 text-dark-muted hover:text-white flex items-center justify-center transition-all duration-200"
-                aria-label="Timer starten / stoppen"
-              >
-                <i data-lucide="play" class="w-4 h-4 ml-0.5"></i>
-              </button>
-            </div>
-            <div class="text-[10px] font-mono text-dark-dim">
-              Keine Ablenkung · Intervalle mit Pausen festigen den Lernerfolg
-            </div>
+                <i data-lucide="arrow-up-right" class="mt-1 h-4 w-4 text-orange-300/70 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"></i>
+              </span>
+              <span class="relative mt-3 block text-[11px] font-mono font-bold tracking-wide text-orange-300">Globale Schwächen</span>
+              <span class="relative mt-1 block text-sm font-semibold text-white">Fällige Karten wiederholen</span>
+            </button>
           </div>
-
           <!-- 80-Days Activity Heatmap -->
           <div class="p-4 sm:p-5 rounded-xl border border-dark-border bg-dark-card flex-1 flex flex-col justify-between">
             <div>
@@ -1058,11 +1026,23 @@
               <p class="text-xs text-dark-muted mt-1">Wähle deinen Trainingsmodus für dieses Thema.</p>
             </div>
 
+            <div id="ankiModeTabs" class="inline-flex w-full max-w-lg mx-auto rounded-lg bg-dark-bg border border-dark-border p-1 text-xs font-mono">
+              <button id="ankiDeckTab" type="button" onclick="app.anki.showAnkiTab('deck')" class="flex-1 rounded-md bg-dark-card px-3 py-2 text-white transition-colors">
+                Lernen
+              </button>
+              <button id="ankiRecommendationTab" type="button" onclick="app.anki.showAnkiTab('recommendation')" class="flex-1 rounded-md px-3 py-2 text-dark-muted hover:text-white transition-colors">
+                Empfehlung
+              </button>
+            </div>
+
+            <div id="ankiDeckOverview" class="max-w-lg mx-auto w-full rounded-xl border border-dark-border bg-dark-bg/60 p-4 text-left"></div>
+            <div id="ankiRecommendationView" class="hidden space-y-4">
             <!-- Stats Container -->
             <div id="ankiTopicStats" class="hidden"></div>
+            <div id="globalWeaknessDistribution" class="hidden max-w-lg mx-auto w-full text-left"></div>
 
             <!-- Session Settings (Stapelgröße & Active Recall Loop) -->
-            <div class="p-3.5 bg-dark-bg/60 border border-dark-border/60 rounded-xl space-y-2.5 text-left max-w-lg mx-auto w-full">
+            <div id="globalWeaknessCardsControls" class="p-3.5 bg-dark-bg/60 border border-dark-border/60 rounded-xl space-y-2.5 text-left max-w-lg mx-auto w-full">
               <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                 <span class="text-[11px] font-mono font-bold uppercase tracking-wider text-dark-muted flex items-center gap-1.5">
                   <i data-lucide="layers" class="w-3.5 h-3.5 text-emerald-400"></i> Karten pro Runde:
@@ -1129,11 +1109,16 @@
                 <p class="text-xs text-dark-muted">Nur Karten trainieren, die du zuletzt geraten oder falsch hattest.</p>
               </button>
             </div>
+            </div>
           </div>
 
           <!-- 2. Question View -->
           <div id="ankiQuestionView" class="hidden flex flex-col items-center justify-center text-center space-y-6 py-6">
             <span id="ankiCardCounter" class="font-mono text-xs text-dark-dim uppercase tracking-widest">Karte 1 von 10</span>
+            <span id="ankiCardTopic" class="hidden inline-flex items-center gap-1.5 rounded-full border border-orange-400/30 bg-orange-400/10 px-2.5 py-1 text-[10px] font-mono text-orange-300">
+              <i data-lucide="folder" class="h-3 w-3"></i>
+              <span>Bereich</span>
+            </span>
             <div id="ankiQuestionText" class="text-xl sm:text-2xl font-bold text-white max-w-xl leading-relaxed">
               Frage wird geladen...
             </div>
@@ -1149,6 +1134,10 @@
 
           <!-- 3. Answer View -->
           <div id="ankiAnswerView" class="hidden flex flex-col space-y-5">
+            <div id="ankiAnswerTopic" class="hidden inline-flex items-center gap-1.5 self-center rounded-full border border-orange-400/30 bg-orange-400/10 px-2.5 py-1 text-[10px] font-mono text-orange-300">
+              <i data-lucide="folder" class="h-3 w-3"></i>
+              <span>Bereich</span>
+            </div>
             <!-- Question muted at top -->
             <div class="p-3.5 rounded-lg border border-dark-border bg-dark-bg/60 text-xs text-dark-muted">
               <span class="text-[10px] font-mono uppercase tracking-wider text-dark-dim block mb-1">Frage:</span>
