@@ -5,8 +5,8 @@
   "description": "AP-Tracker für die Fachinformatiker Systemintegration (AP2 FISI)",
   "start_url": "index.html",
   "display": "standalone",
-  "background_color": "#0b0908",
-  "theme_color": "#0b0908",
+  "background_color": "#e7ebe9",
+  "theme_color": "#16211d",
   "orientation": "portrait",
   "categories": [
     "education",

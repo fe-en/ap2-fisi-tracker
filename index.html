@@ -86,7 +86,7 @@
       name="apple-mobile-web-app-status-bar-style"
       content="black-translucent"
     />
-    <meta name="theme-color" content="#0b0908" />
+    <meta name="theme-color" content="#16211d" />
     <link rel="canonical" href="https://ap2-fisi.cwillam.de/" />
 
     <title>
@@ -96,28 +96,28 @@
     <!-- Preload self-hosted fonts -->
     <link
       rel="preload"
-      href="assets/fonts/PlexSans-Regular.woff2"
+      href="assets/fonts/Barlow-Regular.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
     <link
       rel="preload"
-      href="assets/fonts/PlexSans-SemiBold.woff2"
+      href="assets/fonts/Barlow-SemiBold.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
     <link
       rel="preload"
-      href="assets/fonts/PlexSans-Bold.woff2"
+      href="assets/fonts/Barlow-Bold.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
 
     <!-- Tailwind 3 Engine (Local, Zero-CDN) -->
-    <script src="assets/js/tailwind.js?v=4.1.0"></script>
+    <script src="assets/js/tailwind.js?v=5.0.0"></script>
     <script>
       tailwind.config = {
         darkMode: "class",
@@ -125,7 +125,7 @@
           extend: {
             fontFamily: {
               sans: [
-                "IBM Plex Sans",
+                "Barlow",
                 "system-ui",
                 "-apple-system",
                 "BlinkMacSystemFont",
@@ -144,26 +144,33 @@
               ],
             },
             colors: {
-              emerald: {50:"#fff7ed",100:"#ffedd5",200:"#fed7aa",300:"#fdba74",400:"#fb923c",500:"#f97316",600:"#ea580c",700:"#c2410c",800:"#9a3412",900:"#7c2d12",950:"#431407"},
-              zinc: {50:"#fafaf9",100:"#f5f5f4",200:"#e7e5e4",300:"#d6d3d1",400:"#a8a29e",500:"#78716c",600:"#57534e",700:"#44403c",800:"#292524",900:"#1c1917",950:"#0c0a09"},
-                            dark: {
-                bg: "#0b0908", // Pure obsidian / Zinc 950
-                card: "#161211", // Dense workbench surface
-                "card-hover": "#1f1a17",
-                border: "#2b2320", // Hairline border
-                "border-subtle": "#201916",
-                text: "#f6f1ec", // High-contrast Zinc 100
-                muted: "#c9bab0", // Zinc 400
-                dim: "#a08b7d", // Zinc 500
-                accent: "#ea580c", // Crisp Emerald (AP2 FISI)
-                "accent-hover": "#f97316",
-                "accent-dim": "rgba(249, 115, 22, 0.13)",
-                success: "#35c79a", // Crisp Emerald
-                "success-dim": "rgba(53, 199, 154, 0.12)",
-                warning: "#ffb224", // Amber
+              emerald: {50:"#eef6fd",100:"#d9eafd",200:"#b3d4f7",300:"#2f83cf",400:"#1a6fc0",500:"#2273c4",600:"#005eb8",700:"#004e99",800:"#0b4a7d",900:"#d3e6f7",950:"#e3effa"},
+              zinc: {50:"#17211d",100:"#232f2a",200:"#2e3b35",300:"#3d4a44",400:"#5f6e67",500:"#85928b",600:"#a7b3ad",700:"#c3cbc7",800:"#d8dedb",900:"#e7ebe9",950:"#fafbfa"},
+              orange: {50:"#fffbeb",100:"#fef3c7",200:"#fde68a",300:"#c2610a",400:"#b45309",500:"#d97706",600:"#b45309",700:"#92400e",800:"#78350f",900:"#fef3c7",950:"#fffbeb"},
+              amber: {50:"#fffbeb",100:"#fef3c7",200:"#fde68a",300:"#c2610a",400:"#b45309",500:"#d97706",600:"#b45309",700:"#92400e",800:"#78350f",900:"#fef3c7",950:"#fffbeb"},
+                            blue: {50:"#eef6fd",100:"#d9eafd",200:"#b3d4f7",300:"#2f83cf",400:"#005eb8",500:"#2273c4",600:"#005eb8",700:"#004e99",800:"#0b4a7d",900:"#d3e6f7",950:"#e3effa"},
+              sky: {50:"#f0f9ff",100:"#e0f2fe",200:"#bae6fd",300:"#0284c7",400:"#0077a8",500:"#0284c7",600:"#0369a1",700:"#075985",800:"#0c4a6e",900:"#e0f2fe",950:"#f0f9ff"},
+              purple: {50:"#faf5ff",100:"#f3e8ff",200:"#e9d5ff",300:"#7c3aed",400:"#6d28d9",500:"#7c3aed",600:"#6d28d9",700:"#5b21b6",800:"#4c1d95",900:"#f3e8ff",950:"#faf5ff"},
+              red: {50:"#fef2f2",100:"#fee2e2",200:"#fecaca",300:"#c62f3b",400:"#c62f3b",500:"#dc2626",600:"#b91c1c",700:"#991b1b",800:"#7f1d1d",900:"#fee2e2",950:"#fef2f2"},
+              green: {50:"#f0fdf4",100:"#dcfce7",200:"#bbf7d0",300:"#1f9d66",400:"#15803d",500:"#16a34a",600:"#15803d",700:"#166534",800:"#14532d",900:"#dcfce7",950:"#f0fdf4"},
+              dark: {
+                bg: "#e7ebe9", // Pure obsidian / Zinc 950
+                card: "#fafbfa", // Dense workbench surface
+                "card-hover": "#f0f3f1",
+                border: "#c3cbc7", // Hairline border
+                "border-subtle": "#d8dedb",
+                text: "#17211d", // High-contrast Zinc 100
+                muted: "#3d4a44", // Zinc 400
+                dim: "#5f6e67", // Zinc 500
+                accent: "#005eb8", // Crisp Emerald (AP2 FISI)
+                "accent-hover": "#004e99",
+                "accent-dim": "rgba(0, 94, 184, 0.09)",
+                success: "#1f9d66", // Crisp Emerald
+                "success-dim": "rgba(31, 157, 102, 0.12)",
+                warning: "#b45309", // Amber
                 "warning-dim": "rgba(255, 178, 36, 0.12)",
-                danger: "#ff6b5e", // Crimson
-                "danger-dim": "rgba(255, 107, 94, 0.12)",
+                danger: "#c62f3b", // Crimson
+                "danger-dim": "rgba(198, 47, 59, 0.09)",
               },
             },
           },
@@ -172,7 +179,7 @@
     </script>
 
     <!-- Custom High-Craft CSS Tokens & Keycaps -->
-    <link href="assets/css/style.css?v=4.1.0" rel="stylesheet" />
+    <link href="assets/css/style.css?v=5.0.0" rel="stylesheet" />
   </head>
 
   <body class="flex flex-col min-h-screen bg-dark-bg text-dark-text antialiased selection:bg-emerald-600 selection:text-white">
@@ -205,7 +212,7 @@
             <div class="flex items-center gap-1.5"><span class="font-bold text-base tracking-tight text-white group-hover:text-emerald-400 transition-colors">Tracker</span><span class="text-[9px] font-mono font-bold bg-emerald-950/60 border border-emerald-500/40 text-emerald-400 px-1.5 py-0.5 rounded">FISI</span></div>
           </a>
           <span class="hidden sm:inline-flex items-center font-mono text-[10px] text-dark-dim border border-dark-border rounded px-2 py-0.5 uppercase tracking-wider">
-            v4.1.0 · Offline
+            v5.0.0 · Offline
           </span>
         </div>
 
@@ -336,7 +343,7 @@
           </div>
           <div class="flex items-center justify-between">
             <span>Version:</span>
-            <span>v4.1.0</span>
+            <span>v5.0.0</span>
           </div>
         </div>
       </div>
@@ -347,63 +354,57 @@
          ============================================================ -->
     <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
 
-      <!-- NETZPLAN: Das Prüfungsnetz als Zeichnung -->
-      <section class="plan-sheet overflow-hidden" aria-labelledby="planTitle">
-        <div class="grid lg:grid-cols-2">
-          <div class="p-6 sm:p-8 flex flex-col justify-center">
-            <p class="flex items-center gap-2.5 mb-4">
-              <span class="flex h-9 w-9 items-center justify-center rounded-lg border border-orange-300/30 bg-orange-400/15 text-orange-300"><i data-lucide="layers-3" class="h-4 w-4"></i></span>
-              <span class="text-[11px] font-mono font-bold tracking-wide text-orange-300">Abschlussprüfung Teil 2 · Systemintegration</span>
-            </p>
-            <h1 id="planTitle" class="plan-title text-4xl sm:text-5xl text-white">
-              Dein Netzplan<br />bis zur AP2.
-            </h1>
-            <p class="text-sm sm:text-base text-dark-muted leading-relaxed mt-4 max-w-md">
-              13 Lehrplan-Themen, 840 Lernkarten und vier Labore, verbunden wie in einem
-              Netzplan: Du siehst, was schon verkabelt ist — und welche Strecke noch fehlt.
-            </p>
-            <div class="flex flex-wrap gap-3 mt-6">
-              <a href="#contentList" class="px-4 py-2.5 rounded-md bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm transition-colors">
-                Themen ansehen
-              </a>
-              <a href="subnet.html" class="px-4 py-2.5 rounded-md border border-dark-border hover:border-dark-strong bg-dark-bg/50 text-white text-sm font-medium transition-colors">
-                Subnetz-Trainer öffnen
-              </a>
-            </div>
+      <!-- SERVERSCHRANK: Einstieg als Geräte-Stapel -->
+      <section class="grid lg:grid-cols-12 gap-5 items-stretch" aria-labelledby="planTitle">
+        <div class="lg:col-span-6 flex flex-col justify-center py-2">
+          <p class="text-base text-dark-muted mb-3">Abschlussprüfung Teil 2 · Systemintegration</p>
+          <h1 id="planTitle" class="display-title text-5xl sm:text-6xl text-dark-text">
+            Bestehe die AP2 wie ein System, das läuft.
+          </h1>
+          <p class="text-base sm:text-lg text-dark-muted leading-relaxed mt-4 max-w-md">
+            13 Themen, 840 Lernkarten und vier Labore an einem Ort. Du hakst ab, was sitzt,
+            wiederholst, was fällig ist, und siehst jederzeit, wo du stehst.
+          </p>
+          <div class="flex flex-wrap gap-3 mt-7">
+            <a href="#contentList" class="px-5 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm transition-colors">
+              Themen ansehen
+            </a>
+            <a href="subnet.html" class="px-5 py-3 rounded-lg border border-dark-border hover:border-dark-strong bg-dark-card text-dark-text text-sm font-medium transition-colors">
+              Subnetz-Trainer öffnen
+            </a>
           </div>
-          <div class="border-t lg:border-t-0 lg:border-l border-dark-border bg-dark-bg/40" aria-hidden="true">
-            <svg viewBox="0 0 660 300" class="w-full h-auto block" role="presentation">
-              <defs>
-                <pattern id="planDots" width="28" height="28" patternUnits="userSpaceOnUse">
-                  <circle cx="1" cy="1" r="1" fill="#2b2320" />
-                </pattern>
-              </defs>
-              <rect width="660" height="300" fill="url(#planDots)" />
-              <path d="M40 150 H200 L260 84 H420 L480 150 H620" fill="none" stroke="#fb923c" stroke-width="1.5" stroke-dasharray="5 4" />
-              <circle class="packet" cx="40" cy="150" r="5" fill="#fb923c" />
-              <g font-family="IBM Plex Mono, monospace" font-size="11" fill="#c9bab0">
-                <g stroke="#f6f1ec" stroke-width="1.5" fill="#161211">
-                  <rect x="16" y="132" width="48" height="36" rx="3" /><rect x="196" y="66" width="128" height="36" rx="3" />
-                  <rect x="372" y="66" width="96" height="36" rx="3" /><rect x="456" y="132" width="48" height="36" rx="3" />
-                  <rect x="452" y="198" width="96" height="36" rx="3" /><rect x="596" y="132" width="48" height="36" rx="3" />
-                </g>
-                <path d="M228 84h64M228 92h42M404 84h32M404 92h32M484 216h32" stroke="#fb923c" stroke-width="2" />
-                <path d="M480 168 V198" stroke="#fb923c" stroke-width="1.5" stroke-dasharray="4 3" />
-                <text x="16" y="188">Client</text><text x="196" y="122">Core-Switch</text>
-                <text x="372" y="122">Firewall</text><text x="450" y="188">Server</text>
-                <text x="452" y="254">DMZ</text><text x="588" y="188">Internet</text>
-              </g>
-              <g font-family="IBM Plex Mono, monospace" font-size="10" fill="#a08b7d">
-                <text x="16" y="24">192.168.10.0/24</text><text x="520" y="24">Blatt 01 · Netzplan</text>
-              </g>
-            </svg>
-          </div>
+          <dl class="grid grid-cols-3 gap-4 mt-9 max-w-md">
+            <div><dt class="text-sm text-dark-dim">Prüfung</dt><dd class="font-mono font-semibold text-lg" style="color:var(--due)">25.11.2026</dd></div>
+            <div><dt class="text-sm text-dark-dim">Lernkarten</dt><dd class="font-mono font-semibold text-lg text-dark-text">840</dd></div>
+            <div><dt class="text-sm text-dark-dim">Deine Daten</dt><dd class="font-mono font-semibold text-lg text-dark-text">100 % lokal</dd></div>
+          </dl>
         </div>
-        <div class="title-block border-0 border-t border-dark-border" style="border-left:none;border-right:none;border-bottom:none">
-          <div><div class="tb-label">Prüfung</div><div class="tb-value" style="color:var(--patch)">25.11.2026</div></div>
-          <div><div class="tb-label">Lernkarten</div><div class="tb-value">840</div></div>
-          <div><div class="tb-label">Labore</div><div class="tb-value">Subnetz · SQL · Skripte · Glossar</div></div>
-          <div><div class="tb-label">Deine Daten</div><div class="tb-value">100 % lokal</div></div>
+        <div class="lg:col-span-6">
+          <div class="rack h-full" role="img" aria-label="Serverschrank mit Core-Switch, Firewall und Server. Grüne LEDs zeigen gelernte Themen, gelbe fällige Wiederholungen.">
+            <div class="device">
+              <div><div class="device-name">Core-Switch</div><div class="device-meta">Netzwerk · Routing · VLAN</div></div>
+              <div class="ports" aria-hidden="true">
+                <span class="port on sweep" style="animation-delay:.05s"></span><span class="port on sweep" style="animation-delay:.1s"></span><span class="port on sweep" style="animation-delay:.15s"></span><span class="port on sweep" style="animation-delay:.2s"></span><span class="port on sweep" style="animation-delay:.25s"></span><span class="port on sweep" style="animation-delay:.3s"></span><span class="port on sweep" style="animation-delay:.35s"></span><span class="port on sweep" style="animation-delay:.4s"></span><span class="port on sweep" style="animation-delay:.45s"></span><span class="port due"></span><span class="port"></span><span class="port"></span>
+              </div>
+            </div>
+            <div class="device">
+              <div><div class="device-name">Firewall</div><div class="device-meta">Sicherheit · VPN · DMZ</div></div>
+              <div class="ports" aria-hidden="true">
+                <span class="port on sweep" style="animation-delay:.55s"></span><span class="port on sweep" style="animation-delay:.6s"></span><span class="port on sweep" style="animation-delay:.65s"></span><span class="port on sweep" style="animation-delay:.7s"></span><span class="port due"></span><span class="port"></span><span class="port"></span><span class="port"></span><span class="port"></span><span class="port"></span><span class="port"></span><span class="port"></span>
+              </div>
+            </div>
+            <div class="device">
+              <div><div class="device-name">Server</div><div class="device-meta">AD · DNS · DHCP · Backup</div></div>
+              <div class="ports" aria-hidden="true">
+                <span class="port on sweep" style="animation-delay:.8s"></span><span class="port on sweep" style="animation-delay:.85s"></span><span class="port on sweep" style="animation-delay:.9s"></span><span class="port"></span><span class="port"></span><span class="port"></span><span class="port"></span><span class="port"></span><span class="port"></span><span class="port"></span><span class="port"></span><span class="port"></span>
+              </div>
+            </div>
+            <p class="flex items-center justify-between px-1 pt-1 text-xs" style="color:var(--cabinet-muted)">
+              <span><span class="inline-block w-2 h-2 rounded-full align-middle mr-1.5" style="background:var(--led)"></span>sitzt</span>
+              <span><span class="inline-block w-2 h-2 rounded-full align-middle mr-1.5" style="background:var(--due-bright)"></span>fällig</span>
+              <span class="font-mono">AP2 · FISI</span>
+            </p>
+          </div>
         </div>
       </section>
 
@@ -1505,10 +1506,10 @@
     <!-- ============================================================
          14. JAVASCRIPT BUNDLES & ENGINE
          ============================================================ -->
-    <script src="assets/js/confetti.js?v=4.1.0"></script>
-    <script src="assets/js/data.js?v=4.1.0"></script>
-    <script src="assets/js/questions.js?v=4.1.0"></script>
-    <script src="assets/js/lucide.min.js?v=4.1.0"></script>
+    <script src="assets/js/confetti.js?v=5.0.0"></script>
+    <script src="assets/js/data.js?v=5.0.0"></script>
+    <script src="assets/js/questions.js?v=5.0.0"></script>
+    <script src="assets/js/lucide.min.js?v=5.0.0"></script>
     <script>
       // Lucide SVGs initialisieren
       if (window.lucide) lucide.createIcons();
@@ -1530,13 +1531,13 @@
         if (e.key === "Escape") closeSupportModal();
       });
     </script>
-    <script src="assets/js/app.js?v=4.1.0"></script>
+    <script src="assets/js/app.js?v=5.0.0"></script>
 
     <!-- PWA Service Worker -->
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
-          navigator.serviceWorker.register("sw.js?v=4.1.0").catch(() => {});
+          navigator.serviceWorker.register("sw.js?v=5.0.0").catch(() => {});
         });
       }
 

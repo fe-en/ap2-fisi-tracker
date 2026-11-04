@@ -1,6 +1,6 @@
-# AP2 Tracker FISI - Dein Lernbegleiter (v4.1.0 Update)
+# AP2 Tracker FISI - Dein Lernbegleiter (v5.0.0 Update)
 
-[![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)](https://github.com/cwillam/ap2-fisi-tracker) [![License](https://img.shields.io/badge/License-AGPLv3-blue?style=for-the-badge)](LICENSE) [![Hosting](https://img.shields.io/badge/Hosted_on-IONOS-003D51?style=for-the-badge&logo=ionos)](https://ap2-fisi.cwillam.de) [![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-10b981?style=for-the-badge)](https://ap2-fisi.cwillam.de) [![Google Play](https://img.shields.io/badge/Google_Play-AP2_FISI_Tracker-green?style=for-the-badge&logo=google-play)](https://play.google.com/store/apps/details?id=de.cwillam.ap2_fisi.tracker) [![Version](https://img.shields.io/badge/Version-v4.1.0-ea580c?style=for-the-badge)](https://ap2-fisi.cwillam.de)
+[![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)](https://github.com/cwillam/ap2-fisi-tracker) [![License](https://img.shields.io/badge/License-AGPLv3-blue?style=for-the-badge)](LICENSE) [![Hosting](https://img.shields.io/badge/Hosted_on-IONOS-003D51?style=for-the-badge&logo=ionos)](https://ap2-fisi.cwillam.de) [![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-10b981?style=for-the-badge)](https://ap2-fisi.cwillam.de) [![Google Play](https://img.shields.io/badge/Google_Play-AP2_FISI_Tracker-green?style=for-the-badge&logo=google-play)](https://play.google.com/store/apps/details?id=de.cwillam.ap2_fisi.tracker) [![Version](https://img.shields.io/badge/Version-v5.0.0-005eb8?style=for-the-badge)](https://ap2-fisi.cwillam.de)
 
 > 🐛 [**Bug melden**](https://github.com/cwillam/ap2-fisi-tracker/issues/new?template=bug.yml) · 💡 [**Feature wünschen**](https://github.com/cwillam/ap2-fisi-tracker/issues/new?template=feature.yml)
 
@@ -25,11 +25,11 @@ Im Fokus stehen die Kerngebiete der Systemintegration: Netzwerktechnik, Routing 
 
 ---
 
-### Highlights v4.1.0 (Design wie die Schwächen-Karte)
+### Highlights v5.0.0 (Komplett neue Oberfläche: Serverschrank)
 
-- **Designsprache der Karte „Globale Schwächen“:** Warmes Fast-Schwarz (`#0b0908`), Orange (`#f97316`) als einzige Signalfarbe, Gradient-Glow, eingesetzte orange Kante links, Hover mit Lift und Glow-Schatten.
-- **Hausschrift:** IBM Plex Sans / IBM Plex Mono (woff2 lokal gehostet, Zero-CDN).
-- **Startseite:** Netzplan-Zeichnung mit Core-Switch, Firewall, DMZ und Server im selben Orange-Glow, Schriftfeld mit Prüfungsdaten.
+- **Von Grund auf neu:** Die App als 19-Zoll-Schrank bei Licht — dunkle Schrankleiste, helle Aluminium-Frontplatten (`#fafbfa`) auf Chassis-Grau (`#e7ebe9`), Konsolen-Blau (`#005eb8`) als Arbeitsfarbe.
+- **Ehrliche Statusfarben:** Grüne Port-LED = Thema sitzt, Kabel-Gelb (`#f5b800`) = fällig / Prüfungstermin, Rot = Fehler. Keine Deko-Farben.
+- **Hausschrift Barlow:** Barlow & Barlow Semi Condensed (Geräte-Beschriftungen) plus IBM Plex Mono nur für IPs, Zahlen und Code — alles lokal gehostet, Zero-CDN.
 
 ### Highlights v3.1.5 (Subnetz-Präzisierung, Lesezeichen & Quick-Dock)
 
@@ -38,12 +38,12 @@ Im Fokus stehen die Kerngebiete der Systemintegration: Netzwerktechnik, Routing 
 - **Flexible Stapelgröße (Batch-Size):** Wähle vor dem Start 10, 20, 50 oder alle Karten für handliche Lerneinheiten unterwegs.
 - **Active-Recall-Wiederholung:** Fehlversuche am Rundenende mit einem Klick sofort wiederholen, bis der Stoff sitzt.
 - **3-Modul Quick-Dock:** Barrierefreie Leiste am unteren Bildschirmrand für den nahtlosen Wechsel zwischen Lernkarten, Skript-Labor und Subnetz-Trainer.
-- **Service Worker & Cache-Busting:** Zuverlässige Offline-Aktualisierung via Cache `v4.1.0`.
+- **Service Worker & Cache-Busting:** Zuverlässige Offline-Aktualisierung via Cache `v5.0.0`.
 
 ### Highlights v3.0.0 (Großes Redesign & Skript-Labor)
 
 - **Neues Skript- & Automatisierungs-Labor (`skripte.html`):** Interaktiver Terminal-Simulator für **Bash & PowerShell** mit prüfungsrelevanten Aufgaben (Backup-Automatisierung, Active Directory & LDAP, System-Monitoring, Incident Response, Log-Analyse) inklusive Syntax-Highlighting und 1-Klick-Code-Kopieren.
-- **Schwächen-Karten-Design (v4.1.0):** Warmes Fast-Schwarz (`#0b0908`), Orange-Glow, Tailwind 3 Engine und lokale IBM-Plex-Fonts ohne fremde CDN-Abhängigkeiten.
+- **Serverschrank-Design (v5.0.0):** Helle Frontplatten, dunkle Schrankleiste, Tailwind 3 Engine und lokale Barlow-/Plex-Fonts ohne fremde CDN-Abhängigkeiten.
 - **In-App Karten-Feedback:** Fehler, veraltete Prüfungsnormen oder Unklarheiten direkt auf jeder Lernkarte mit 1 Klick an die Redaktion melden.
 - **840 FISI-Lernkarten:** Vollständiger Content-Ausbau für GA1, GA2 und WiSo nach aktuellem IHK-Rahmenlehrplan mit Anki Spaced Repetition, Schwachstellen-Modus und Tastatur-Shortcuts (1–4, Space, Esc).
 - **Subnetz-Trainer & VLSM:** Interaktiver IPv4/IPv6-Trainer mit Bit-Visualisierung, Netzklassen, Host-Berechnung, Broadcast und Prefix-Ermittlung.
@@ -71,10 +71,10 @@ Dieses Projekt setzt auf maximale Ausführungsgeschwindigkeit, Barrierefreiheit 
 | Bereich | Technologie |
 | :--- | :--- |
 | **Markup & Struktur** | Semantic HTML5, WAI-ARIA Barrierefreiheit |
-| **Styling & Design** | Tailwind CSS (lokale Engine v3), CSS Custom Properties, Dark Mode (`#0b0908`, Orange-Akzent) |
+| **Styling & Design** | Tailwind CSS (lokale Engine v3), CSS Custom Properties, Frontplatten-Design (`#e7ebe9` / `#16211d`) |
 | **Logik & Interaktion** | Vanilla JavaScript (ES6+), kein schweres Framework-Overhead |
 | **Icons & Assets** | Lucide Icons (lokal eingebunden als Vektorgrafiken) |
-| **Typografie** | IBM Plex Sans & IBM Plex Mono (woff2 lokal gehostet, Zero-CDN) |
+| **Typografie** | Barlow, Barlow Semi Condensed & IBM Plex Mono (woff2 lokal gehostet, Zero-CDN) |
 | **Offline & PWA** | Service Worker mit Stale-While-Revalidate Caching (`v3.0.0`), Web App Manifest |
 | **Datenschutz & Speicher** | 100 % Client-Side via `localStorage`, keine Tracking-Cookies |
 
@@ -111,7 +111,7 @@ python3 -m http.server 8080
 ├── datenschutz.html            # Datenschutzerklärung (DSGVO / § 25 TDDDG)
 ├── impressum.html              # Anbieterkennzeichnung (§ 5 DDG)
 ├── manifest.json               # PWA-Konfiguration
-├── sw.js                       # Service Worker (Offline-Cache v4.1.0)
+├── sw.js                       # Service Worker (Offline-Cache v5.0.0)
 ├── sitemap.xml                 # XML-Sitemap
 ├── robots.txt                  # Suchmaschinen-Steuerung
 ├── llms.txt                    # KI-Crawler Dokumentation
@@ -119,7 +119,7 @@ python3 -m http.server 8080
 │   └── report.php              # DSGVO-konformes Feedback-Relay
 └── assets/
     ├── css/style.css           # Styling & Keycaps
-    ├── fonts/                  # Lokale WOFF2-Schriftarten (IBM Plex)
+    ├── fonts/                  # Lokale WOFF2-Schriftarten (Barlow, IBM Plex Mono)
     └── js/                     # Anwendungslogik & Kartendatenbank
 ```
 

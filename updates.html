@@ -15,18 +15,18 @@
     <link rel="apple-touch-icon" href="favicon.svg" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="theme-color" content="#0b0908" />
+    <meta name="theme-color" content="#16211d" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
     <!-- Local Font Preload -->
-    <link rel="preload" href="assets/fonts/PlexSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="assets/fonts/PlexSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="assets/fonts/PlexSans-Bold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/Barlow-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/Barlow-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/Barlow-Bold.woff2" as="font" type="font/woff2" crossorigin />
 
     <!-- Tailwind 3 Engine (Local, Zero-CDN) -->
-    <script src="assets/js/tailwind.js?v=4.1.0"></script>
+    <script src="assets/js/tailwind.js?v=5.0.0"></script>
     <script>
       tailwind.config = {
         darkMode: "class",
@@ -34,7 +34,7 @@
           extend: {
             fontFamily: {
               sans: [
-                "IBM Plex Sans",
+                "Barlow",
                 "system-ui",
                 "-apple-system",
                 "BlinkMacSystemFont",
@@ -53,27 +53,34 @@
               ],
             },
             colors: {
-              emerald: {50:"#fff7ed",100:"#ffedd5",200:"#fed7aa",300:"#fdba74",400:"#fb923c",500:"#f97316",600:"#ea580c",700:"#c2410c",800:"#9a3412",900:"#7c2d12",950:"#431407"},
-              zinc: {50:"#fafaf9",100:"#f5f5f4",200:"#e7e5e4",300:"#d6d3d1",400:"#a8a29e",500:"#78716c",600:"#57534e",700:"#44403c",800:"#292524",900:"#1c1917",950:"#0c0a09"},
-                            dark: {
-                bg: "#0b0908",
-                card: "#161211",
-                "card-hover": "#1f1a17",
-                border: "#2b2320",
-                "border-subtle": "#201916",
-                strong: "#4a3a30",
-                text: "#f6f1ec",
-                muted: "#c9bab0",
-                dim: "#a08b7d",
-                accent: "#ea580c",
-                "accent-hover": "#f97316",
-                "accent-dim": "rgba(249, 115, 22, 0.13)",
-                success: "#35c79a",
-                "success-dim": "rgba(53, 199, 154, 0.12)",
-                warning: "#ffb224",
+              emerald: {50:"#eef6fd",100:"#d9eafd",200:"#b3d4f7",300:"#2f83cf",400:"#1a6fc0",500:"#2273c4",600:"#005eb8",700:"#004e99",800:"#0b4a7d",900:"#d3e6f7",950:"#e3effa"},
+              zinc: {50:"#17211d",100:"#232f2a",200:"#2e3b35",300:"#3d4a44",400:"#5f6e67",500:"#85928b",600:"#a7b3ad",700:"#c3cbc7",800:"#d8dedb",900:"#e7ebe9",950:"#fafbfa"},
+              orange: {50:"#fffbeb",100:"#fef3c7",200:"#fde68a",300:"#c2610a",400:"#b45309",500:"#d97706",600:"#b45309",700:"#92400e",800:"#78350f",900:"#fef3c7",950:"#fffbeb"},
+              amber: {50:"#fffbeb",100:"#fef3c7",200:"#fde68a",300:"#c2610a",400:"#b45309",500:"#d97706",600:"#b45309",700:"#92400e",800:"#78350f",900:"#fef3c7",950:"#fffbeb"},
+                            blue: {50:"#eef6fd",100:"#d9eafd",200:"#b3d4f7",300:"#2f83cf",400:"#005eb8",500:"#2273c4",600:"#005eb8",700:"#004e99",800:"#0b4a7d",900:"#d3e6f7",950:"#e3effa"},
+              sky: {50:"#f0f9ff",100:"#e0f2fe",200:"#bae6fd",300:"#0284c7",400:"#0077a8",500:"#0284c7",600:"#0369a1",700:"#075985",800:"#0c4a6e",900:"#e0f2fe",950:"#f0f9ff"},
+              purple: {50:"#faf5ff",100:"#f3e8ff",200:"#e9d5ff",300:"#7c3aed",400:"#6d28d9",500:"#7c3aed",600:"#6d28d9",700:"#5b21b6",800:"#4c1d95",900:"#f3e8ff",950:"#faf5ff"},
+              red: {50:"#fef2f2",100:"#fee2e2",200:"#fecaca",300:"#c62f3b",400:"#c62f3b",500:"#dc2626",600:"#b91c1c",700:"#991b1b",800:"#7f1d1d",900:"#fee2e2",950:"#fef2f2"},
+              green: {50:"#f0fdf4",100:"#dcfce7",200:"#bbf7d0",300:"#1f9d66",400:"#15803d",500:"#16a34a",600:"#15803d",700:"#166534",800:"#14532d",900:"#dcfce7",950:"#f0fdf4"},
+              dark: {
+                bg: "#e7ebe9",
+                card: "#fafbfa",
+                "card-hover": "#f0f3f1",
+                border: "#c3cbc7",
+                "border-subtle": "#d8dedb",
+                strong: "#94a19a",
+                text: "#17211d",
+                muted: "#3d4a44",
+                dim: "#5f6e67",
+                accent: "#005eb8",
+                "accent-hover": "#004e99",
+                "accent-dim": "rgba(0, 94, 184, 0.09)",
+                success: "#1f9d66",
+                "success-dim": "rgba(31, 157, 102, 0.12)",
+                warning: "#b45309",
                 "warning-dim": "rgba(255, 178, 36, 0.12)",
-                danger: "#ff6b5e",
-                "danger-dim": "rgba(255, 107, 94, 0.12)",
+                danger: "#c62f3b",
+                "danger-dim": "rgba(198, 47, 59, 0.09)",
               },
             },
           },
@@ -82,7 +89,7 @@
     </script>
 
     <!-- Stylesheets -->
-    <link href="assets/css/style.css?v=4.1.0" rel="stylesheet" />
+    <link href="assets/css/style.css?v=5.0.0" rel="stylesheet" />
 
     <style>
       .custom-scroll::-webkit-scrollbar {
@@ -90,7 +97,7 @@
         width: 6px;
       }
       .custom-scroll::-webkit-scrollbar-track {
-        background: #0b0908;
+        background: #e7ebe9;
       }
       .custom-scroll::-webkit-scrollbar-thumb {
         background: #23506f;
@@ -276,7 +283,7 @@
             <div class="flex items-center gap-2 text-emerald-400 text-xs font-mono mb-2 uppercase tracking-wider">
               <span class="kbd-cap bg-emerald-600/15 border-emerald-500/30 text-emerald-400 px-2 py-0.5 text-[10px]">ENTWICKLUNGS-HISTORIE</span>
               <span class="text-dark-dim">·</span>
-              <span class="text-emerald-400 font-bold">v4.1.0 LIVE</span>
+              <span class="text-emerald-400 font-bold">v5.0.0 LIVE</span>
             </div>
             <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2.5">
               <span>Changelog &amp; Roadmap</span>
@@ -311,11 +318,27 @@
       <!-- TAB 1: UPDATES / CHANGELOG -->
       <div id="tabUpdatesContent" class="space-y-6">
         <!-- v4.0.0 -->
-                <!-- v4.1.0 · AKTUELL -->
-        <article class="bg-dark-card border border-orange-400/30 rounded-xl p-5 sm:p-6 space-y-3.5 shadow-[inset_3px_0_0_rgba(251,146,60,0.8)] relative">
+                <!-- v4.1.0 -->
+                <!-- v5.0.0 · AKTUELL -->
+        <article class="bg-dark-card border border-emerald-500/40 rounded-xl p-5 sm:p-6 space-y-3.5 shadow-sm relative">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-dark-border pb-3">
             <div class="flex items-center gap-2.5 flex-wrap">
-              <span class="kbd-cap bg-orange-400/15 border-orange-300/30 text-orange-300 font-mono text-xs font-bold px-2.5 py-0.5">v4.1.0 · AKTUELL</span>
+              <span class="kbd-cap bg-emerald-600/20 border-emerald-500/50 text-emerald-400 font-mono text-xs font-bold px-2.5 py-0.5">v5.0.0 · AKTUELL</span>
+              <h2 class="text-base sm:text-lg font-bold text-white">Komplett neue Oberfläche: Serverschrank</h2>
+            </div>
+            <span class="text-xs font-mono text-dark-dim">4. November 2026</span>
+          </div>
+          <p class="text-xs text-dark-muted leading-relaxed">
+            Die Oberfläche wurde von Grund auf neu gebaut: helle Aluminium-Frontplatten auf dunkler Schrankleiste,
+            Barlow als Hausschrift, Konsolen-Blau als Arbeitsfarbe. Kabel-Gelb zeigt dir Fälliges und den Prüfungstermin,
+            grüne Port-LEDs, was schon sitzt. Alle Funktionen, Lernstände und Daten bleiben unverändert lokal gespeichert.
+          </p>
+        </article>
+
+<article class="bg-dark-card border border-orange-400/30 rounded-xl p-5 sm:p-6 space-y-3.5 shadow-[inset_3px_0_0_rgba(251,146,60,0.8)] relative">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-dark-border pb-3">
+            <div class="flex items-center gap-2.5 flex-wrap">
+              <span class="kbd-cap bg-orange-400/15 border-orange-300/30 text-orange-300 font-mono text-xs font-bold px-2.5 py-0.5">v4.1.0</span>
               <h2 class="text-base sm:text-lg font-bold text-white">Design wie die Schwächen-Karte</h2>
             </div>
             <span class="text-xs font-mono text-dark-dim">4. November 2026</span>
@@ -885,7 +908,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="assets/js/lucide.min.js?v=4.1.0"></script>
+    <script src="assets/js/lucide.min.js?v=5.0.0"></script>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         if (window.lucide) {
@@ -971,7 +994,7 @@
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
           navigator.serviceWorker
-            .register("sw.js?v=4.1.0")
+            .register("sw.js?v=5.0.0")
             .then((reg) => console.log("PWA Service Worker registered successfully", reg))
             .catch((err) => console.error("PWA Service Worker registration failed", err));
         });

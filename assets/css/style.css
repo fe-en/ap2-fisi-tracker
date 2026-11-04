@@ -1,321 +1,222 @@
 /* ============================================================
-   AP2 TRACKER FISI · SCHWÄCHEN-KARTE (v4.1)
-   Designsprache der Karte „Globale Schwächen / Fällige Karten
-   wiederholen": warmes Fast-Schwarz, Orange als einzige
-   Signalfarbe, Gradient-Glow, eingesetzte Kante links,
-   Hover mit Lift und Glow. Alles andere bleibt ruhig.
+   AP2 TRACKER FISI · SERVERSCHRANK (v5, von Grund auf neu)
+   Die App als 19-Zoll-Schrank bei Licht: dunkle Schrankleiste
+   oben, Frontplatten aus hellem Aluminium darunter. Konsolen-
+   Blau ist die Arbeitsfarbe, Kabel-Gelb markiert Fälliges und
+   die Prüfung, die Port-LEDs zeigen den echten Status.
    ============================================================ */
 
-/* ----- FONTS (Self-hosted, 100% offline, zero CDN) ----- */
-@font-face {
-  font-family: 'IBM Plex Sans';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('../fonts/PlexSans-Regular.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'IBM Plex Sans';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url('../fonts/PlexSans-SemiBold.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'IBM Plex Sans';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url('../fonts/PlexSans-Bold.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'IBM Plex Sans Condensed';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url('../fonts/PlexSansCond-SemiBold.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'IBM Plex Mono';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('../fonts/PlexMono-Regular.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'IBM Plex Mono';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url('../fonts/PlexMono-SemiBold.woff2') format('woff2');
-}
+/* ----- SCHRIFTEN (selbst gehostet, offline, kein CDN) ----- */
+@font-face { font-family: 'Barlow'; font-weight: 400; font-display: swap; src: url('../fonts/Barlow-Regular.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow'; font-weight: 500; font-display: swap; src: url('../fonts/Barlow-Medium.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow'; font-weight: 600; font-display: swap; src: url('../fonts/Barlow-SemiBold.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow'; font-weight: 700; font-display: swap; src: url('../fonts/Barlow-Bold.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow Semi Condensed'; font-weight: 600; font-display: swap; src: url('../fonts/BarlowCond-SemiBold.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow Semi Condensed'; font-weight: 700; font-display: swap; src: url('../fonts/BarlowCond-Bold.woff2') format('woff2'); }
+@font-face { font-family: 'IBM Plex Mono'; font-weight: 400; font-display: swap; src: url('../fonts/PlexMono-Regular.woff2') format('woff2'); }
+@font-face { font-family: 'IBM Plex Mono'; font-weight: 600; font-display: swap; src: url('../fonts/PlexMono-SemiBold.woff2') format('woff2'); }
 
-/* ----- DESIGN TOKENS ----- */
+/* ----- TOKEN ----- */
 :root {
-  --bg: #0b0908;              /* Warmes Fast-Schwarz */
-  --bg-deep: #080606;
-  --surface: #161211;         /* Kartenfläche */
-  --surface-raised: #1f1a17;
-  --surface-hover: #241d19;
-  --surface-inset: #0b0908;
+  --chassis: #e7ebe9;         /* Aluminium-Grau des Schranks */
+  --chassis-deep: #dde2df;
+  --panel: #fafbfa;           /* Frontplatte */
+  --panel-raised: #ffffff;
+  --panel-hover: #f0f3f1;
+  --panel-inset: #edf0ee;
 
-  --border: #2b2320;
-  --border-subtle: #201916;
-  --border-strong: #4a3a30;
+  --line: #c3cbc7;
+  --line-soft: #d8dedb;
+  --line-strong: #94a19a;
 
-  --ink: #f6f1ec;
-  --ink-secondary: #c9bab0;
-  --ink-muted: #a08b7d;
-  --ink-dim: #786557;
+  --ink: #17211d;             /* Graphit */
+  --ink-2: #3d4a44;
+  --ink-3: #5f6e67;
+  --ink-4: #85928b;
 
-  --accent: #fb923c;          /* Orange 400: Labels, Icons */
-  --accent-strong: #ea580c;   /* Orange 600: Buttons */
-  --accent-muted: rgba(249, 115, 22, 0.13);
-  --patch: #fb923c;
-  --patch-muted: rgba(249, 115, 22, 0.13);
+  --cabinet: #16211d;         /* Schrank-Innenleben (Leiste oben) */
+  --cabinet-2: #1f2f28;
+  --cabinet-line: #31443b;
+  --cabinet-ink: #eef3f0;
+  --cabinet-muted: #a7b8b0;
 
-  --success: #35c79a;
-  --success-muted: rgba(53, 199, 154, 0.12);
-  --warning: #ffb224;
-  --warning-muted: rgba(255, 178, 36, 0.12);
-  --danger: #ff6b5e;
-  --danger-muted: rgba(255, 107, 94, 0.12);
+  --work: #005eb8;            /* Konsolen-Blau: Links, Buttons, aktiv */
+  --work-strong: #004e99;
+  --work-soft: rgba(0, 94, 184, 0.09);
+  --due: #b45309;             /* Kabel-Gelb, abgedunkelt für Text */
+  --due-bright: #f5b800;
+  --due-soft: rgba(245, 184, 0, 0.16);
+  --led: #1f9d66;             /* Port-LED: läuft */
+  --led-soft: rgba(31, 157, 102, 0.12);
+  --warn: #b45309;
+  --fault: #c62f3b;
+  --fault-soft: rgba(198, 47, 59, 0.09);
 
-  --font-sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-cond: 'IBM Plex Sans Condensed', 'IBM Plex Sans', system-ui, sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, Menlo, Monaco, Consolas, monospace;
+  --font: 'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-cond: 'Barlow Semi Condensed', 'Barlow', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
 }
 
-/* ----- GLOBAL RESET & BASE ----- */
+/* ----- BASIS ----- */
 *, *::before, *::after { box-sizing: border-box; }
-
 html {
-  background-color: var(--bg);
+  background: var(--chassis);
   color: var(--ink);
-  font-family: var(--font-sans);
+  font-family: var(--font);
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
 }
-
 body {
-  background-color: var(--bg);
-  background-image: radial-gradient(900px 460px at 50% -60px, rgba(249, 115, 22, 0.06), transparent 70%);
-  background-repeat: no-repeat;
+  background:
+    repeating-linear-gradient(90deg, rgba(23, 33, 29, 0.025) 0 1px, transparent 1px 56px),
+    var(--chassis);
   color: var(--ink);
   min-height: 100vh;
   margin: 0;
-  padding: 0;
-  overscroll-behavior-y: none;
   line-height: 1.55;
+  overscroll-behavior-y: none;
 }
-
 h1, h2, h3 { text-wrap: balance; }
 p { text-wrap: pretty; }
-
-::selection { background: var(--patch); color: #1a0e02; }
-
-/* Sichtbarer Tastatur-Fokus, auf jedem Untergrund */
-:focus-visible {
-  outline: 2px solid var(--patch);
-  outline-offset: 2px;
-  border-radius: 2px;
-}
-
+::selection { background: var(--due-bright); color: var(--ink); }
+:focus-visible { outline: 2px solid var(--work); outline-offset: 2px; }
 .tabular-nums { font-variant-numeric: tabular-nums; }
 
+/* ============================================================
+   MIGRATION: Alt-Klassen (für JS-Templates) auf das neue System
+   text-white war für dunkle Flächen gedacht — auf Aluminium
+   wird daraus Graphit, außer auf farbigen/dunklen Flächen.
+   ============================================================ */
+.text-white { color: var(--ink) !important; }
+.bg-emerald-600 .text-white, .bg-emerald-500 .text-white, .bg-blue-600 .text-white,
+.bg-red-500 .text-white, .bg-red-600 .text-white, .bg-orange-500 .text-white,
+.bg-orange-600 .text-white, .bg-amber-500 .text-white, .bg-purple-600 .text-white,
+button.bg-emerald-600, a.bg-emerald-600, .bg-emerald-600,
+header .text-white { color: #fff !important; }
+header .text-dark-muted { color: var(--cabinet-muted) !important; }
+header .text-dark-dim { color: #7e938a !important; }
+.placeholder-dark-dim::placeholder { color: var(--ink-4) !important; }
 
-/* ----- TASTENKAPPE (echte Tasten, keine Deko) ----- */
-.kbd-cap {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 600;
-  line-height: 1;
-  padding: 2.5px 6px;
-  border-radius: 3px;
-  background: var(--surface-raised);
-  border: 1px solid var(--border-strong);
-  border-bottom-width: 2px;
-  color: var(--ink);
-  user-select: none;
-  white-space: nowrap;
+/* ----- SCHRANKLEISTE (Kopfzeile aller Seiten) ----- */
+body > header, header.sticky {
+  background: var(--cabinet) !important;
+  border-bottom: 3px solid var(--work) !important;
+  color: var(--cabinet-ink);
+}
+body > header a, body > header button { color: var(--cabinet-ink); }
+body > header .bg-dark-card, body > header .border-dark-border {
+  background: var(--cabinet-2) !important;
+  border-color: var(--cabinet-line) !important;
 }
 
-/* ----- FORTSCHRITT ALS MESSSTRECKE ----- */
-.hairline-track {
-  width: 100%;
-  height: 3px;
-  background:
-    repeating-linear-gradient(90deg, var(--border) 0 1px, transparent 1px 14px),
-    var(--border-subtle);
-  overflow: hidden;
+/* ----- FRONTPLATTEN ----- */
+.topic-card, .plate {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
   position: relative;
-}
-.hairline-fill {
-  height: 100%;
-  background: var(--accent);
-  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.hairline-fill.success { background: var(--success); }
-.hairline-fill.warning { background: var(--warning); }
-
-/* ----- NETZPLAN / HERO ----- */
-.plan-sheet {
-  background: linear-gradient(135deg, rgba(249, 115, 22, 0.15), var(--surface) 58%);
-  border: 1px solid rgba(251, 146, 60, 0.3);
-  border-radius: 12px;
-  box-shadow: inset 4px 0 0 rgba(251, 146, 60, 0.85);
-  position: relative;
-}
-.plan-sheet::after {
-  content: '';
-  position: absolute;
-  right: -28px; top: -32px;
-  width: 96px; height: 96px;
-  border-radius: 9999px;
-  background: rgba(251, 146, 60, 0.1);
-  filter: blur(32px);
-  pointer-events: none;
-}
-.plan-title {
-  font-family: var(--font-cond);
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  line-height: 1.04;
-}
-/* Ein einziges orchestriertes Moment: ein Paket läuft den Netzplan ab */
-.packet {
-  animation: packet-run 5.5s cubic-bezier(0.45, 0, 0.2, 1) 0.6s 3 both;
-}
-@keyframes packet-run {
-  0% { transform: translate(0, 0); opacity: 0; }
-  6% { opacity: 1; }
-  28% { transform: translate(160px, 0); }
-  38% { transform: translate(220px, -66px); }
-  62% { transform: translate(380px, -66px); }
-  72% { transform: translate(440px, 0); }
-  92% { opacity: 1; }
-  100% { transform: translate(580px, 0); opacity: 0; }
-}
-/* Schriftfeld wie auf technischen Zeichnungen (DIN 824) */
-.title-block {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  border: 1px solid var(--border);
-  background: var(--surface);
-}
-.title-block > div { padding: 10px 14px; }
-.title-block > div + div { border-left: 1px solid var(--border-subtle); }
-.title-block .tb-label { font-size: 11px; color: var(--ink-muted); }
-.title-block .tb-value { font-family: var(--font-mono); font-weight: 600; color: var(--ink); }
-@media (max-width: 640px) {
-  .title-block { grid-template-columns: 1fr 1fr; }
-  .title-block > div + div { border-left: none; }
-  .title-block > div:nth-child(even) { border-left: 1px solid var(--border-subtle); }
-  .title-block > div:nth-child(n+3) { border-top: 1px solid var(--border-subtle); }
-}
-@media (min-width: 1024px) { .title-block { grid-template-columns: repeat(4, 1fr); } }
-
-/* ----- THEMEN ALS RACK-EINHEITEN ----- */
-.topic-body {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
-  opacity: 0;
-  overflow: hidden;
-}
-.topic-body.open {
-  grid-template-rows: 1fr;
-  opacity: 1;
-  border-top: 1px solid var(--border-subtle);
-}
-.topic-content { min-height: 0; }
-
-/* Rackschiene links: zwei Schraubenlöcher wie im 19"-Schrank */
-.topic-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  position: relative;
-  padding-left: 14px;
+  padding-left: 16px;
   transition: border-color 0.15s ease, background-color 0.15s ease;
 }
-.topic-card::before {
+/* Rack-Schiene mit zwei Schrauben, wie an jeder Frontplatte */
+.topic-card::before, .plate::before {
   content: '';
   position: absolute;
   left: 0; top: 0; bottom: 0;
-  width: 14px;
-  border-right: 1px solid var(--border-subtle);
+  width: 16px;
+  border-right: 1px solid var(--line-soft);
+  border-radius: 7px 0 0 7px;
   background:
-    radial-gradient(circle 2.5px at 7px 12px, var(--bg-deep) 2.4px, var(--border-strong) 2.5px, transparent 3.4px),
-    radial-gradient(circle 2.5px at 7px calc(100% - 12px), var(--bg-deep) 2.4px, var(--border-strong) 2.5px, transparent 3.4px),
-    var(--surface-inset);
-  border-radius: 5px 0 0 5px;
+    radial-gradient(circle 2.6px at 8px 13px, var(--chassis-deep) 2.5px, var(--line-strong) 2.6px, transparent 3.6px),
+    radial-gradient(circle 2.6px at 8px calc(100% - 13px), var(--chassis-deep) 2.5px, var(--line-strong) 2.6px, transparent 3.6px),
+    var(--panel-inset);
 }
-.topic-card:hover {
-  background: var(--surface-hover);
-  border-color: var(--border-strong);
+.topic-card:hover { background: var(--panel-hover); border-color: var(--line-strong); }
+
+.topic-body { display: grid; grid-template-rows: 0fr; opacity: 0; overflow: hidden; transition: grid-template-rows 0.25s cubic-bezier(0.16,1,0.3,1), opacity 0.2s ease; }
+.topic-body.open { grid-template-rows: 1fr; opacity: 1; border-top: 1px solid var(--line-soft); }
+.topic-content { min-height: 0; }
+
+/* ----- GERÄTE-STAPEL (Hero der Startseite) ----- */
+.rack { background: var(--cabinet); border-radius: 12px; padding: 14px; display: grid; gap: 10px; }
+.device {
+  background: linear-gradient(180deg, #fdfefe, #eef1ef);
+  border: 1px solid #aeb8b3;
+  border-radius: 7px;
+  padding: 10px 14px 10px 30px;
+  position: relative;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
 }
-
-/* ----- CHECKBOX ----- */
-.checkbox-wrapper input:checked + div,
-input.topic-check:checked + div {
-  background-color: var(--accent-strong);
-  border-color: var(--accent-strong);
+.device::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 18px;
+  border-right: 1px solid var(--line-soft); border-radius: 6px 0 0 6px;
+  background:
+    radial-gradient(circle 2.6px at 9px 50%, var(--chassis-deep) 2.5px, var(--line-strong) 2.6px, transparent 3.6px),
+    var(--panel-inset);
 }
-.checkbox-wrapper input:checked + div svg,
-input.topic-check:checked + div svg { transform: scale(1); }
+.device-name { font-family: var(--font-cond); font-weight: 700; font-size: 19px; letter-spacing: 0.02em; color: var(--ink); line-height: 1.1; }
+.device-meta { font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-3); }
+.ports { display: grid; grid-template-columns: repeat(12, 1fr); gap: 4px; flex: 1; max-width: 300px; }
+.port { aspect-ratio: 1.5; border: 1px solid var(--line-strong); border-radius: 2px; background: var(--panel-inset); position: relative; }
+.port::after { content: ''; position: absolute; left: 50%; top: 2px; width: 4px; height: 4px; margin-left: -2px; border-radius: 50%; background: #c9d1cc; }
+.port.on::after { background: var(--led); }
+.port.due::after { background: var(--due-bright); }
+/* Ein einziges orchestriertes Moment: der Link-Lauf beim Laden */
+@keyframes link-sweep { 0% { background: #c9d1cc; } 30% { background: var(--due-bright); } 100% { background: var(--led); } }
+.port.sweep::after { animation: link-sweep 0.9s ease forwards; }
 
-/* ----- STREAK-HEATMAP ----- */
-.streak-cell { transition: transform 0.15s ease, background-color 0.15s ease; }
-.streak-cell:hover {
-  transform: scale(1.25);
-  z-index: 10;
-  outline: 1px solid var(--patch);
+.display-title { font-family: var(--font-cond); font-weight: 700; line-height: 0.98; letter-spacing: 0.005em; }
+
+/* Fällige Einheit: gelbes Kabel statt Glow-Kopie */
+.due-unit { background: var(--due-soft) !important; border-color: rgba(180, 83, 9, 0.45) !important; box-shadow: inset 4px 0 0 var(--due-bright); }
+
+/* ----- TASTEN, FORTSCHRITT, LED ----- */
+.kbd-cap {
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 10px; font-weight: 600; line-height: 1;
+  padding: 2.5px 6px; border-radius: 4px;
+  background: var(--panel-raised); border: 1px solid var(--line-strong); border-bottom-width: 2px;
+  color: var(--ink-2); user-select: none; white-space: nowrap;
 }
+header .kbd-cap { background: var(--cabinet-2); border-color: var(--cabinet-line); color: var(--cabinet-ink); }
+.hairline-track { width: 100%; height: 6px; background: var(--panel-inset); border: 1px solid var(--line-soft); border-radius: 3px; overflow: hidden; }
+.hairline-fill { height: 100%; background: var(--work); transition: width 0.4s cubic-bezier(0.16,1,0.3,1); }
+.hairline-fill.success { background: var(--led); }
+.hairline-fill.warning { background: var(--due-bright); }
 
-/* ----- SCROLLBAR ----- */
-::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-track { background: var(--bg-deep); }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
+.checkbox-wrapper input:checked + div, input.topic-check:checked + div { background-color: var(--work); border-color: var(--work); }
+.checkbox-wrapper input:checked + div svg, input.topic-check:checked + div svg { transform: scale(1); color: #fff; }
+.streak-cell { transition: transform 0.15s ease; }
+.streak-cell:hover { transform: scale(1.25); z-index: 10; outline: 1px solid var(--work); }
 
-/* ----- UTILITIES ----- */
+/* ----- SCROLLBAR / UTILITIES ----- */
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-track { background: var(--chassis-deep); }
+::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 4px; border: 2px solid var(--chassis-deep); }
 .force-hide { opacity: 0 !important; pointer-events: none !important; visibility: hidden !important; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 svg.lucide { display: inline-block; vertical-align: -0.125em; width: 1.15em; height: 1.15em; stroke-width: 2px; }
 
-/* ----- REDUZIERTE BEWEGUNG ----- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-  .packet { animation: none; opacity: 0; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  .port.sweep::after { animation: none; background: var(--led); }
 }
-
-/* ----- DRUCK ----- */
 @media print {
-  body { background: white; color: black; }
-  .no-print { display: none !important; }
-  .topic-card { border: 1px solid #ccc; break-inside: avoid; margin-bottom: 8px; color: black; background: white; }
+  body { background: white; }
+  body > header, .no-print { display: none !important; }
+  .topic-card { border: 1px solid #bbb; break-inside: avoid; margin-bottom: 8px; }
   .topic-body { display: block !important; opacity: 1 !important; }
 }
 
-/* ----- GLOW-KARTE (Referenz: „Globale Schwächen") ----- */
-.glow-card {
-  background: linear-gradient(135deg, rgba(249, 115, 22, 0.15), var(--surface) 58%) !important;
-  border-color: rgba(251, 146, 60, 0.3) !important;
-  box-shadow: inset 3px 0 0 rgba(251, 146, 60, 0.8);
-}
-a.glow-card, button.glow-card { transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease; }
-a.glow-card:hover, button.glow-card:hover {
-  border-color: rgba(253, 186, 116, 0.7) !important;
-  box-shadow: inset 4px 0 0 rgba(251, 146, 60, 1), 0 10px 28px rgba(249, 115, 22, 0.12);
-}
+/* Alt-Klasse der Smart-Fokus-Karte: Arbeitslinie statt Glow */
+.glow-card { box-shadow: inset 4px 0 0 var(--work); border-color: var(--line) !important; }
+/* Dunkle Flaechen (Terminal, Code) behalten helle Schrift */
+.bg-black .text-white, [class*="bg-[#0d0d10]"] .text-white { color: #f2f5f3 !important; }
+.bg-black .text-emerald-400, [class*="bg-[#0d0d10]"] .text-emerald-400 { color: #7db8ec !important; }
+.bg-black .text-dark-muted, [class*="bg-[#0d0d10]"] .text-dark-muted { color: #a7b8b0 !important; }
+/* Kopfleiste: Akzente auf Schrank-Gruen aufhellen */
+body > header .text-emerald-400, body > header .text-blue-400,
+body > header .text-sky-400, body > header .text-purple-400 { color: #8fc3f2 !important; }
+body > header .text-amber-400 { color: var(--due-bright) !important; }
