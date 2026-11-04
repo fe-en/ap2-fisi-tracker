@@ -1,198 +1,146 @@
 /* ============================================================
-   AP2 TRACKER FISI · SERVERSCHRANK (v5, von Grund auf neu)
-   Die App als 19-Zoll-Schrank bei Licht: dunkle Schrankleiste
-   oben, Frontplatten aus hellem Aluminium darunter. Konsolen-
-   Blau ist die Arbeitsfarbe, Kabel-Gelb markiert Fälliges und
-   die Prüfung, die Port-LEDs zeigen den echten Status.
+   AP2 TRACKER FISI · KARTEIKASTEN (v6, von Grund auf neu)
+   Kein Header. Links steht der Kasten (Navigation), mobil
+   traegt ein Dock unten. Inhalt wie Karteikarten: weiss,
+   liniert gedacht, mit Textmarker-Gelb nur fuer Faelliges.
+   Ziel-Hierarchie: Heute lernen -> Fortschritt -> Themen.
    ============================================================ */
 
-/* ----- SCHRIFTEN (selbst gehostet, offline, kein CDN) ----- */
-@font-face { font-family: 'Barlow'; font-weight: 400; font-display: swap; src: url('../fonts/Barlow-Regular.woff2') format('woff2'); }
-@font-face { font-family: 'Barlow'; font-weight: 500; font-display: swap; src: url('../fonts/Barlow-Medium.woff2') format('woff2'); }
-@font-face { font-family: 'Barlow'; font-weight: 600; font-display: swap; src: url('../fonts/Barlow-SemiBold.woff2') format('woff2'); }
-@font-face { font-family: 'Barlow'; font-weight: 700; font-display: swap; src: url('../fonts/Barlow-Bold.woff2') format('woff2'); }
-@font-face { font-family: 'Barlow Semi Condensed'; font-weight: 600; font-display: swap; src: url('../fonts/BarlowCond-SemiBold.woff2') format('woff2'); }
-@font-face { font-family: 'Barlow Semi Condensed'; font-weight: 700; font-display: swap; src: url('../fonts/BarlowCond-Bold.woff2') format('woff2'); }
-@font-face { font-family: 'IBM Plex Mono'; font-weight: 400; font-display: swap; src: url('../fonts/PlexMono-Regular.woff2') format('woff2'); }
-@font-face { font-family: 'IBM Plex Mono'; font-weight: 600; font-display: swap; src: url('../fonts/PlexMono-SemiBold.woff2') format('woff2'); }
+@font-face { font-family: 'Libre Franklin'; font-weight: 400; font-display: swap; src: url('../fonts/Franklin-Regular.woff2') format('woff2'); }
+@font-face { font-family: 'Libre Franklin'; font-weight: 600; font-display: swap; src: url('../fonts/Franklin-SemiBold.woff2') format('woff2'); }
+@font-face { font-family: 'Libre Franklin'; font-weight: 700; font-display: swap; src: url('../fonts/Franklin-Bold.woff2') format('woff2'); }
+@font-face { font-family: 'Libre Franklin'; font-weight: 800; font-display: swap; src: url('../fonts/Franklin-ExtraBold.woff2') format('woff2'); }
+@font-face { font-family: 'Space Mono'; font-weight: 400; font-display: swap; src: url('../fonts/SpaceMono-Regular.woff2') format('woff2'); }
+@font-face { font-family: 'Space Mono'; font-weight: 700; font-display: swap; src: url('../fonts/SpaceMono-Bold.woff2') format('woff2'); }
 
-/* ----- TOKEN ----- */
 :root {
-  --chassis: #e7ebe9;         /* Aluminium-Grau des Schranks */
-  --chassis-deep: #dde2df;
-  --panel: #fafbfa;           /* Frontplatte */
-  --panel-raised: #ffffff;
-  --panel-hover: #f0f3f1;
-  --panel-inset: #edf0ee;
+  --paper: #edf0f5;
+  --card: #ffffff;
+  --card-2: #f6f8fc;
+  --inset: #e7ecf4;
+  --line: #d5dce8;
+  --line-soft: #e3e9f2;
+  --line-strong: #9fb0c6;
 
-  --line: #c3cbc7;
-  --line-soft: #d8dedb;
-  --line-strong: #94a19a;
+  --ink: #101b2c;
+  --ink-2: #3c4d67;
+  --ink-3: #67778f;
+  --ink-4: #93a2b8;
 
-  --ink: #17211d;             /* Graphit */
-  --ink-2: #3d4a44;
-  --ink-3: #5f6e67;
-  --ink-4: #85928b;
+  --box: #101b2c;            /* Der Kasten (Leiste/Dock) */
+  --box-2: #1a2942;
+  --box-line: #2c3d5d;
+  --box-ink: #f2f6fc;
+  --box-muted: #a9bad2;
 
-  --cabinet: #16211d;         /* Schrank-Innenleben (Leiste oben) */
-  --cabinet-2: #1f2f28;
-  --cabinet-line: #31443b;
-  --cabinet-ink: #eef3f0;
-  --cabinet-muted: #a7b8b0;
-
-  --work: #005eb8;            /* Konsolen-Blau: Links, Buttons, aktiv */
-  --work-strong: #004e99;
-  --work-soft: rgba(0, 94, 184, 0.09);
-  --due: #b45309;             /* Kabel-Gelb, abgedunkelt für Text */
-  --due-bright: #f5b800;
-  --due-soft: rgba(245, 184, 0, 0.16);
-  --led: #1f9d66;             /* Port-LED: läuft */
-  --led-soft: rgba(31, 157, 102, 0.12);
-  --warn: #b45309;
+  --work: #2138c9;           /* Kugelschreiber-Blau: Aktion */
+  --work-2: #1a2da3;
+  --work-soft: rgba(33, 56, 201, 0.08);
+  --marker: #ffd60a;         /* Textmarker: nur Faelliges/Pruefung */
+  --marker-dark: #8a5d00;
+  --marker-soft: rgba(255, 214, 10, 0.22);
+  --good: #12805c;
+  --good-soft: rgba(18, 128, 92, 0.1);
   --fault: #c62f3b;
-  --fault-soft: rgba(198, 47, 59, 0.09);
+  --fault-soft: rgba(198, 47, 59, 0.08);
 
-  --font: 'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-cond: 'Barlow Semi Condensed', 'Barlow', system-ui, sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
+  --font: 'Libre Franklin', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Space Mono', ui-monospace, Menlo, Consolas, monospace;
 }
 
-/* ----- BASIS ----- */
 *, *::before, *::after { box-sizing: border-box; }
-html {
-  background: var(--chassis);
-  color: var(--ink);
-  font-family: var(--font);
-  -webkit-font-smoothing: antialiased;
-  scroll-behavior: smooth;
-}
-body {
-  background:
-    repeating-linear-gradient(90deg, rgba(23, 33, 29, 0.025) 0 1px, transparent 1px 56px),
-    var(--chassis);
-  color: var(--ink);
-  min-height: 100vh;
-  margin: 0;
-  line-height: 1.55;
-  overscroll-behavior-y: none;
-}
-h1, h2, h3 { text-wrap: balance; }
+html { background: var(--paper); color: var(--ink); font-family: var(--font); -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+body { background: var(--paper); color: var(--ink); min-height: 100vh; margin: 0; line-height: 1.55; overscroll-behavior-y: none; }
+h1, h2, h3 { text-wrap: balance; letter-spacing: -0.01em; }
 p { text-wrap: pretty; }
-::selection { background: var(--due-bright); color: var(--ink); }
+::selection { background: var(--marker); color: var(--ink); }
 :focus-visible { outline: 2px solid var(--work); outline-offset: 2px; }
 .tabular-nums { font-variant-numeric: tabular-nums; }
 
-/* ============================================================
-   MIGRATION: Alt-Klassen (für JS-Templates) auf das neue System
-   text-white war für dunkle Flächen gedacht — auf Aluminium
-   wird daraus Graphit, außer auf farbigen/dunklen Flächen.
-   ============================================================ */
-.text-white { color: var(--ink) !important; }
-.bg-emerald-600 .text-white, .bg-emerald-500 .text-white, .bg-blue-600 .text-white,
-.bg-red-500 .text-white, .bg-red-600 .text-white, .bg-orange-500 .text-white,
-.bg-orange-600 .text-white, .bg-amber-500 .text-white, .bg-purple-600 .text-white,
-button.bg-emerald-600, a.bg-emerald-600, .bg-emerald-600,
-header .text-white { color: #fff !important; }
-header .text-dark-muted { color: var(--cabinet-muted) !important; }
-header .text-dark-dim { color: #7e938a !important; }
-.placeholder-dark-dim::placeholder { color: var(--ink-4) !important; }
+/* Platz fuer Kasten (Desktop) bzw. Dock (mobil) */
+@media (min-width: 1024px) { body { padding-left: 236px; } }
+@media (max-width: 1023px) { body { padding-bottom: 88px; } }
 
-/* ----- SCHRANKLEISTE (Kopfzeile aller Seiten) ----- */
-body > header, header.sticky {
-  background: var(--cabinet) !important;
-  border-bottom: 3px solid var(--work) !important;
-  color: var(--cabinet-ink);
+/* ----- DER KASTEN: Navigation ohne Header ----- */
+.app-rail {
+  position: fixed; inset: 0 auto 0 0; width: 236px; z-index: 60;
+  background: var(--box); color: var(--box-ink);
+  display: none; flex-direction: column; padding: 22px 16px 16px;
 }
-body > header a, body > header button { color: var(--cabinet-ink); }
-body > header .bg-dark-card, body > header .border-dark-border {
-  background: var(--cabinet-2) !important;
-  border-color: var(--cabinet-line) !important;
+@media (min-width: 1024px) { .app-rail { display: flex; } }
+.app-rail .brand { font-weight: 800; font-size: 21px; line-height: 1.12; color: var(--box-ink); text-decoration: none; }
+.app-rail .brand small { display: block; font-family: var(--font-mono); font-weight: 400; font-size: 11px; color: var(--box-muted); margin-top: 6px; }
+.app-rail nav { margin-top: 28px; display: grid; gap: 2px; }
+.app-rail nav a {
+  display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 8px;
+  color: var(--box-muted); text-decoration: none; font-size: 14.5px; font-weight: 600; position: relative;
 }
+.app-rail nav a:hover { color: var(--box-ink); background: var(--box-2); }
+.app-rail nav a.active { color: var(--box-ink); background: var(--box-2); }
+.app-rail nav a.active::before { content: ''; position: absolute; left: -16px; top: 8px; bottom: 8px; width: 4px; background: var(--marker); border-radius: 0 2px 2px 0; }
+.app-rail .rail-foot { margin-top: auto; border-top: 1px solid var(--box-line); padding-top: 14px; font-size: 13px; color: var(--box-muted); }
+.app-rail .rail-foot strong { color: var(--box-ink); font-family: var(--font-mono); }
+.app-rail .rail-foot .exam { color: var(--ink); background: var(--marker); border-radius: 6px; padding: 8px 10px; font-weight: 700; margin-bottom: 12px; }
+.app-rail .rail-foot .exam span { display: block; font-family: var(--font-mono); font-weight: 700; font-size: 17px; }
 
-/* ----- FRONTPLATTEN ----- */
-.topic-card, .plate {
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  position: relative;
-  padding-left: 16px;
-  transition: border-color 0.15s ease, background-color 0.15s ease;
+.app-dock {
+  position: fixed; inset: auto 10px 10px 10px; z-index: 60;
+  background: var(--box); border-radius: 16px; padding: 8px;
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px;
+  box-shadow: 0 12px 32px rgba(16, 27, 44, 0.35);
 }
-/* Rack-Schiene mit zwei Schrauben, wie an jeder Frontplatte */
-.topic-card::before, .plate::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 16px;
-  border-right: 1px solid var(--line-soft);
-  border-radius: 7px 0 0 7px;
-  background:
-    radial-gradient(circle 2.6px at 8px 13px, var(--chassis-deep) 2.5px, var(--line-strong) 2.6px, transparent 3.6px),
-    radial-gradient(circle 2.6px at 8px calc(100% - 13px), var(--chassis-deep) 2.5px, var(--line-strong) 2.6px, transparent 3.6px),
-    var(--panel-inset);
-}
-.topic-card:hover { background: var(--panel-hover); border-color: var(--line-strong); }
+@media (min-width: 1024px) { .app-dock { display: none; } }
+.app-dock a { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 7px 2px; border-radius: 10px; color: var(--box-muted); text-decoration: none; font-size: 10.5px; font-weight: 600; }
+.app-dock a.active { color: var(--ink); background: var(--marker); }
 
+/* ----- WIDGETS: Karteikarten ----- */
+.widget, .topic-card {
+  background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+  box-shadow: 0 1px 2px rgba(16, 27, 44, 0.05);
+}
+.topic-card { position: relative; transition: border-color 0.15s ease, transform 0.15s ease; }
+.topic-card:hover { border-color: var(--line-strong); }
 .topic-body { display: grid; grid-template-rows: 0fr; opacity: 0; overflow: hidden; transition: grid-template-rows 0.25s cubic-bezier(0.16,1,0.3,1), opacity 0.2s ease; }
 .topic-body.open { grid-template-rows: 1fr; opacity: 1; border-top: 1px solid var(--line-soft); }
 .topic-content { min-height: 0; }
 
-/* ----- GERÄTE-STAPEL (Hero der Startseite) ----- */
-.rack { background: var(--cabinet); border-radius: 12px; padding: 14px; display: grid; gap: 10px; }
-.device {
-  background: linear-gradient(180deg, #fdfefe, #eef1ef);
-  border: 1px solid #aeb8b3;
-  border-radius: 7px;
-  padding: 10px 14px 10px 30px;
-  position: relative;
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
-}
-.device::before {
-  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 18px;
-  border-right: 1px solid var(--line-soft); border-radius: 6px 0 0 6px;
-  background:
-    radial-gradient(circle 2.6px at 9px 50%, var(--chassis-deep) 2.5px, var(--line-strong) 2.6px, transparent 3.6px),
-    var(--panel-inset);
-}
-.device-name { font-family: var(--font-cond); font-weight: 700; font-size: 19px; letter-spacing: 0.02em; color: var(--ink); line-height: 1.1; }
-.device-meta { font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-3); }
-.ports { display: grid; grid-template-columns: repeat(12, 1fr); gap: 4px; flex: 1; max-width: 300px; }
-.port { aspect-ratio: 1.5; border: 1px solid var(--line-strong); border-radius: 2px; background: var(--panel-inset); position: relative; }
-.port::after { content: ''; position: absolute; left: 50%; top: 2px; width: 4px; height: 4px; margin-left: -2px; border-radius: 50%; background: #c9d1cc; }
-.port.on::after { background: var(--led); }
-.port.due::after { background: var(--due-bright); }
-/* Ein einziges orchestriertes Moment: der Link-Lauf beim Laden */
-@keyframes link-sweep { 0% { background: #c9d1cc; } 30% { background: var(--due-bright); } 100% { background: var(--led); } }
-.port.sweep::after { animation: link-sweep 0.9s ease forwards; }
+/* Heute-Widget: mit Textmarker angestrichen */
+.today-widget { background: var(--card); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 1px 2px rgba(16,27,44,.05); }
+.mark { background: linear-gradient(transparent 62%, var(--marker) 62%, var(--marker) 92%, transparent 92%); }
+.due-unit { background: var(--marker-soft) !important; border-color: rgba(138, 93, 0, 0.4) !important; }
+.glow-card { box-shadow: inset 4px 0 0 var(--work); }
 
-.display-title { font-family: var(--font-cond); font-weight: 700; line-height: 0.98; letter-spacing: 0.005em; }
+/* Kennzahlen ohne Karten-Kit: eine Leiste, vier Werte */
+.stat-strip { display: grid; grid-template-columns: repeat(2, 1fr); background: var(--card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+@media (min-width: 1024px) { .stat-strip { grid-template-columns: repeat(4, 1fr); } }
+.stat-strip > div { padding: 16px 18px; }
+.stat-strip > div + div { border-left: 1px solid var(--line-soft); }
+@media (max-width: 1023px) { .stat-strip > div:nth-child(3) { border-left: none; } .stat-strip > div:nth-child(n+3) { border-top: 1px solid var(--line-soft); } }
 
-/* Fällige Einheit: gelbes Kabel statt Glow-Kopie */
-.due-unit { background: var(--due-soft) !important; border-color: rgba(180, 83, 9, 0.45) !important; box-shadow: inset 4px 0 0 var(--due-bright); }
+/* ----- MIGRATION fuer bestehende Klassen (JS-Templates) ----- */
+.text-white { color: var(--ink) !important; }
+.bg-emerald-600 .text-white, .bg-emerald-500 .text-white, .bg-blue-600 .text-white,
+.bg-red-500 .text-white, .bg-red-600 .text-white, .bg-orange-500 .text-white,
+.bg-orange-600 .text-white, .bg-purple-600 .text-white,
+button.bg-emerald-600, a.bg-emerald-600 { color: #fff !important; }
+.bg-black .text-white, [class*="bg-[#0d0d10]"] .text-white { color: #f2f6fc !important; }
+.bg-black .text-emerald-400, [class*="bg-[#0d0d10]"] .text-emerald-400 { color: #8fb8ff !important; }
+.bg-black .text-dark-muted, [class*="bg-[#0d0d10]"] .text-dark-muted { color: #a9bad2 !important; }
+.placeholder-dark-dim::placeholder { color: var(--ink-4) !important; }
 
-/* ----- TASTEN, FORTSCHRITT, LED ----- */
-.kbd-cap {
-  display: inline-flex; align-items: center; justify-content: center;
-  font-family: var(--font-mono); font-size: 10px; font-weight: 600; line-height: 1;
-  padding: 2.5px 6px; border-radius: 4px;
-  background: var(--panel-raised); border: 1px solid var(--line-strong); border-bottom-width: 2px;
-  color: var(--ink-2); user-select: none; white-space: nowrap;
-}
-header .kbd-cap { background: var(--cabinet-2); border-color: var(--cabinet-line); color: var(--cabinet-ink); }
-.hairline-track { width: 100%; height: 6px; background: var(--panel-inset); border: 1px solid var(--line-soft); border-radius: 3px; overflow: hidden; }
+/* ----- BAUSTEINE ----- */
+.kbd-cap { display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 10px; font-weight: 700; line-height: 1; padding: 2.5px 6px; border-radius: 4px; background: var(--card); border: 1px solid var(--line-strong); border-bottom-width: 2px; color: var(--ink-2); user-select: none; white-space: nowrap; }
+.hairline-track { width: 100%; height: 7px; background: var(--inset); border-radius: 4px; overflow: hidden; }
 .hairline-fill { height: 100%; background: var(--work); transition: width 0.4s cubic-bezier(0.16,1,0.3,1); }
-.hairline-fill.success { background: var(--led); }
-.hairline-fill.warning { background: var(--due-bright); }
-
+.hairline-fill.success { background: var(--good); }
+.hairline-fill.warning { background: var(--marker); }
 .checkbox-wrapper input:checked + div, input.topic-check:checked + div { background-color: var(--work); border-color: var(--work); }
 .checkbox-wrapper input:checked + div svg, input.topic-check:checked + div svg { transform: scale(1); color: #fff; }
 .streak-cell { transition: transform 0.15s ease; }
 .streak-cell:hover { transform: scale(1.25); z-index: 10; outline: 1px solid var(--work); }
-
-/* ----- SCROLLBAR / UTILITIES ----- */
 ::-webkit-scrollbar { width: 9px; height: 9px; }
-::-webkit-scrollbar-track { background: var(--chassis-deep); }
-::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 4px; border: 2px solid var(--chassis-deep); }
+::-webkit-scrollbar-track { background: var(--inset); }
+::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 4px; }
 .force-hide { opacity: 0 !important; pointer-events: none !important; visibility: hidden !important; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -201,22 +149,13 @@ svg.lucide { display: inline-block; vertical-align: -0.125em; width: 1.15em; hei
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-  .port.sweep::after { animation: none; background: var(--led); }
 }
 @media print {
-  body { background: white; }
-  body > header, .no-print { display: none !important; }
-  .topic-card { border: 1px solid #bbb; break-inside: avoid; margin-bottom: 8px; }
+  .app-rail, .app-dock, .no-print { display: none !important; }
+  body { padding: 0 !important; background: white; }
+  .topic-card { break-inside: avoid; margin-bottom: 8px; }
   .topic-body { display: block !important; opacity: 1 !important; }
 }
 
-/* Alt-Klasse der Smart-Fokus-Karte: Arbeitslinie statt Glow */
-.glow-card { box-shadow: inset 4px 0 0 var(--work); border-color: var(--line) !important; }
-/* Dunkle Flaechen (Terminal, Code) behalten helle Schrift */
-.bg-black .text-white, [class*="bg-[#0d0d10]"] .text-white { color: #f2f5f3 !important; }
-.bg-black .text-emerald-400, [class*="bg-[#0d0d10]"] .text-emerald-400 { color: #7db8ec !important; }
-.bg-black .text-dark-muted, [class*="bg-[#0d0d10]"] .text-dark-muted { color: #a7b8b0 !important; }
-/* Kopfleiste: Akzente auf Schrank-Gruen aufhellen */
-body > header .text-emerald-400, body > header .text-blue-400,
-body > header .text-sky-400, body > header .text-purple-400 { color: #8fc3f2 !important; }
-body > header .text-amber-400 { color: var(--due-bright) !important; }
+/* Filterleiste klebt jetzt direkt oben (kein Header mehr) */
+#filterBar { top: 0 !important; }

@@ -16,7 +16,7 @@
     <link rel="apple-touch-icon" href="favicon.svg" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="theme-color" content="#16211d" />
+    <meta name="theme-color" content="#101b2c" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
@@ -24,67 +24,67 @@
     <!-- Preload Fonts -->
     <link
       rel="preload"
-      href="assets/fonts/Barlow-Regular.woff2"
+      href="assets/fonts/Franklin-Regular.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
     <link
       rel="preload"
-      href="assets/fonts/Barlow-SemiBold.woff2"
+      href="assets/fonts/Franklin-SemiBold.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
     <link
       rel="preload"
-      href="assets/fonts/Barlow-Bold.woff2"
+      href="assets/fonts/Franklin-Bold.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="assets/css/style.css?v=5.0.0" />
+    <link rel="stylesheet" href="assets/css/style.css?v=6.0.0" />
 
     <!-- Tailwind 3 Engine (Offline / Local) -->
-    <script src="assets/js/tailwind.js?v=5.0.0"></script>
+    <script src="assets/js/tailwind.js?v=6.0.0"></script>
     <script>
       tailwind.config = {
         darkMode: "class",
         theme: {
           extend: {
             colors: {
-              emerald: {50:"#eef6fd",100:"#d9eafd",200:"#b3d4f7",300:"#2f83cf",400:"#1a6fc0",500:"#2273c4",600:"#005eb8",700:"#004e99",800:"#0b4a7d",900:"#d3e6f7",950:"#e3effa"},
-              zinc: {50:"#17211d",100:"#232f2a",200:"#2e3b35",300:"#3d4a44",400:"#5f6e67",500:"#85928b",600:"#a7b3ad",700:"#c3cbc7",800:"#d8dedb",900:"#e7ebe9",950:"#fafbfa"},
-              orange: {50:"#fffbeb",100:"#fef3c7",200:"#fde68a",300:"#c2610a",400:"#b45309",500:"#d97706",600:"#b45309",700:"#92400e",800:"#78350f",900:"#fef3c7",950:"#fffbeb"},
-              amber: {50:"#fffbeb",100:"#fef3c7",200:"#fde68a",300:"#c2610a",400:"#b45309",500:"#d97706",600:"#b45309",700:"#92400e",800:"#78350f",900:"#fef3c7",950:"#fffbeb"},
-                            blue: {50:"#eef6fd",100:"#d9eafd",200:"#b3d4f7",300:"#2f83cf",400:"#005eb8",500:"#2273c4",600:"#005eb8",700:"#004e99",800:"#0b4a7d",900:"#d3e6f7",950:"#e3effa"},
+              emerald: {50:"#eef1fe",100:"#dbe2fd",200:"#b7c5fa",300:"#7287ef",400:"#3d55dd",500:"#2b44cf",600:"#2138c9",700:"#1a2da3",800:"#1c2a72",900:"#dbe2fd",950:"#eef1fe"},
+              zinc: {50:"#101b2c",100:"#1a2942",200:"#24334f",300:"#3c4d67",400:"#67778f",500:"#93a2b8",600:"#aebdd2",700:"#d5dce8",800:"#e3e9f2",900:"#edf0f5",950:"#ffffff"},
+              orange: {50:"#fffbeb",100:"#fef3c7",200:"#fde68a",300:"#8a5d00",400:"#8a5d00",500:"#d97706",600:"#b45309",700:"#92400e",800:"#78350f",900:"#fef3c7",950:"#fffbeb"},
+              amber: {50:"#fffbeb",100:"#fef3c7",200:"#fde68a",300:"#8a5d00",400:"#8a5d00",500:"#d97706",600:"#b45309",700:"#92400e",800:"#78350f",900:"#fef3c7",950:"#fffbeb"},
+                            blue: {50:"#eef6fd",100:"#d9eafd",200:"#b3d4f7",300:"#2f83cf",400:"#2138c9",500:"#2273c4",600:"#2138c9",700:"#1a2da3",800:"#0b4a7d",900:"#d3e6f7",950:"#e3effa"},
               sky: {50:"#f0f9ff",100:"#e0f2fe",200:"#bae6fd",300:"#0284c7",400:"#0077a8",500:"#0284c7",600:"#0369a1",700:"#075985",800:"#0c4a6e",900:"#e0f2fe",950:"#f0f9ff"},
               purple: {50:"#faf5ff",100:"#f3e8ff",200:"#e9d5ff",300:"#7c3aed",400:"#6d28d9",500:"#7c3aed",600:"#6d28d9",700:"#5b21b6",800:"#4c1d95",900:"#f3e8ff",950:"#faf5ff"},
               red: {50:"#fef2f2",100:"#fee2e2",200:"#fecaca",300:"#c62f3b",400:"#c62f3b",500:"#dc2626",600:"#b91c1c",700:"#991b1b",800:"#7f1d1d",900:"#fee2e2",950:"#fef2f2"},
-              green: {50:"#f0fdf4",100:"#dcfce7",200:"#bbf7d0",300:"#1f9d66",400:"#15803d",500:"#16a34a",600:"#15803d",700:"#166534",800:"#14532d",900:"#dcfce7",950:"#f0fdf4"},
+              green: {50:"#f0fdf4",100:"#dcfce7",200:"#bbf7d0",300:"#12805c",400:"#15803d",500:"#16a34a",600:"#15803d",700:"#166534",800:"#14532d",900:"#dcfce7",950:"#f0fdf4"},
               dark: {
-                bg: "#e7ebe9",
-                card: "#fafbfa",
-                "card-hover": "#f0f3f1",
-                border: "#c3cbc7",
-                "border-subtle": "#d8dedb",
-                strong: "#94a19a",
-                text: "#17211d",
-                muted: "#3d4a44",
-                dim: "#5f6e67",
-                accent: "#005eb8",
-                "accent-hover": "#004e99",
-                "accent-dim": "rgba(0, 94, 184, 0.09)",
-                success: "#1f9d66",
+                bg: "#edf0f5",
+                card: "#ffffff",
+                "card-hover": "#f6f8fc",
+                border: "#d5dce8",
+                "border-subtle": "#e3e9f2",
+                strong: "#9fb0c6",
+                text: "#101b2c",
+                muted: "#3c4d67",
+                dim: "#67778f",
+                accent: "#2138c9",
+                "accent-hover": "#1a2da3",
+                "accent-dim": "rgba(33, 56, 201, 0.08)",
+                success: "#12805c",
                 warning: "#b45309",
                 danger: "#c62f3b",
               },
             },
             fontFamily: {
               sans: [
-                "Barlow",
+                "Libre Franklin",
                 "system-ui",
                 "-apple-system",
                 "BlinkMacSystemFont",
@@ -93,7 +93,7 @@
                 "sans-serif",
               ],
               mono: [
-                "IBM Plex Mono",
+                "Space Mono",
                 "ui-monospace",
                 "JetBrains Mono",
                 "Menlo",
@@ -120,47 +120,6 @@
 
   <body class="flex flex-col min-h-screen bg-dark-bg text-dark-text antialiased selection:bg-emerald-600 selection:text-white font-sans">
     <!-- Header -->
-    <header class="sticky top-0 z-40 w-full border-b border-dark-border bg-dark-bg/90 backdrop-blur-md">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
-        <!-- Left: Back link & Title -->
-        <div class="flex items-center gap-2 sm:gap-3 shrink-0">
-          <a href="index.html" class="flex items-center gap-2 group focus:outline-none shrink-0" title="Zurück zum Dashboard">
-            <div class="w-8 h-8 rounded-lg border border-dark-border bg-dark-card group-hover:border-emerald-500 transition-all flex items-center justify-center text-dark-muted group-hover:text-emerald-400">
-              <i data-lucide="arrow-left" class="w-4 h-4 transition-transform group-hover:-translate-x-0.5"></i>
-            </div>
-            <div class="flex items-center gap-1.5">
-              <span class="kbd-cap bg-emerald-600/15 border-emerald-500/40 text-emerald-400 font-bold px-1.5 py-0.5 sm:px-2 sm:py-1 text-xs">AP2</span>
-              <span class="font-bold text-sm sm:text-base tracking-tight text-white group-hover:text-emerald-400 transition-colors">Tracker</span>
-              <span class="text-[9px] font-mono font-bold bg-emerald-950/60 border border-emerald-500/40 text-emerald-400 px-1.5 py-0.5 rounded">FISI</span>
-            </div>
-          </a>
-        </div>
-
-        <!-- Right: Jump Links & Support -->
-        <div class="flex items-center gap-2 sm:gap-3">
-          <div class="flex items-center gap-1.5 font-mono text-xs">
-            <a href="#datenschutz" class="px-2.5 py-1.5 rounded-lg border border-dark-border hover:border-emerald-500/40 bg-dark-card text-dark-muted hover:text-white transition-colors flex items-center gap-1.5">
-              <i data-lucide="shield" class="w-3.5 h-3.5 text-emerald-400"></i>
-              <span>Datenschutz</span>
-            </a>
-            <a href="#impressum" class="px-2.5 py-1.5 rounded-lg border border-dark-border hover:border-emerald-500/40 bg-dark-card text-dark-muted hover:text-white transition-colors flex items-center gap-1.5">
-              <i data-lucide="file-text" class="w-3.5 h-3.5 text-blue-400"></i>
-              <span>Impressum</span>
-            </a>
-          </div>
-
-          <button
-            type="button"
-            onclick="openSupportModal()"
-            class="px-2.5 py-1.5 rounded-lg border border-dark-border hover:border-[#FFDD00]/40 bg-dark-card hover:bg-[#FFDD00]/10 text-dark-muted hover:text-[#FFDD00] transition-all text-xs flex items-center gap-1.5 shrink-0"
-            title="Support"
-          >
-            <i data-lucide="coffee" class="w-4 h-4 text-[#FFDD00]"></i>
-            <span class="hidden sm:inline font-mono text-[11px] font-medium">Support</span>
-          </button>
-        </div>
-      </div>
-    </header>
 
     <!-- Main Content -->
     <main class="max-w-4xl mx-auto px-4 sm:px-6 py-8 flex-1 w-full space-y-8">
@@ -245,7 +204,7 @@
               Diese Website arbeitet vollständig autark und unabhängig von externen CDNs:
             </p>
             <ul class="list-disc pl-5 space-y-1 text-dark-dim">
-              <li><strong>Keine Google Fonts:</strong> Schriftarten (<span class="text-white">IBM Plex Sans</span>) sind lokal auf unserem Server gehostet.</li>
+              <li><strong>Keine Google Fonts:</strong> Schriftarten (<span class="text-white">Libre Franklin, Space Mono</span>) sind lokal auf unserem Server gehostet.</li>
               <li><strong>Keine externen CDNs:</strong> Sämtliche Stylesheets, Tailwind-CSS-Engines und Lucide-Icons werden offline-fähig lokal ausgeliefert.</li>
               <li><strong>Keine Analyse-Tools:</strong> Es werden weder Google Analytics, Plausible, Hotjar noch andere Tracking-Tools verwendet.</li>
               <li><strong>Keine Werbenetzwerke:</strong> Die Seite ist 100% werbefrei.</li>
@@ -506,7 +465,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="assets/js/lucide.min.js?v=5.0.0"></script>
+    <script src="assets/js/lucide.min.js?v=6.0.0"></script>
     <script>
       function openSupportModal() {
         const modal = document.getElementById("supportModal");
@@ -531,9 +490,10 @@
 
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
-          navigator.serviceWorker.register("sw.js?v=5.0.0").catch(() => {});
+          navigator.serviceWorker.register("sw.js?v=6.0.0").catch(() => {});
         });
       }
     </script>
+      <script src="assets/js/nav.js?v=6.0.0"></script>
   </body>
 </html>
