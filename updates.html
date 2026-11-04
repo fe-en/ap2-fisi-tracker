@@ -15,18 +15,15 @@
     <link rel="apple-touch-icon" href="favicon.svg" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="theme-color" content="#101b2c" />
+    <meta name="theme-color" content="#1e1e1e" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
     <!-- Local Font Preload -->
-    <link rel="preload" href="assets/fonts/Franklin-Regular.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="assets/fonts/Franklin-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="assets/fonts/Franklin-Bold.woff2" as="font" type="font/woff2" crossorigin />
 
     <!-- Tailwind 3 Engine (Local, Zero-CDN) -->
-    <script src="assets/js/tailwind.js?v=6.0.0"></script>
+    <script src="assets/js/tailwind.js?v=7.0.0"></script>
     <script>
       tailwind.config = {
         darkMode: "class",
@@ -34,7 +31,7 @@
           extend: {
             fontFamily: {
               sans: [
-                "Libre Franklin",
+                "system-ui",
                 "system-ui",
                 "-apple-system",
                 "BlinkMacSystemFont",
@@ -43,7 +40,7 @@
                 "sans-serif",
               ],
               mono: [
-                "Space Mono",
+                "ui-monospace",
                 "ui-monospace",
                 "JetBrains Mono",
                 "Menlo",
@@ -53,34 +50,34 @@
               ],
             },
             colors: {
-              emerald: {50:"#eef1fe",100:"#dbe2fd",200:"#b7c5fa",300:"#7287ef",400:"#3d55dd",500:"#2b44cf",600:"#2138c9",700:"#1a2da3",800:"#1c2a72",900:"#dbe2fd",950:"#eef1fe"},
-              zinc: {50:"#101b2c",100:"#1a2942",200:"#24334f",300:"#3c4d67",400:"#67778f",500:"#93a2b8",600:"#aebdd2",700:"#d5dce8",800:"#e3e9f2",900:"#edf0f5",950:"#ffffff"},
-              orange: {50:"#fffbeb",100:"#fef3c7",200:"#fde68a",300:"#8a5d00",400:"#8a5d00",500:"#d97706",600:"#b45309",700:"#92400e",800:"#78350f",900:"#fef3c7",950:"#fffbeb"},
-              amber: {50:"#fffbeb",100:"#fef3c7",200:"#fde68a",300:"#8a5d00",400:"#8a5d00",500:"#d97706",600:"#b45309",700:"#92400e",800:"#78350f",900:"#fef3c7",950:"#fffbeb"},
-                            blue: {50:"#eef6fd",100:"#d9eafd",200:"#b3d4f7",300:"#2f83cf",400:"#2138c9",500:"#2273c4",600:"#2138c9",700:"#1a2da3",800:"#0b4a7d",900:"#d3e6f7",950:"#e3effa"},
+              emerald: {50:"#eaf2fc",100:"#d6e7fa",200:"#b0cff5",300:"#6ea8e1",400:"#6ea8e1",500:"#4a90d9",600:"#2f6fb4",700:"#265a94",800:"#1d456f",900:"#16283d",950:"#101c2b"},
+              zinc: {50:"#fafafa",100:"#f4f4f5",200:"#e4e4e7",300:"#d4d4d8",400:"#a1a1aa",500:"#71717a",600:"#52525b",700:"#3f3f46",800:"#27272a",900:"#18181b",950:"#09090b"},
+              orange: {50:"#fdf6e3",100:"#fbeec4",200:"#f5d67b",300:"#e8a13a",400:"#d9a84e",500:"#c47f17",600:"#a86a10",700:"#8a5d00",800:"#6e4a00",900:"#3a2c07",950:"#2a2005"},
+              amber: {50:"#fdf6e3",100:"#fbeec4",200:"#f5d67b",300:"#e8a13a",400:"#d9a84e",500:"#c47f17",600:"#a86a10",700:"#8a5d00",800:"#6e4a00",900:"#3a2c07",950:"#2a2005"},
+                            blue: {50:"#eef6fd",100:"#d9eafd",200:"#b3d4f7",300:"#2f83cf",400:"#6ea8e1",500:"#2273c4",600:"#6ea8e1",700:"#9cc3ee",800:"#0b4a7d",900:"#d3e6f7",950:"#e3effa"},
               sky: {50:"#f0f9ff",100:"#e0f2fe",200:"#bae6fd",300:"#0284c7",400:"#0077a8",500:"#0284c7",600:"#0369a1",700:"#075985",800:"#0c4a6e",900:"#e0f2fe",950:"#f0f9ff"},
-              purple: {50:"#faf5ff",100:"#f3e8ff",200:"#e9d5ff",300:"#7c3aed",400:"#6d28d9",500:"#7c3aed",600:"#6d28d9",700:"#5b21b6",800:"#4c1d95",900:"#f3e8ff",950:"#faf5ff"},
-              red: {50:"#fef2f2",100:"#fee2e2",200:"#fecaca",300:"#c62f3b",400:"#c62f3b",500:"#dc2626",600:"#b91c1c",700:"#991b1b",800:"#7f1d1d",900:"#fee2e2",950:"#fef2f2"},
-              green: {50:"#f0fdf4",100:"#dcfce7",200:"#bbf7d0",300:"#12805c",400:"#15803d",500:"#16a34a",600:"#15803d",700:"#166534",800:"#14532d",900:"#dcfce7",950:"#f0fdf4"},
+              purple: {50:"#faf5ff",100:"#f3e8ff",200:"#e9d5ff",300:"#7c3aed",400:"#b79ced",500:"#7c3aed",600:"#b79ced",700:"#5b21b6",800:"#4c1d95",900:"#f3e8ff",950:"#faf5ff"},
+              red: {50:"#fef2f2",100:"#fee2e2",200:"#fecaca",300:"#e07a7a",400:"#e07a7a",500:"#dc2626",600:"#b91c1c",700:"#991b1b",800:"#7f1d1d",900:"#fee2e2",950:"#fef2f2"},
+              green: {50:"#f0fdf4",100:"#dcfce7",200:"#bbf7d0",300:"#63b995",400:"#63b995",500:"#16a34a",600:"#63b995",700:"#166534",800:"#14532d",900:"#dcfce7",950:"#f0fdf4"},
               dark: {
-                bg: "#edf0f5",
-                card: "#ffffff",
-                "card-hover": "#f6f8fc",
-                border: "#d5dce8",
-                "border-subtle": "#e3e9f2",
-                strong: "#9fb0c6",
-                text: "#101b2c",
-                muted: "#3c4d67",
-                dim: "#67778f",
-                accent: "#2138c9",
-                "accent-hover": "#1a2da3",
-                "accent-dim": "rgba(33, 56, 201, 0.08)",
-                success: "#12805c",
-                "success-dim": "rgba(18, 128, 92, 0.1)",
-                warning: "#b45309",
+                bg: "#1e1e1e",
+                card: "#2a2a2a",
+                "card-hover": "#323232",
+                border: "#404040",
+                "border-subtle": "#343434",
+                strong: "#5a5a5a",
+                text: "#f0f0f0",
+                muted: "#bdbdbd",
+                dim: "#8f8f8f",
+                accent: "#6ea8e1",
+                "accent-hover": "#9cc3ee",
+                "accent-dim": "rgba(110, 168, 225, 0.12)",
+                success: "#63b995",
+                "success-dim": "rgba(99, 185, 149, 0.12)",
+                warning: "#d9a84e",
                 "warning-dim": "rgba(255, 178, 36, 0.12)",
-                danger: "#c62f3b",
-                "danger-dim": "rgba(198, 47, 59, 0.09)",
+                danger: "#e07a7a",
+                "danger-dim": "rgba(224, 122, 122, 0.1)",
               },
             },
           },
@@ -89,7 +86,7 @@
     </script>
 
     <!-- Stylesheets -->
-    <link href="assets/css/style.css?v=6.0.0" rel="stylesheet" />
+    <link href="assets/css/style.css?v=7.0.0" rel="stylesheet" />
 
     <style>
       .custom-scroll::-webkit-scrollbar {
@@ -138,7 +135,7 @@
             <div class="flex items-center gap-2 text-emerald-400 text-xs font-mono mb-2 uppercase tracking-wider">
               <span class="kbd-cap bg-emerald-600/15 border-emerald-500/30 text-emerald-400 px-2 py-0.5 text-[10px]">ENTWICKLUNGS-HISTORIE</span>
               <span class="text-dark-dim">·</span>
-              <span class="text-emerald-400 font-bold">v6.0.0 LIVE</span>
+              <span class="text-emerald-400 font-bold">v7.0.0 LIVE</span>
             </div>
             <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2.5">
               <span>Changelog &amp; Roadmap</span>
@@ -175,7 +172,7 @@
         <!-- v4.0.0 -->
                 <!-- v4.1.0 -->
                 <!-- v5.0.0 -->
-                <!-- v6.0.0 · AKTUELL -->
+                <!-- v7.0.0 · AKTUELL -->
         <article class="bg-dark-card border border-emerald-500/40 rounded-xl p-5 sm:p-6 space-y-3.5 shadow-sm relative">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-dark-border pb-3">
             <div class="flex items-center gap-2.5 flex-wrap">
@@ -780,7 +777,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="assets/js/lucide.min.js?v=6.0.0"></script>
+    <script src="assets/js/lucide.min.js?v=7.0.0"></script>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         if (window.lucide) {
@@ -866,12 +863,12 @@
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
           navigator.serviceWorker
-            .register("sw.js?v=6.0.0")
+            .register("sw.js?v=7.0.0")
             .then((reg) => console.log("PWA Service Worker registered successfully", reg))
             .catch((err) => console.error("PWA Service Worker registration failed", err));
         });
       }
     </script>
-      <script src="assets/js/nav.js?v=6.0.0"></script>
+      <script src="assets/js/nav.js?v=7.0.0"></script>
   </body>
 </html>

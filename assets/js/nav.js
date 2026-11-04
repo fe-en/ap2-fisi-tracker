@@ -1,4 +1,4 @@
-/* KARTEIKASTEN v6: Navigation ohne Header — Kasten links, Dock unten */
+/* VERSION A v7: Navigation ohne Header — Kasten links, Dock unten */
 (function () {
   var page = (location.pathname.split("/").pop() || "index.html").toLowerCase();
   if (page === "" ) page = "index.html";
@@ -25,7 +25,7 @@
     '<a class="brand" href="index.html">AP2 FISI<small>Abschlussprüfung Teil 2</small></a>' +
     "<nav>" + links(items) + "</nav>" +
     '<div class="rail-foot"><div class="exam">Prüfung am<span>25.11.2026</span></div>' +
-    '<div>Version <strong>v6.0.0</strong> · offline</div>' +
+    '<div>Version <strong>v7.0.0</strong> · offline</div>' +
     '<div style="margin-top:6px">Daten bleiben auf diesem Gerät.</div></div>';
   var dockItems = [items[0], items[1], items[3], items[4], items[5]];
   var dock = document.createElement("nav");
