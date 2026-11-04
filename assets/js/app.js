@@ -183,14 +183,12 @@ const app = {
       const questions = window.ANKI_QUESTIONS || {};
       const cards = questions[topicId] || [];
       if (!cards.length) return;
-      this.currentTopicId = topicId;
-      this.allTopicCards = [...cards];
-      this.cards = [...cards];
+      this.open(topicId);
       this.start("spaced");
     },
 
-    renderAnkiDeckOverview() {
-      const container = document.getElementById("ankiDeckOverview");
+    renderAnkiDeckOverview(targetId = "ankiDeckOverview") {
+      const container = document.getElementById(targetId);
       if (!container) return;
       const questions = window.ANKI_QUESTIONS || {};
       const now = Date.now();
@@ -2586,6 +2584,10 @@ const app = {
       } else {
         if (strongestEl) strongestEl.textContent = "—";
         if (weakestEl) weakestEl.textContent = "—";
+      }
+
+      if (this.anki?.renderAnkiDeckOverview) {
+        this.anki.renderAnkiDeckOverview("dashboardAnkiDeckOverview");
       }
 
     } catch (err) {

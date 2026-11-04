@@ -662,57 +662,25 @@
 
         <!-- Right: Focus Station & Heatmap (5 Cols) -->
         <div class="lg:col-span-5 flex flex-col gap-4">
-          <!-- Pomodoro Focus Station -->
-          <div class="p-4 sm:p-5 rounded-xl border border-dark-border bg-dark-card flex flex-col justify-between">
-            <div class="flex items-center justify-between mb-1.5">
+          <!-- Anki deck overview -->
+          <div class="p-4 sm:p-5 rounded-xl border border-dark-border bg-dark-card">
+            <div class="flex items-center justify-between mb-3">
               <div class="flex items-center gap-2">
-                <i data-lucide="clock" class="w-4 h-4 text-dark-muted"></i>
+                <i data-lucide="layers" class="w-4 h-4 text-emerald-400"></i>
                 <span class="font-mono text-[11px] uppercase tracking-wider text-dark-muted font-bold">
-                  Focus Timer
+                  Lernkarten
                 </span>
               </div>
-              <!-- Presets -->
-              <div class="flex items-center gap-1">
-                <button
-                  onclick="app.setPomoTime(15)"
-                  class="px-2 py-0.5 rounded text-[10px] font-mono text-dark-muted hover:text-white border border-dark-border bg-dark-bg hover:border-dark-strong transition-colors"
-                >
-                  15m
-                </button>
-                <button
-                  onclick="app.setPomoTime(25)"
-                  class="px-2 py-0.5 rounded text-[10px] font-mono text-dark-muted hover:text-white border border-dark-border bg-dark-bg hover:border-dark-strong transition-colors"
-                >
-                  25m
-                </button>
-                <button
-                  onclick="app.setPomoTime(45)"
-                  class="px-2 py-0.5 rounded text-[10px] font-mono text-dark-muted hover:text-white border border-dark-border bg-dark-bg hover:border-dark-strong transition-colors"
-                >
-                  45m
-                </button>
-              </div>
-            </div>
-
-            <!-- Digital Readout + Play Button -->
-            <div class="flex items-center justify-between my-1.5">
-              <div id="pomoTimer" class="font-mono text-3xl sm:text-4xl font-black text-white tabular-nums tracking-tight">
-                25:00
-              </div>
               <button
-                id="pomoBtn"
-                onclick="app.togglePomodoro()"
-                class="w-10 h-10 rounded-lg bg-dark-border hover:bg-emerald-600 text-dark-muted hover:text-white flex items-center justify-center transition-all duration-200"
-                aria-label="Timer starten / stoppen"
+                onclick="app.anki.openGlobalWeaknesses()"
+                class="px-2.5 py-1.5 rounded-lg border border-dark-border text-[10px] font-mono text-dark-muted hover:text-orange-400 hover:border-orange-500/50 transition-colors"
               >
-                <i data-lucide="play" class="w-4 h-4 ml-0.5"></i>
+                Schwächen
               </button>
             </div>
-            <div class="text-[10px] font-mono text-dark-dim">
-              Keine Ablenkung · Intervalle mit Pausen festigen den Lernerfolg
-            </div>
+            <p class="text-[11px] text-dark-dim mb-3">New, Learn und Due pro Deck</p>
+            <div id="dashboardAnkiDeckOverview"></div>
           </div>
-
           <!-- 80-Days Activity Heatmap -->
           <div class="p-4 sm:p-5 rounded-xl border border-dark-border bg-dark-card flex-1 flex flex-col justify-between">
             <div>
