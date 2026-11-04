@@ -597,14 +597,6 @@
                 <i data-lucide="bookmark" class="w-3.5 h-3.5 text-amber-400"></i>
                 <span>Gemerkt (<span id="bookmarkedCount" class="font-bold">0</span>)</span>
               </button>
-              <button
-                onclick="app.anki.openGlobalWeaknesses()"
-                class="w-full sm:w-auto py-2.5 px-3 rounded-lg border border-dark-border hover:border-orange-500/50 bg-dark-bg text-dark-muted hover:text-orange-400 font-mono text-xs flex items-center justify-center gap-1.5 transition-colors group"
-                title="Fällige und unsichere Karten aus allen Themen üben"
-              >
-                <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-orange-400"></i>
-                <span>Globale Schwächen</span>
-              </button>
             </div>
           </div>
 
@@ -665,30 +657,23 @@
           <!-- Anki deck overview -->
           <div class="p-4 sm:p-5 rounded-xl border border-dark-border bg-dark-card">
             <div class="inline-flex w-full rounded-lg bg-dark-bg border border-dark-border p-1 text-xs font-mono mb-4">
-              <button id="dashboardRecommendationTab" type="button" onclick="app.showDashboardAnkiTab('recommendation')" class="flex-1 rounded-md bg-dark-card px-3 py-2 text-white transition-colors">
-                Empfehlung
+              <button id="dashboardWeaknessTab" type="button" onclick="app.anki.openGlobalWeaknesses()" class="flex-1 rounded-md bg-dark-card px-3 py-2 text-white transition-colors">
+                Globale Schwächen
               </button>
               <button id="dashboardLearningTab" type="button" onclick="app.showDashboardAnkiTab('learning')" class="flex-1 rounded-md px-3 py-2 text-dark-muted hover:text-white transition-colors">
                 Lernen
               </button>
             </div>
-            <div id="dashboardRecommendationView">
+            <div id="dashboardWeaknessView">
               <div class="flex items-center gap-2 mb-2">
-                <i data-lucide="sparkles" class="w-4 h-4 text-emerald-400"></i>
+                <i data-lucide="alert-triangle" class="w-4 h-4 text-orange-400"></i>
                 <span class="font-mono text-[11px] uppercase tracking-wider text-dark-muted font-bold">
-                  Intelligente Lernempfehlung
+                  Fällige und unsichere Karten
                 </span>
               </div>
-              <p id="dashboardRecShort" class="text-sm text-white leading-relaxed">
-                Berechne deinen optimalen Lernpfad anhand deiner bisherigen Antworten...
+              <p class="text-sm text-white leading-relaxed">
+                Wiederhole mit einem Klick nur Karten, die heute fällig sind oder die du noch nicht sicher kannst.
               </p>
-              <button
-                onclick="app.startSmartFocus()"
-                class="w-full mt-4 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs font-mono flex items-center justify-center gap-2 transition-colors"
-              >
-                <i data-lucide="play" class="w-3.5 h-3.5 fill-white"></i>
-                Lernsitzung starten
-              </button>
             </div>
             <div id="dashboardLearningView" class="hidden">
               <div class="flex items-center justify-between mb-3">
@@ -698,12 +683,6 @@
                     Lernkarten
                   </span>
                 </div>
-                <button
-                  onclick="app.anki.openGlobalWeaknesses()"
-                  class="px-2.5 py-1.5 rounded-lg border border-dark-border text-[10px] font-mono text-dark-muted hover:text-orange-400 hover:border-orange-500/50 transition-colors"
-                >
-                  Schwächen
-                </button>
               </div>
               <p class="text-[11px] text-dark-dim mb-3">New, Learn und Due pro Deck</p>
               <div id="dashboardAnkiDeckOverview"></div>
