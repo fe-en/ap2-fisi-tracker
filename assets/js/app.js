@@ -470,17 +470,16 @@ const app = {
           const counts = cards.reduce(
             (result, card) => {
               const cardData = app.state.anki?.[card.id];
-              const urgent =
-                cardData &&
-                ((cardData.nextReview > 0 && cardData.nextReview <= now) ||
-                  cardData.level <= 2 ||
-                  cardData.confidence >= 2 ||
-                  cardData.markedHard);
 
-              if (urgent) {
-                result.urgent++;
-              } else if (!cardData || cardData.level === 0) {
+              if (!cardData || cardData.level === 0) {
                 result.toLearn++;
+              } else if (
+                (cardData.nextReview > 0 && cardData.nextReview <= now) ||
+                cardData.level <= 2 ||
+                cardData.confidence >= 2 ||
+                cardData.markedHard
+              ) {
+                result.urgent++;
               } else {
                 result.known++;
               }
@@ -501,8 +500,8 @@ const app = {
           <i data-lucide="bar-chart-3" class="w-4 h-4 text-orange-400"></i>
         </div>
         <div class="flex flex-wrap gap-x-3 gap-y-1 mb-4 text-[10px] font-mono text-dark-muted">
-          <span><i class="inline-block w-2 h-2 rounded-full bg-sky-400 mr-1"></i>To learn</span>
           <span><i class="inline-block w-2 h-2 rounded-full bg-emerald-400 mr-1"></i>Known</span>
+          <span><i class="inline-block w-2 h-2 rounded-full bg-sky-400 mr-1"></i>To learn</span>
           <span><i class="inline-block w-2 h-2 rounded-full bg-rose-400 mr-1"></i>Urgent</span>
         </div>
         <div class="space-y-3">
@@ -517,8 +516,8 @@ const app = {
                   <span class="text-dark-muted shrink-0">${toLearn} · ${known} · ${urgent}</span>
                 </div>
                 <div class="h-2 rounded-full bg-dark-border overflow-hidden flex" title="To learn: ${toLearn}, Known: ${known}, Urgent: ${urgent}">
-                  <div class="h-full bg-sky-400" style="width: ${toLearnWidth}%"></div>
                   <div class="h-full bg-emerald-400" style="width: ${knownWidth}%"></div>
+                  <div class="h-full bg-sky-400" style="width: ${toLearnWidth}%"></div>
                   <div class="h-full bg-rose-400" style="width: ${urgentWidth}%"></div>
                 </div>
               </div>
