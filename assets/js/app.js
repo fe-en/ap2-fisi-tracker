@@ -149,6 +149,22 @@ const app = {
       return this.getCardTopicId(card?.id) || "__global__";
     },
 
+    getGlobalWeaknessCards(now = Date.now()) {
+      const questions = window.ANKI_QUESTIONS || {};
+      return Object.values(questions)
+        .flat()
+        .filter((card) => {
+          const cardData = app.state.anki?.[card.id];
+          return (
+            cardData &&
+            ((cardData.nextReview > 0 && cardData.nextReview <= now) ||
+              cardData.level <= 2 ||
+              cardData.confidence >= 2 ||
+              cardData.markedHard)
+          );
+        });
+    },
+
     toggleBookmark(cardId) {
       if (!app.state.bookmarks) app.state.bookmarks = [];
       const currentCard = this.cards && this.cards[this.currentIndex];
@@ -369,8 +385,7 @@ const app = {
     },
 
     openGlobalWeaknesses() {
-      const questions = window.ANKI_QUESTIONS || {};
-      const cards = Object.values(questions).flat();
+      const cards = this.getGlobalWeaknessCards();
       this.currentTopicId = "__global__";
       this.cardTopicMap = {};
       cards.forEach((card) => this.getCardTopicId(card.id));
@@ -448,17 +463,14 @@ const app = {
       if (!container) return;
       const allQuestions = window.ANKI_QUESTIONS || {};
       const now = Date.now();
+      const weaknessCardIds = new Set(
+        this.getGlobalWeaknessCards(now).map((card) => card.id),
+      );
       const weaknessCards = Object.entries(allQuestions).flatMap(([topicId, cards]) =>
-        cards.map((card) => ({ topicId, card })),
-      ).filter(({ card }) => {
-        const cardData = app.state.anki?.[card.id];
-        return cardData && (
-          (cardData.nextReview > 0 && cardData.nextReview <= now) ||
-          cardData.level <= 2 ||
-          cardData.confidence >= 2 ||
-          cardData.markedHard
-        );
-      });
+        cards
+          .filter((card) => weaknessCardIds.has(card.id))
+          .map((card) => ({ topicId, card })),
+      );
       const weaknessByTopic = [];
       AP2_DATA.forEach((category) => {
         category.topics.forEach((topic) => {
