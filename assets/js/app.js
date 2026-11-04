@@ -310,6 +310,7 @@ const app = {
       this.renderBatchSelector();
       this.renderAnkiDeckOverview();
       this.showAnkiTab("deck");
+      document.getElementById("ankiModeTabs")?.classList.remove("hidden");
       document.getElementById("globalWeaknessDistribution")?.classList.add("hidden");
       document.getElementById("globalWeaknessCardsControls")?.classList.remove("hidden");
 
@@ -376,6 +377,7 @@ const app = {
       this.renderBatchSelector();
       this.renderAnkiDeckOverview();
       this.showAnkiTab("deck");
+      document.getElementById("ankiModeTabs")?.classList.remove("hidden");
       document.getElementById("globalWeaknessDistribution")?.classList.add("hidden");
       document.getElementById("globalWeaknessCardsControls")?.classList.remove("hidden");
 
@@ -515,6 +517,7 @@ const app = {
       this.showGlobalWeaknessTab("distribution");
 
       this.renderBatchSelector();
+      document.getElementById("ankiModeTabs")?.classList.add("hidden");
       document.getElementById("ankiDeckOverview")?.classList.add("hidden");
       document.getElementById("ankiRecommendationView")?.classList.remove("hidden");
       document.getElementById("ankiModeView").classList.remove("hidden");

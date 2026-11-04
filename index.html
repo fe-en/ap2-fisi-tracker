@@ -659,13 +659,18 @@
             <button
               type="button"
               onclick="app.anki.openGlobalWeaknesses()"
-              class="w-full min-h-28 rounded-xl border border-orange-500/30 bg-orange-500/5 px-4 py-5 text-left hover:border-orange-400/60 hover:bg-orange-500/10 transition-colors"
+              class="group relative w-full min-h-28 overflow-hidden rounded-xl border border-orange-400/30 bg-gradient-to-br from-orange-500/15 via-dark-bg/60 to-dark-bg px-4 py-4 text-left shadow-[inset_3px_0_0_rgba(251,146,60,0.8)] transition-all hover:-translate-y-0.5 hover:border-orange-300/70 hover:shadow-[inset_4px_0_0_rgba(251,146,60,1),0_10px_28px_rgba(249,115,22,0.12)] focus:outline-none focus:ring-2 focus:ring-orange-400/70"
+              aria-label="Globale Schwächen öffnen"
             >
-              <span class="flex items-center gap-2 text-orange-400 font-mono text-xs font-bold">
-                <i data-lucide="alert-triangle" class="w-4 h-4"></i>
-                Globale Schwächen
+              <span class="pointer-events-none absolute -right-7 -top-8 h-24 w-24 rounded-full bg-orange-400/10 blur-2xl transition-opacity group-hover:opacity-100"></span>
+              <span class="relative flex items-start justify-between gap-3">
+                <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-orange-300/30 bg-orange-400/15 text-orange-300">
+                  <i data-lucide="layers-3" class="h-4 w-4"></i>
+                </span>
+                <i data-lucide="arrow-up-right" class="mt-1 h-4 w-4 text-orange-300/70 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"></i>
               </span>
-              <span class="block mt-2 text-sm font-semibold text-white">Fällige Karten wiederholen</span>
+              <span class="relative mt-3 block text-[11px] font-mono font-bold tracking-wide text-orange-300">Globale Schwächen</span>
+              <span class="relative mt-1 block text-sm font-semibold text-white">Fällige Karten wiederholen</span>
             </button>
           </div>
           <!-- 80-Days Activity Heatmap -->
@@ -1021,7 +1026,7 @@
               <p class="text-xs text-dark-muted mt-1">Wähle deinen Trainingsmodus für dieses Thema.</p>
             </div>
 
-            <div class="inline-flex w-full max-w-lg mx-auto rounded-lg bg-dark-bg border border-dark-border p-1 text-xs font-mono">
+            <div id="ankiModeTabs" class="inline-flex w-full max-w-lg mx-auto rounded-lg bg-dark-bg border border-dark-border p-1 text-xs font-mono">
               <button id="ankiDeckTab" type="button" onclick="app.anki.showAnkiTab('deck')" class="flex-1 rounded-md bg-dark-card px-3 py-2 text-white transition-colors">
                 Lernen
               </button>
