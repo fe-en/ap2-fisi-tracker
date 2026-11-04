@@ -76,6 +76,7 @@ const app = {
     repetitionCount: 0,
     batchSize: "all",
     loopEnabled: true,
+    cardTopicMap: {},
 
     setBatchSize(size) {
       this.batchSize = size;
@@ -128,6 +129,24 @@ const app = {
       const id = cardId || (this.cards && this.cards[this.currentIndex] && this.cards[this.currentIndex].id);
       if (!id || !app.state.bookmarks) return false;
       return app.state.bookmarks.includes(id);
+    },
+
+    getCardTopicId(cardId) {
+      if (!this.cardTopicMap[cardId]) {
+        const questions = window.ANKI_QUESTIONS || {};
+        for (const [topicId, cards] of Object.entries(questions)) {
+          if (cards.some((card) => card.id === cardId)) {
+            this.cardTopicMap[cardId] = topicId;
+            break;
+          }
+        }
+      }
+      return this.cardTopicMap[cardId] || null;
+    },
+
+    getStatsTopicId(card) {
+      if (this.currentTopicId !== "__global__") return this.currentTopicId;
+      return this.getCardTopicId(card?.id) || "__global__";
     },
 
     toggleBookmark(cardId) {
@@ -343,6 +362,59 @@ const app = {
       document.body.style.overflow = "hidden";
     },
 
+    openGlobalWeaknesses() {
+      const questions = window.ANKI_QUESTIONS || {};
+      const cards = Object.values(questions).flat();
+      this.currentTopicId = "__global__";
+      this.cardTopicMap = {};
+      cards.forEach((card) => this.getCardTopicId(card.id));
+      this.allTopicCards = [...cards];
+      this.cards = [...cards];
+      document.getElementById("ankiTopicTitle").textContent = "Globale Schwachstellen";
+
+      const rBtn = document.getElementById("ankiHeaderReportBtn");
+      if (rBtn) {
+        rBtn.classList.add("hidden");
+        rBtn.classList.remove("inline-flex");
+      }
+      const bmBtn = document.getElementById("ankiHeaderBookmarkBtn");
+      if (bmBtn) {
+        bmBtn.classList.add("hidden");
+        bmBtn.classList.remove("inline-flex");
+      }
+
+      const now = Date.now();
+      const dueCount = cards.filter((card) => {
+        const data = app.state.anki?.[card.id];
+        return data && data.nextReview > 0 && data.nextReview <= now;
+      }).length;
+      const weakCount = cards.filter((card) => {
+        const data = app.state.anki?.[card.id];
+        return data && (data.level <= 2 || data.confidence >= 2 || data.markedHard);
+      }).length;
+      const statsContainer = document.getElementById("ankiTopicStats");
+      if (statsContainer) {
+        statsContainer.innerHTML = `
+          <div class="p-3 bg-dark-warning/10 border border-dark-warning/30 rounded-xl text-xs font-mono text-amber-300 text-center max-w-lg mx-auto flex items-center justify-center gap-2 mt-4">
+            <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-400 shrink-0"></i>
+            <span><strong>${weakCount} Schwachstellen</strong> · ${dueCount} heute fällig · alle Themen zusammengeführt.</span>
+          </div>
+        `;
+        statsContainer.classList.remove("hidden");
+        app.refreshIcons();
+      }
+
+      this.renderBatchSelector();
+      document.getElementById("ankiModeView").classList.remove("hidden");
+      document.getElementById("ankiQuestionView").classList.add("hidden");
+      document.getElementById("ankiAnswerView").classList.add("hidden");
+      document.getElementById("ankiFinishView").classList.add("hidden");
+      document.getElementById("ankiModeBadge").classList.add("hidden");
+      document.getElementById("ankiProgress").style.width = "0%";
+      document.getElementById("ankiModal").classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+    },
+
     start(mode) {
       this.mode = mode;
       this.currentIndex = 0;
@@ -351,14 +423,16 @@ const app = {
 
       // Global Stats tracken (Session zählt ab Start)
       if (!app.state.ankiStats) app.state.ankiStats = {};
-      if (!app.state.ankiStats[this.currentTopicId]) {
+      if (this.currentTopicId !== "__global__" && !app.state.ankiStats[this.currentTopicId]) {
         app.state.ankiStats[this.currentTopicId] = {
           total: 0,
           correct: 0,
           sessions: 0,
         };
       }
-      app.state.ankiStats[this.currentTopicId].sessions++;
+      if (this.currentTopicId !== "__global__") {
+        app.state.ankiStats[this.currentTopicId].sessions++;
+      }
       app.save();
       app.updateStats(); // UI sofort aktualisieren
 
@@ -370,6 +444,10 @@ const app = {
         const filtered = pool.filter((card) => {
           const cardData = app.state.anki?.[card.id];
           if (!cardData) return false;
+          if (this.currentTopicId === "__global__") {
+            const isDue = cardData.nextReview > 0 && cardData.nextReview <= Date.now();
+            return isDue || cardData.level <= 2 || cardData.confidence >= 2 || cardData.markedHard;
+          }
           return cardData.confidence === 2 || cardData.confidence === 3 || cardData.level === 1;
         });
 
@@ -384,10 +462,23 @@ const app = {
         pool = filtered;
       }
 
-      // Karten für diese Session mischen (Fisher-Yates Shuffle)
-      for (let i = pool.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [pool[i], pool[j]] = [pool[j], pool[i]];
+      if (mode === "weaknesses" && this.currentTopicId === "__global__") {
+        const now = Date.now();
+        pool.sort((a, b) => {
+          const aData = app.state.anki[a.id];
+          const bData = app.state.anki[b.id];
+          const aDue = aData.nextReview > 0 && aData.nextReview <= now;
+          const bDue = bData.nextReview > 0 && bData.nextReview <= now;
+          if (aDue !== bDue) return aDue ? -1 : 1;
+          if (aData.level !== bData.level) return aData.level - bData.level;
+          return (aData.nextReview || 0) - (bData.nextReview || 0);
+        });
+      } else {
+        // Karten für diese Session mischen (Fisher-Yates Shuffle)
+        for (let i = pool.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [pool[i], pool[j]] = [pool[j], pool[i]];
+        }
       }
 
       // Stapelgröße anwenden (falls numerisch gewählt und kleiner als Pool)
@@ -502,20 +593,21 @@ const app = {
       // Global-Stats: confidence < 2 zählt als "richtig beantwortet"
       const isCorrect = confidence < 2;
 
+      const currentCard = this.cards[this.currentIndex];
+      const statsTopicId = this.getStatsTopicId(currentCard);
       if (!app.state.ankiStats) app.state.ankiStats = {};
-      if (!app.state.ankiStats[this.currentTopicId]) {
-        app.state.ankiStats[this.currentTopicId] = {
+      if (!app.state.ankiStats[statsTopicId]) {
+        app.state.ankiStats[statsTopicId] = {
           total: 0,
           correct: 0,
           sessions: 0,
         };
       }
-      const gStats = app.state.ankiStats[this.currentTopicId];
+      const gStats = app.state.ankiStats[statsTopicId];
       gStats.total++;
       if (isCorrect) gStats.correct++;
 
       // Card-Data mit erweitertem Schema (rückwärtskompatibel)
-      const currentCard = this.cards[this.currentIndex];
       const cardId = currentCard.id;
       if (!app.state.anki) app.state.anki = {};
       if (!app.state.anki[cardId]) {
@@ -682,7 +774,8 @@ const app = {
     openReportModal() {
       if (!this.cards || !this.cards[this.currentIndex]) return;
       const card = this.cards[this.currentIndex];
-      const topic = app.findTopic(this.currentTopicId);
+      const topicId = this.getStatsTopicId(card);
+      const topic = app.findTopic(topicId);
       const topicTitle = topic ? topic.title : `Thema ${this.currentTopicId}`;
 
       // Ansicht zurücksetzen
@@ -731,14 +824,15 @@ const app = {
     getReportPayload() {
       if (!this.cards || !this.cards[this.currentIndex]) return null;
       const card = this.cards[this.currentIndex];
-      const topic = app.findTopic(this.currentTopicId);
-      const topicTitle = topic ? topic.title : `Thema ${this.currentTopicId}`;
+      const topicId = this.getStatsTopicId(card);
+      const topic = app.findTopic(topicId);
+      const topicTitle = topic ? topic.title : `Thema ${topicId}`;
       const feedback = (document.getElementById("reportFeedbackText")?.value || "").trim();
 
       return {
         tracker: "AP2 FISI Tracker",
         topicTitle,
-        topicId: this.currentTopicId,
+        topicId,
         cardNumber: this.currentIndex + 1,
         totalCards: this.cards.length,
         cardId: card.id,

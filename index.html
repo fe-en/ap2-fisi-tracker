@@ -597,6 +597,14 @@
                 <i data-lucide="bookmark" class="w-3.5 h-3.5 text-amber-400"></i>
                 <span>Gemerkt (<span id="bookmarkedCount" class="font-bold">0</span>)</span>
               </button>
+              <button
+                onclick="app.anki.openGlobalWeaknesses()"
+                class="w-full sm:w-auto py-2.5 px-3 rounded-lg border border-dark-border hover:border-orange-500/50 bg-dark-bg text-dark-muted hover:text-orange-400 font-mono text-xs flex items-center justify-center gap-1.5 transition-colors group"
+                title="Fällige und unsichere Karten aus allen Themen üben"
+              >
+                <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-orange-400"></i>
+                <span>Globale Schwächen</span>
+              </button>
             </div>
           </div>
 
@@ -1343,7 +1351,7 @@
               id="importFile"
               accept=".json"
               class="hidden"
-              onchange="app.importData(event)"
+              onchange="app.importData(this)"
             />
           </label>
         </div>
