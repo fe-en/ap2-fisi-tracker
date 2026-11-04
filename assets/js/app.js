@@ -476,11 +476,17 @@ const app = {
         category.topics.forEach((topic) => {
           const topicCards = weaknessCards.filter(({ topicId }) => topicId === topic.id);
           if (topicCards.length === 0) return;
+          const totalTopicCards = allQuestions[topic.id]?.length || 0;
           const due = topicCards.filter(({ card }) => {
             const cardData = app.state.anki[card.id];
             return cardData.nextReview > 0 && cardData.nextReview <= now;
           }).length;
-          weaknessByTopic.push({ topic, count: topicCards.length, due });
+          weaknessByTopic.push({
+            topic,
+            count: topicCards.length,
+            totalTopicCards,
+            due,
+          });
         });
       });
       if (weaknessByTopic.length === 0) {
@@ -499,14 +505,16 @@ const app = {
           <i data-lucide="bar-chart-3" class="w-4 h-4 text-orange-400"></i>
         </div>
         <div class="space-y-3">
-          ${weaknessByTopic.map(({ topic, count, due }) => {
-            const share = Math.round((count / totalWeaknesses) * 100);
+          ${weaknessByTopic.map(({ topic, count, totalTopicCards, due }) => {
+            const share = totalTopicCards > 0
+              ? Math.round((count / totalTopicCards) * 100)
+              : 0;
             const width = Math.max(Math.round((count / maxWeaknesses) * 100), 4);
             return `
               <div class="text-[11px] font-mono">
                 <div class="flex items-center justify-between gap-2 mb-1">
                   <span class="text-white truncate" title="${topic.title}">${topic.title}</span>
-                  <span class="text-dark-muted shrink-0">${count} · ${share}%${due > 0 ? ` · ${due} fällig` : ""}</span>
+                  <span class="text-dark-muted shrink-0">${count} / ${totalTopicCards} · ${share}%</span>
                 </div>
                 <div class="h-1.5 rounded-full bg-dark-border overflow-hidden">
                   <div class="h-full rounded-full bg-orange-400" style="width: ${width}%"></div>
