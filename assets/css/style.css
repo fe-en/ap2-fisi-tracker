@@ -1,8 +1,9 @@
 /* ============================================================
-   AP2 TRACKER FISI · BLAUPAUSE (v4)
-   Designsystem nach dem Netzplan: Cyanotypie-Blau, Kreidelinien,
-   Millimeterpapier und eine einzige Signalfarbe — das orange
-   Patchkabel. Mono nur für echte Daten (IPs, Zahlen, Code).
+   AP2 TRACKER FISI · SCHWÄCHEN-KARTE (v4.1)
+   Designsprache der Karte „Globale Schwächen / Fällige Karten
+   wiederholen": warmes Fast-Schwarz, Orange als einzige
+   Signalfarbe, Gradient-Glow, eingesetzte Kante links,
+   Hover mit Lift und Glow. Alles andere bleibt ruhig.
    ============================================================ */
 
 /* ----- FONTS (Self-hosted, 100% offline, zero CDN) ----- */
@@ -51,27 +52,27 @@
 
 /* ----- DESIGN TOKENS ----- */
 :root {
-  --bg: #0a2438;              /* Blaupause / Cyanotypie-Grund */
-  --bg-deep: #071a2a;         /* Vertiefte Zeichenfläche */
-  --surface: #0f2f47;         /* Zeichenblatt / Panel */
-  --surface-raised: #143a56;  /* Erhobene Blätter / Menüs */
-  --surface-hover: #174463;
-  --surface-inset: #0a2438;
+  --bg: #0b0908;              /* Warmes Fast-Schwarz */
+  --bg-deep: #080606;
+  --surface: #161211;         /* Kartenfläche */
+  --surface-raised: #1f1a17;
+  --surface-hover: #241d19;
+  --surface-inset: #0b0908;
 
-  --border: #23506f;          /* Kreidelinie */
-  --border-subtle: #173a54;
-  --border-strong: #3f759c;
+  --border: #2b2320;
+  --border-subtle: #201916;
+  --border-strong: #4a3a30;
 
-  --ink: #edf5fa;             /* Kreideweiß */
-  --ink-secondary: #a8c2d4;
-  --ink-muted: #7fa0b7;
-  --ink-dim: #5d8099;
+  --ink: #f6f1ec;
+  --ink-secondary: #c9bab0;
+  --ink-muted: #a08b7d;
+  --ink-dim: #786557;
 
-  --accent: #58aade;          /* Zeichenblau (Links, aktiver Zustand) */
-  --accent-strong: #2e86b8;   /* Button-Grund */
-  --accent-muted: rgba(88, 170, 222, 0.13);
-  --patch: #ff7a29;           /* Patchkabel-Orange: NUR Prüfung/Fokus/Live */
-  --patch-muted: rgba(255, 122, 41, 0.13);
+  --accent: #fb923c;          /* Orange 400: Labels, Icons */
+  --accent-strong: #ea580c;   /* Orange 600: Buttons */
+  --accent-muted: rgba(249, 115, 22, 0.13);
+  --patch: #fb923c;
+  --patch-muted: rgba(249, 115, 22, 0.13);
 
   --success: #35c79a;
   --success-muted: rgba(53, 199, 154, 0.12);
@@ -98,14 +99,9 @@ html {
 }
 
 body {
-  /* Millimeterpapier: feines 28px-Raster, grobes 140px-Raster */
   background-color: var(--bg);
-  background-image:
-    linear-gradient(rgba(88, 170, 222, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(88, 170, 222, 0.055) 1px, transparent 1px),
-    linear-gradient(rgba(88, 170, 222, 0.09) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(88, 170, 222, 0.09) 1px, transparent 1px);
-  background-size: 28px 28px, 28px 28px, 140px 140px, 140px 140px;
+  background-image: radial-gradient(900px 460px at 50% -60px, rgba(249, 115, 22, 0.06), transparent 70%);
+  background-repeat: no-repeat;
   color: var(--ink);
   min-height: 100vh;
   margin: 0;
@@ -128,10 +124,6 @@ p { text-wrap: pretty; }
 
 .tabular-nums { font-variant-numeric: tabular-nums; }
 
-/* Radius-Disziplin der Zeichnung: keine weichen SaaS-Rundungen */
-.rounded-xl, .rounded-2xl { border-radius: 6px !important; }
-.rounded-lg { border-radius: 5px !important; }
-.rounded-md { border-radius: 4px !important; }
 
 /* ----- TASTENKAPPE (echte Tasten, keine Deko) ----- */
 .kbd-cap {
@@ -172,14 +164,21 @@ p { text-wrap: pretty; }
 
 /* ----- NETZPLAN / HERO ----- */
 .plan-sheet {
-  background:
-    linear-gradient(rgba(88, 170, 222, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(88, 170, 222, 0.07) 1px, transparent 1px),
-    var(--surface);
-  background-size: 28px 28px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.15), var(--surface) 58%);
+  border: 1px solid rgba(251, 146, 60, 0.3);
+  border-radius: 12px;
+  box-shadow: inset 4px 0 0 rgba(251, 146, 60, 0.85);
   position: relative;
+}
+.plan-sheet::after {
+  content: '';
+  position: absolute;
+  right: -28px; top: -32px;
+  width: 96px; height: 96px;
+  border-radius: 9999px;
+  background: rgba(251, 146, 60, 0.1);
+  filter: blur(32px);
+  pointer-events: none;
 }
 .plan-title {
   font-family: var(--font-cond);
@@ -307,4 +306,16 @@ svg.lucide { display: inline-block; vertical-align: -0.125em; width: 1.15em; hei
   .no-print { display: none !important; }
   .topic-card { border: 1px solid #ccc; break-inside: avoid; margin-bottom: 8px; color: black; background: white; }
   .topic-body { display: block !important; opacity: 1 !important; }
+}
+
+/* ----- GLOW-KARTE (Referenz: „Globale Schwächen") ----- */
+.glow-card {
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.15), var(--surface) 58%) !important;
+  border-color: rgba(251, 146, 60, 0.3) !important;
+  box-shadow: inset 3px 0 0 rgba(251, 146, 60, 0.8);
+}
+a.glow-card, button.glow-card { transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease; }
+a.glow-card:hover, button.glow-card:hover {
+  border-color: rgba(253, 186, 116, 0.7) !important;
+  box-shadow: inset 4px 0 0 rgba(251, 146, 60, 1), 0 10px 28px rgba(249, 115, 22, 0.12);
 }

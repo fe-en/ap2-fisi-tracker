@@ -86,7 +86,7 @@
       name="apple-mobile-web-app-status-bar-style"
       content="black-translucent"
     />
-    <meta name="theme-color" content="#0a2438" />
+    <meta name="theme-color" content="#0b0908" />
     <link rel="canonical" href="https://ap2-fisi.cwillam.de/" />
 
     <title>
@@ -117,7 +117,7 @@
     />
 
     <!-- Tailwind 3 Engine (Local, Zero-CDN) -->
-    <script src="assets/js/tailwind.js?v=4.0.0"></script>
+    <script src="assets/js/tailwind.js?v=4.1.0"></script>
     <script>
       tailwind.config = {
         darkMode: "class",
@@ -144,20 +144,20 @@
               ],
             },
             colors: {
-              emerald: {50:"#eef7fd",100:"#d9edfa",200:"#b0d8f2",300:"#7dbde7",400:"#58aade",500:"#3694cf",600:"#2e86b8",700:"#256d96",800:"#1f5678",900:"#173f59",950:"#0f2f47"},
-              zinc: {50:"#f2f8fc",100:"#e3eef6",200:"#c3d9e8",300:"#9dbfd6",400:"#729fba",500:"#4f7f9c",600:"#3f759c",700:"#33566f",800:"#1c425e",900:"#122f45",950:"#0a2438"},
+              emerald: {50:"#fff7ed",100:"#ffedd5",200:"#fed7aa",300:"#fdba74",400:"#fb923c",500:"#f97316",600:"#ea580c",700:"#c2410c",800:"#9a3412",900:"#7c2d12",950:"#431407"},
+              zinc: {50:"#fafaf9",100:"#f5f5f4",200:"#e7e5e4",300:"#d6d3d1",400:"#a8a29e",500:"#78716c",600:"#57534e",700:"#44403c",800:"#292524",900:"#1c1917",950:"#0c0a09"},
                             dark: {
-                bg: "#0a2438", // Pure obsidian / Zinc 950
-                card: "#0f2f47", // Dense workbench surface
-                "card-hover": "#143a56",
-                border: "#23506f", // Hairline border
-                "border-subtle": "#173a54",
-                text: "#edf5fa", // High-contrast Zinc 100
-                muted: "#a8c2d4", // Zinc 400
-                dim: "#7fa0b7", // Zinc 500
-                accent: "#2e86b8", // Crisp Emerald (AP2 FISI)
-                "accent-hover": "#3694cf",
-                "accent-dim": "rgba(88, 170, 222, 0.13)",
+                bg: "#0b0908", // Pure obsidian / Zinc 950
+                card: "#161211", // Dense workbench surface
+                "card-hover": "#1f1a17",
+                border: "#2b2320", // Hairline border
+                "border-subtle": "#201916",
+                text: "#f6f1ec", // High-contrast Zinc 100
+                muted: "#c9bab0", // Zinc 400
+                dim: "#a08b7d", // Zinc 500
+                accent: "#ea580c", // Crisp Emerald (AP2 FISI)
+                "accent-hover": "#f97316",
+                "accent-dim": "rgba(249, 115, 22, 0.13)",
                 success: "#35c79a", // Crisp Emerald
                 "success-dim": "rgba(53, 199, 154, 0.12)",
                 warning: "#ffb224", // Amber
@@ -172,7 +172,7 @@
     </script>
 
     <!-- Custom High-Craft CSS Tokens & Keycaps -->
-    <link href="assets/css/style.css?v=4.0.0" rel="stylesheet" />
+    <link href="assets/css/style.css?v=4.1.0" rel="stylesheet" />
   </head>
 
   <body class="flex flex-col min-h-screen bg-dark-bg text-dark-text antialiased selection:bg-emerald-600 selection:text-white">
@@ -205,7 +205,7 @@
             <div class="flex items-center gap-1.5"><span class="font-bold text-base tracking-tight text-white group-hover:text-emerald-400 transition-colors">Tracker</span><span class="text-[9px] font-mono font-bold bg-emerald-950/60 border border-emerald-500/40 text-emerald-400 px-1.5 py-0.5 rounded">FISI</span></div>
           </a>
           <span class="hidden sm:inline-flex items-center font-mono text-[10px] text-dark-dim border border-dark-border rounded px-2 py-0.5 uppercase tracking-wider">
-            v4.0.0 · Offline
+            v4.1.0 · Offline
           </span>
         </div>
 
@@ -336,7 +336,7 @@
           </div>
           <div class="flex items-center justify-between">
             <span>Version:</span>
-            <span>v4.0.0</span>
+            <span>v4.1.0</span>
           </div>
         </div>
       </div>
@@ -351,7 +351,10 @@
       <section class="plan-sheet overflow-hidden" aria-labelledby="planTitle">
         <div class="grid lg:grid-cols-2">
           <div class="p-6 sm:p-8 flex flex-col justify-center">
-            <p class="text-sm text-dark-muted mb-3">Abschlussprüfung Teil 2 · Systemintegration</p>
+            <p class="flex items-center gap-2.5 mb-4">
+              <span class="flex h-9 w-9 items-center justify-center rounded-lg border border-orange-300/30 bg-orange-400/15 text-orange-300"><i data-lucide="layers-3" class="h-4 w-4"></i></span>
+              <span class="text-[11px] font-mono font-bold tracking-wide text-orange-300">Abschlussprüfung Teil 2 · Systemintegration</span>
+            </p>
             <h1 id="planTitle" class="plan-title text-4xl sm:text-5xl text-white">
               Dein Netzplan<br />bis zur AP2.
             </h1>
@@ -372,25 +375,25 @@
             <svg viewBox="0 0 660 300" class="w-full h-auto block" role="presentation">
               <defs>
                 <pattern id="planDots" width="28" height="28" patternUnits="userSpaceOnUse">
-                  <circle cx="1" cy="1" r="1" fill="#23506f" />
+                  <circle cx="1" cy="1" r="1" fill="#2b2320" />
                 </pattern>
               </defs>
               <rect width="660" height="300" fill="url(#planDots)" />
-              <path d="M40 150 H200 L260 84 H420 L480 150 H620" fill="none" stroke="#58aade" stroke-width="1.5" stroke-dasharray="5 4" />
-              <circle class="packet" cx="40" cy="150" r="5" fill="#ff7a29" />
-              <g font-family="IBM Plex Mono, monospace" font-size="11" fill="#a8c2d4">
-                <g stroke="#edf5fa" stroke-width="1.5" fill="#0f2f47">
+              <path d="M40 150 H200 L260 84 H420 L480 150 H620" fill="none" stroke="#fb923c" stroke-width="1.5" stroke-dasharray="5 4" />
+              <circle class="packet" cx="40" cy="150" r="5" fill="#fb923c" />
+              <g font-family="IBM Plex Mono, monospace" font-size="11" fill="#c9bab0">
+                <g stroke="#f6f1ec" stroke-width="1.5" fill="#161211">
                   <rect x="16" y="132" width="48" height="36" rx="3" /><rect x="196" y="66" width="128" height="36" rx="3" />
                   <rect x="372" y="66" width="96" height="36" rx="3" /><rect x="456" y="132" width="48" height="36" rx="3" />
                   <rect x="452" y="198" width="96" height="36" rx="3" /><rect x="596" y="132" width="48" height="36" rx="3" />
                 </g>
-                <path d="M228 84h64M228 92h42M404 84h32M404 92h32M484 216h32" stroke="#58aade" stroke-width="2" />
-                <path d="M480 168 V198" stroke="#58aade" stroke-width="1.5" stroke-dasharray="4 3" />
+                <path d="M228 84h64M228 92h42M404 84h32M404 92h32M484 216h32" stroke="#fb923c" stroke-width="2" />
+                <path d="M480 168 V198" stroke="#fb923c" stroke-width="1.5" stroke-dasharray="4 3" />
                 <text x="16" y="188">Client</text><text x="196" y="122">Core-Switch</text>
                 <text x="372" y="122">Firewall</text><text x="450" y="188">Server</text>
                 <text x="452" y="254">DMZ</text><text x="588" y="188">Internet</text>
               </g>
-              <g font-family="IBM Plex Mono, monospace" font-size="10" fill="#7fa0b7">
+              <g font-family="IBM Plex Mono, monospace" font-size="10" fill="#a08b7d">
                 <text x="16" y="24">192.168.10.0/24</text><text x="520" y="24">Blatt 01 · Netzplan</text>
               </g>
             </svg>
@@ -596,7 +599,7 @@
         <!-- Left: Smart Focus & Fast Training (7 Cols) -->
         <div class="lg:col-span-7 space-y-4">
           <!-- Smart Focus Card -->
-          <div class="p-5 rounded-xl border border-dark-border bg-dark-card relative overflow-hidden flex flex-col justify-between">
+          <div class="glow-card p-5 rounded-xl border border-dark-border bg-dark-card relative overflow-hidden flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between mb-2">
                 <div class="flex items-center gap-2">
@@ -1502,10 +1505,10 @@
     <!-- ============================================================
          14. JAVASCRIPT BUNDLES & ENGINE
          ============================================================ -->
-    <script src="assets/js/confetti.js?v=4.0.0"></script>
-    <script src="assets/js/data.js?v=4.0.0"></script>
-    <script src="assets/js/questions.js?v=4.0.0"></script>
-    <script src="assets/js/lucide.min.js?v=4.0.0"></script>
+    <script src="assets/js/confetti.js?v=4.1.0"></script>
+    <script src="assets/js/data.js?v=4.1.0"></script>
+    <script src="assets/js/questions.js?v=4.1.0"></script>
+    <script src="assets/js/lucide.min.js?v=4.1.0"></script>
     <script>
       // Lucide SVGs initialisieren
       if (window.lucide) lucide.createIcons();
@@ -1527,13 +1530,13 @@
         if (e.key === "Escape") closeSupportModal();
       });
     </script>
-    <script src="assets/js/app.js?v=4.0.0"></script>
+    <script src="assets/js/app.js?v=4.1.0"></script>
 
     <!-- PWA Service Worker -->
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
-          navigator.serviceWorker.register("sw.js?v=4.0.0").catch(() => {});
+          navigator.serviceWorker.register("sw.js?v=4.1.0").catch(() => {});
         });
       }
 
