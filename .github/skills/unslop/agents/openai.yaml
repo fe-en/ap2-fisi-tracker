@@ -1,0 +1,5 @@
+interface:
+  display_name: "Unslop"
+  short_description: "Remove generic AI phrasing from writing"
+policy:
+  allow_implicit_invocation: false
