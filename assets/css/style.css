@@ -1,96 +1,139 @@
 /* ============================================================
-   AP2 TRACKER FIAE · HIGH-CRAFT WORKBENCH (v3)
-   High-Craft · Tactile · Dense · Architectural Workbench
-   Obsidian Zinc · Electric Violet Accent (FIAE) · Tabular Monospace
+   AP2 TRACKER FISI · BLAUPAUSE (v4)
+   Designsystem nach dem Netzplan: Cyanotypie-Blau, Kreidelinien,
+   Millimeterpapier und eine einzige Signalfarbe — das orange
+   Patchkabel. Mono nur für echte Daten (IPs, Zahlen, Code).
    ============================================================ */
 
 /* ----- FONTS (Self-hosted, 100% offline, zero CDN) ----- */
 @font-face {
-  font-family: 'Inter';
+  font-family: 'IBM Plex Sans';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('../fonts/Inter-Regular.woff2') format('woff2');
+  src: url('../fonts/PlexSans-Regular.woff2') format('woff2');
 }
 @font-face {
-  font-family: 'Inter';
+  font-family: 'IBM Plex Sans';
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url('../fonts/Inter-SemiBold.woff2') format('woff2');
+  src: url('../fonts/PlexSans-SemiBold.woff2') format('woff2');
 }
 @font-face {
-  font-family: 'Inter';
+  font-family: 'IBM Plex Sans';
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url('../fonts/Inter-Bold.woff2') format('woff2');
+  src: url('../fonts/PlexSans-Bold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Sans Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../fonts/PlexSansCond-SemiBold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/PlexMono-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../fonts/PlexMono-SemiBold.woff2') format('woff2');
 }
 
 /* ----- DESIGN TOKENS ----- */
 :root {
-  --bg: #09090b;             /* Pure Obsidian / Zinc 950 */
-  --surface: #121215;        /* Primary Workbench Surface */
-  --surface-raised: #18181d; /* Elevated Cards / Menus */
-  --surface-hover: #1e1e24;  /* Hover state */
-  --surface-inset: #0d0d10;  /* Inset wells */
+  --bg: #0a2438;              /* Blaupause / Cyanotypie-Grund */
+  --bg-deep: #071a2a;         /* Vertiefte Zeichenfläche */
+  --surface: #0f2f47;         /* Zeichenblatt / Panel */
+  --surface-raised: #143a56;  /* Erhobene Blätter / Menüs */
+  --surface-hover: #174463;
+  --surface-inset: #0a2438;
 
-  --border: #23232a;         /* Crisp 1px hairline */
-  --border-subtle: #191920;  /* Sub-hairline separator */
-  --border-strong: #383842;  /* Focused / Active border */
+  --border: #23506f;          /* Kreidelinie */
+  --border-subtle: #173a54;
+  --border-strong: #3f759c;
 
-  --ink: #f4f4f5;            /* Zinc 100 high-contrast text */
-  --ink-secondary: #a1a1aa;  /* Zinc 400 secondary */
-  --ink-muted: #71717a;      /* Zinc 500 metadata */
-  --ink-dim: #52525b;        /* Zinc 600 labels */
+  --ink: #edf5fa;             /* Kreideweiß */
+  --ink-secondary: #a8c2d4;
+  --ink-muted: #7fa0b7;
+  --ink-dim: #5d8099;
 
-  --accent: #8b5cf6;         /* Electric Cobalt */
-  --accent-muted: rgba(139, 92, 246, 0.12);
-  --accent-glow: rgba(139, 92, 246, 0.25);
+  --accent: #58aade;          /* Zeichenblau (Links, aktiver Zustand) */
+  --accent-strong: #2e86b8;   /* Button-Grund */
+  --accent-muted: rgba(88, 170, 222, 0.13);
+  --patch: #ff7a29;           /* Patchkabel-Orange: NUR Prüfung/Fokus/Live */
+  --patch-muted: rgba(255, 122, 41, 0.13);
 
-  --success: #10b981;        /* Emerald */
-  --success-muted: rgba(16, 185, 129, 0.12);
+  --success: #35c79a;
+  --success-muted: rgba(53, 199, 154, 0.12);
+  --warning: #ffb224;
+  --warning-muted: rgba(255, 178, 36, 0.12);
+  --danger: #ff6b5e;
+  --danger-muted: rgba(255, 107, 94, 0.12);
 
-  --warning: #f59e0b;        /* Amber */
-  --warning-muted: rgba(245, 158, 11, 0.12);
-
-  --danger: #ef4444;         /* Crimson */
-  --danger-muted: rgba(239, 68, 68, 0.12);
-
-  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Monaco, Consolas, monospace;
+  --font-sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-cond: 'IBM Plex Sans Condensed', 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, Menlo, Monaco, Consolas, monospace;
 }
 
 /* ----- GLOBAL RESET & BASE ----- */
-*, *::before, *::after {
-  box-sizing: border-box;
-}
+*, *::before, *::after { box-sizing: border-box; }
 
 html {
   background-color: var(--bg);
   color: var(--ink);
   font-family: var(--font-sans);
-  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
 }
 
 body {
+  /* Millimeterpapier: feines 28px-Raster, grobes 140px-Raster */
   background-color: var(--bg);
+  background-image:
+    linear-gradient(rgba(88, 170, 222, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(88, 170, 222, 0.055) 1px, transparent 1px),
+    linear-gradient(rgba(88, 170, 222, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(88, 170, 222, 0.09) 1px, transparent 1px);
+  background-size: 28px 28px, 28px 28px, 140px 140px, 140px 140px;
   color: var(--ink);
   min-height: 100vh;
   margin: 0;
   padding: 0;
   overscroll-behavior-y: none;
+  line-height: 1.55;
 }
 
-/* Tabular numbers for clean alignment */
-.tabular-nums {
-  font-variant-numeric: tabular-nums;
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
+
+::selection { background: var(--patch); color: #1a0e02; }
+
+/* Sichtbarer Tastatur-Fokus, auf jedem Untergrund */
+:focus-visible {
+  outline: 2px solid var(--patch);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
-/* ----- TACTILE KEYCAP COMPONENT ----- */
+.tabular-nums { font-variant-numeric: tabular-nums; }
+
+/* Radius-Disziplin der Zeichnung: keine weichen SaaS-Rundungen */
+.rounded-xl, .rounded-2xl { border-radius: 6px !important; }
+.rounded-lg { border-radius: 5px !important; }
+.rounded-md { border-radius: 4px !important; }
+
+/* ----- TASTENKAPPE (echte Tasten, keine Deko) ----- */
 .kbd-cap {
   display: inline-flex;
   align-items: center;
@@ -100,21 +143,22 @@ body {
   font-weight: 600;
   line-height: 1;
   padding: 2.5px 6px;
-  border-radius: 4px;
-  background: #191920;
-  border: 1px solid #2e2e3a;
-  color: #d4d4d8;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+  border-radius: 3px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-strong);
+  border-bottom-width: 2px;
+  color: var(--ink);
   user-select: none;
   white-space: nowrap;
 }
 
-/* ----- HAIRLINE PROGRESS SYSTEM ----- */
+/* ----- FORTSCHRITT ALS MESSSTRECKE ----- */
 .hairline-track {
   width: 100%;
-  height: 2px;
-  background: #23232a;
-  border-radius: 1px;
+  height: 3px;
+  background:
+    repeating-linear-gradient(90deg, var(--border) 0 1px, transparent 1px 14px),
+    var(--border-subtle);
   overflow: hidden;
   position: relative;
 }
@@ -123,14 +167,60 @@ body {
   background: var(--accent);
   transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.hairline-fill.success {
-  background: var(--success);
-}
-.hairline-fill.warning {
-  background: var(--warning);
-}
+.hairline-fill.success { background: var(--success); }
+.hairline-fill.warning { background: var(--warning); }
 
-/* ----- ACCORDION & TOPIC CARDS ----- */
+/* ----- NETZPLAN / HERO ----- */
+.plan-sheet {
+  background:
+    linear-gradient(rgba(88, 170, 222, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(88, 170, 222, 0.07) 1px, transparent 1px),
+    var(--surface);
+  background-size: 28px 28px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  position: relative;
+}
+.plan-title {
+  font-family: var(--font-cond);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.04;
+}
+/* Ein einziges orchestriertes Moment: ein Paket läuft den Netzplan ab */
+.packet {
+  animation: packet-run 5.5s cubic-bezier(0.45, 0, 0.2, 1) 0.6s 3 both;
+}
+@keyframes packet-run {
+  0% { transform: translate(0, 0); opacity: 0; }
+  6% { opacity: 1; }
+  28% { transform: translate(160px, 0); }
+  38% { transform: translate(220px, -66px); }
+  62% { transform: translate(380px, -66px); }
+  72% { transform: translate(440px, 0); }
+  92% { opacity: 1; }
+  100% { transform: translate(580px, 0); opacity: 0; }
+}
+/* Schriftfeld wie auf technischen Zeichnungen (DIN 824) */
+.title-block {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.title-block > div { padding: 10px 14px; }
+.title-block > div + div { border-left: 1px solid var(--border-subtle); }
+.title-block .tb-label { font-size: 11px; color: var(--ink-muted); }
+.title-block .tb-value { font-family: var(--font-mono); font-weight: 600; color: var(--ink); }
+@media (max-width: 640px) {
+  .title-block { grid-template-columns: 1fr 1fr; }
+  .title-block > div + div { border-left: none; }
+  .title-block > div:nth-child(even) { border-left: 1px solid var(--border-subtle); }
+  .title-block > div:nth-child(n+3) { border-top: 1px solid var(--border-subtle); }
+}
+@media (min-width: 1024px) { .title-block { grid-template-columns: repeat(4, 1fr); } }
+
+/* ----- THEMEN ALS RACK-EINHEITEN ----- */
 .topic-body {
   display: grid;
   grid-template-rows: 0fr;
@@ -143,101 +233,78 @@ body {
   opacity: 1;
   border-top: 1px solid var(--border-subtle);
 }
-.topic-content {
-  min-height: 0;
-}
+.topic-content { min-height: 0; }
 
-/* Topic Card Hover & Selection */
+/* Rackschiene links: zwei Schraubenlöcher wie im 19"-Schrank */
 .topic-card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 6px;
+  position: relative;
+  padding-left: 14px;
   transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+.topic-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 14px;
+  border-right: 1px solid var(--border-subtle);
+  background:
+    radial-gradient(circle 2.5px at 7px 12px, var(--bg-deep) 2.4px, var(--border-strong) 2.5px, transparent 3.4px),
+    radial-gradient(circle 2.5px at 7px calc(100% - 12px), var(--bg-deep) 2.4px, var(--border-strong) 2.5px, transparent 3.4px),
+    var(--surface-inset);
+  border-radius: 5px 0 0 5px;
 }
 .topic-card:hover {
   background: var(--surface-hover);
   border-color: var(--border-strong);
 }
 
-/* ----- CHECKBOX SYSTEM ----- */
+/* ----- CHECKBOX ----- */
 .checkbox-wrapper input:checked + div,
 input.topic-check:checked + div {
-  background-color: var(--accent);
-  border-color: var(--accent);
+  background-color: var(--accent-strong);
+  border-color: var(--accent-strong);
 }
 .checkbox-wrapper input:checked + div svg,
-input.topic-check:checked + div svg {
-  transform: scale(1);
-}
+input.topic-check:checked + div svg { transform: scale(1); }
 
-/* ----- STREAK HEATMAP (80 DAYS) ----- */
-.streak-cell {
-  transition: transform 0.15s ease, background-color 0.15s ease;
-}
+/* ----- STREAK-HEATMAP ----- */
+.streak-cell { transition: transform 0.15s ease, background-color 0.15s ease; }
 .streak-cell:hover {
   transform: scale(1.25);
   z-index: 10;
-  outline: 1px solid var(--accent);
+  outline: 1px solid var(--patch);
 }
 
-/* ----- SCROLLBAR (Minimal & Dark) ----- */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: var(--bg);
-}
-::-webkit-scrollbar-thumb {
-  background: #272730;
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #3f3f4e;
-}
+/* ----- SCROLLBAR ----- */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
 
 /* ----- UTILITIES ----- */
-.force-hide {
-  opacity: 0 !important;
-  pointer-events: none !important;
-  visibility: hidden !important;
+.force-hide { opacity: 0 !important; pointer-events: none !important; visibility: hidden !important; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+svg.lucide { display: inline-block; vertical-align: -0.125em; width: 1.15em; height: 1.15em; stroke-width: 2px; }
+
+/* ----- REDUZIERTE BEWEGUNG ----- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .packet { animation: none; opacity: 0; }
 }
 
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-/* Dynamic Lucide SVGs */
-svg.lucide {
-  display: inline-block;
-  vertical-align: -0.125em;
-  width: 1.15em;
-  height: 1.15em;
-  stroke-width: 2px;
-}
-
-/* Print Styles */
+/* ----- DRUCK ----- */
 @media print {
-  body {
-    background-color: white;
-    color: black;
-  }
-  .no-print {
-    display: none !important;
-  }
-  .topic-card {
-    border: 1px solid #ccc;
-    break-inside: avoid;
-    margin-bottom: 8px;
-    color: black;
-    background: white;
-  }
-  .topic-body {
-    display: block !important;
-    opacity: 1 !important;
-  }
+  body { background: white; color: black; }
+  .no-print { display: none !important; }
+  .topic-card { border: 1px solid #ccc; break-inside: avoid; margin-bottom: 8px; color: black; background: white; }
+  .topic-body { display: block !important; opacity: 1 !important; }
 }

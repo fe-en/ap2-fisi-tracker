@@ -86,7 +86,7 @@
       name="apple-mobile-web-app-status-bar-style"
       content="black-translucent"
     />
-    <meta name="theme-color" content="#09090b" />
+    <meta name="theme-color" content="#0a2438" />
     <link rel="canonical" href="https://ap2-fisi.cwillam.de/" />
 
     <title>
@@ -96,28 +96,28 @@
     <!-- Preload self-hosted fonts -->
     <link
       rel="preload"
-      href="assets/fonts/Inter-Regular.woff2"
+      href="assets/fonts/PlexSans-Regular.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
     <link
       rel="preload"
-      href="assets/fonts/Inter-SemiBold.woff2"
+      href="assets/fonts/PlexSans-SemiBold.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
     <link
       rel="preload"
-      href="assets/fonts/Inter-Bold.woff2"
+      href="assets/fonts/PlexSans-Bold.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
 
     <!-- Tailwind 3 Engine (Local, Zero-CDN) -->
-    <script src="assets/js/tailwind.js?v=3.1.5"></script>
+    <script src="assets/js/tailwind.js?v=4.0.0"></script>
     <script>
       tailwind.config = {
         darkMode: "class",
@@ -125,7 +125,7 @@
           extend: {
             fontFamily: {
               sans: [
-                "Inter",
+                "IBM Plex Sans",
                 "system-ui",
                 "-apple-system",
                 "BlinkMacSystemFont",
@@ -134,8 +134,8 @@
                 "sans-serif",
               ],
               mono: [
+                "IBM Plex Mono",
                 "ui-monospace",
-                "SFMono-Regular",
                 "JetBrains Mono",
                 "Menlo",
                 "Monaco",
@@ -144,24 +144,26 @@
               ],
             },
             colors: {
-              dark: {
-                bg: "#09090b", // Pure obsidian / Zinc 950
-                card: "#121215", // Dense workbench surface
-                "card-hover": "#18181d",
-                border: "#23232a", // Hairline border
-                "border-subtle": "#191920",
-                text: "#f4f4f5", // High-contrast Zinc 100
-                muted: "#a1a1aa", // Zinc 400
-                dim: "#71717a", // Zinc 500
-                accent: "#10b981", // Crisp Emerald (AP2 FISI)
-                "accent-hover": "#059669",
-                "accent-dim": "rgba(16, 185, 129, 0.12)",
-                success: "#10b981", // Crisp Emerald
-                "success-dim": "rgba(16, 185, 129, 0.12)",
-                warning: "#f59e0b", // Amber
-                "warning-dim": "rgba(245, 158, 11, 0.12)",
-                danger: "#ef4444", // Crimson
-                "danger-dim": "rgba(239, 68, 68, 0.12)",
+              emerald: {50:"#eef7fd",100:"#d9edfa",200:"#b0d8f2",300:"#7dbde7",400:"#58aade",500:"#3694cf",600:"#2e86b8",700:"#256d96",800:"#1f5678",900:"#173f59",950:"#0f2f47"},
+              zinc: {50:"#f2f8fc",100:"#e3eef6",200:"#c3d9e8",300:"#9dbfd6",400:"#729fba",500:"#4f7f9c",600:"#3f759c",700:"#33566f",800:"#1c425e",900:"#122f45",950:"#0a2438"},
+                            dark: {
+                bg: "#0a2438", // Pure obsidian / Zinc 950
+                card: "#0f2f47", // Dense workbench surface
+                "card-hover": "#143a56",
+                border: "#23506f", // Hairline border
+                "border-subtle": "#173a54",
+                text: "#edf5fa", // High-contrast Zinc 100
+                muted: "#a8c2d4", // Zinc 400
+                dim: "#7fa0b7", // Zinc 500
+                accent: "#2e86b8", // Crisp Emerald (AP2 FISI)
+                "accent-hover": "#3694cf",
+                "accent-dim": "rgba(88, 170, 222, 0.13)",
+                success: "#35c79a", // Crisp Emerald
+                "success-dim": "rgba(53, 199, 154, 0.12)",
+                warning: "#ffb224", // Amber
+                "warning-dim": "rgba(255, 178, 36, 0.12)",
+                danger: "#ff6b5e", // Crimson
+                "danger-dim": "rgba(255, 107, 94, 0.12)",
               },
             },
           },
@@ -170,7 +172,7 @@
     </script>
 
     <!-- Custom High-Craft CSS Tokens & Keycaps -->
-    <link href="assets/css/style.css?v=3.1.5" rel="stylesheet" />
+    <link href="assets/css/style.css?v=4.0.0" rel="stylesheet" />
   </head>
 
   <body class="flex flex-col min-h-screen bg-dark-bg text-dark-text antialiased selection:bg-emerald-600 selection:text-white">
@@ -181,7 +183,7 @@
     >
       <div class="flex items-center gap-2 mb-3">
         <span class="kbd-cap text-xs text-emerald-400 border-emerald-500/30 bg-emerald-950/40">AP2</span>
-        <span class="font-mono text-xs text-dark-muted tracking-wider uppercase font-semibold">Mission Control</span>
+        <span class="font-mono text-xs text-dark-muted tracking-wider uppercase font-semibold">Netzplan wird geladen</span>
       </div>
       <p
         class="text-dark-dim font-mono text-[11px] tracking-widest uppercase animate-pulse"
@@ -203,7 +205,7 @@
             <div class="flex items-center gap-1.5"><span class="font-bold text-base tracking-tight text-white group-hover:text-emerald-400 transition-colors">Tracker</span><span class="text-[9px] font-mono font-bold bg-emerald-950/60 border border-emerald-500/40 text-emerald-400 px-1.5 py-0.5 rounded">FISI</span></div>
           </a>
           <span class="hidden sm:inline-flex items-center font-mono text-[10px] text-dark-dim border border-dark-border rounded px-2 py-0.5 uppercase tracking-wider">
-            v3.1.5 · Offline
+            v4.0.0 · Offline
           </span>
         </div>
 
@@ -334,7 +336,7 @@
           </div>
           <div class="flex items-center justify-between">
             <span>Version:</span>
-            <span>v3.1.5</span>
+            <span>v4.0.0</span>
           </div>
         </div>
       </div>
@@ -344,6 +346,63 @@
          2. MAIN WORKSPACE CONTAINER
          ============================================================ -->
     <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
+
+      <!-- NETZPLAN: Das Prüfungsnetz als Zeichnung -->
+      <section class="plan-sheet overflow-hidden" aria-labelledby="planTitle">
+        <div class="grid lg:grid-cols-2">
+          <div class="p-6 sm:p-8 flex flex-col justify-center">
+            <p class="text-sm text-dark-muted mb-3">Abschlussprüfung Teil 2 · Systemintegration</p>
+            <h1 id="planTitle" class="plan-title text-4xl sm:text-5xl text-white">
+              Dein Netzplan<br />bis zur AP2.
+            </h1>
+            <p class="text-sm sm:text-base text-dark-muted leading-relaxed mt-4 max-w-md">
+              13 Lehrplan-Themen, 840 Lernkarten und vier Labore, verbunden wie in einem
+              Netzplan: Du siehst, was schon verkabelt ist — und welche Strecke noch fehlt.
+            </p>
+            <div class="flex flex-wrap gap-3 mt-6">
+              <a href="#contentList" class="px-4 py-2.5 rounded-md bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm transition-colors">
+                Themen ansehen
+              </a>
+              <a href="subnet.html" class="px-4 py-2.5 rounded-md border border-dark-border hover:border-dark-strong bg-dark-bg/50 text-white text-sm font-medium transition-colors">
+                Subnetz-Trainer öffnen
+              </a>
+            </div>
+          </div>
+          <div class="border-t lg:border-t-0 lg:border-l border-dark-border bg-dark-bg/40" aria-hidden="true">
+            <svg viewBox="0 0 660 300" class="w-full h-auto block" role="presentation">
+              <defs>
+                <pattern id="planDots" width="28" height="28" patternUnits="userSpaceOnUse">
+                  <circle cx="1" cy="1" r="1" fill="#23506f" />
+                </pattern>
+              </defs>
+              <rect width="660" height="300" fill="url(#planDots)" />
+              <path d="M40 150 H200 L260 84 H420 L480 150 H620" fill="none" stroke="#58aade" stroke-width="1.5" stroke-dasharray="5 4" />
+              <circle class="packet" cx="40" cy="150" r="5" fill="#ff7a29" />
+              <g font-family="IBM Plex Mono, monospace" font-size="11" fill="#a8c2d4">
+                <g stroke="#edf5fa" stroke-width="1.5" fill="#0f2f47">
+                  <rect x="16" y="132" width="48" height="36" rx="3" /><rect x="196" y="66" width="128" height="36" rx="3" />
+                  <rect x="372" y="66" width="96" height="36" rx="3" /><rect x="456" y="132" width="48" height="36" rx="3" />
+                  <rect x="452" y="198" width="96" height="36" rx="3" /><rect x="596" y="132" width="48" height="36" rx="3" />
+                </g>
+                <path d="M228 84h64M228 92h42M404 84h32M404 92h32M484 216h32" stroke="#58aade" stroke-width="2" />
+                <path d="M480 168 V198" stroke="#58aade" stroke-width="1.5" stroke-dasharray="4 3" />
+                <text x="16" y="188">Client</text><text x="196" y="122">Core-Switch</text>
+                <text x="372" y="122">Firewall</text><text x="450" y="188">Server</text>
+                <text x="452" y="254">DMZ</text><text x="588" y="188">Internet</text>
+              </g>
+              <g font-family="IBM Plex Mono, monospace" font-size="10" fill="#7fa0b7">
+                <text x="16" y="24">192.168.10.0/24</text><text x="520" y="24">Blatt 01 · Netzplan</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div class="title-block border-0 border-t border-dark-border" style="border-left:none;border-right:none;border-bottom:none">
+          <div><div class="tb-label">Prüfung</div><div class="tb-value" style="color:var(--patch)">25.11.2026</div></div>
+          <div><div class="tb-label">Lernkarten</div><div class="tb-value">840</div></div>
+          <div><div class="tb-label">Labore</div><div class="tb-value">Subnetz · SQL · Skripte · Glossar</div></div>
+          <div><div class="tb-label">Deine Daten</div><div class="tb-value">100 % lokal</div></div>
+        </div>
+      </section>
 
       <!-- LEAN STATUS & COMMUNITY BULLETIN (Collapsible & Dismissible) -->
       <section id="infoBox" class="border border-dark-border rounded-xl bg-dark-card overflow-hidden">
@@ -448,7 +507,7 @@
         <div class="p-4 rounded-xl border border-dark-border bg-dark-card hover:border-dark-strong transition-colors flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between text-[10px] font-mono uppercase tracking-widest text-dark-dim mb-1">
-              <span>// 01 LEHRPLAN</span>
+              <span>Lehrplan</span>
               <span class="text-emerald-400">FISI</span>
             </div>
             <div class="flex items-baseline gap-2">
@@ -468,7 +527,7 @@
         <div class="p-4 rounded-xl border border-dark-border bg-dark-card hover:border-dark-strong transition-colors flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between text-[10px] font-mono uppercase tracking-widest text-dark-dim mb-1">
-              <span>// 02 LERNKARTEN</span>
+              <span>Lernkarten</span>
               <span class="text-emerald-400">ANKI</span>
             </div>
             <div class="flex items-baseline gap-2">
@@ -489,7 +548,7 @@
         <div class="p-4 rounded-xl border border-dark-border bg-dark-card hover:border-dark-strong transition-colors flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between text-[10px] font-mono uppercase tracking-widest text-dark-dim mb-1">
-              <span>// 03 DISZIPLIN</span>
+              <span>Disziplin</span>
               <span class="text-orange-400">STREAK</span>
             </div>
             <div class="flex items-center gap-2">
@@ -511,7 +570,7 @@
         <div class="p-4 rounded-xl border border-dark-border bg-dark-card hover:border-dark-strong transition-colors flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between text-[10px] font-mono uppercase tracking-widest text-dark-dim mb-1">
-              <span>// 04 TERMIN</span>
+              <span>Prüfungstermin</span>
               <span class="text-amber-400">IHK</span>
             </div>
             <div class="flex items-center gap-2">
@@ -531,7 +590,7 @@
       </section>
 
       <!-- ============================================================
-           4. WORKBENCH (2-Column Mission Control)
+           4. WORKBENCH (2-Column Netzplan wird geladen)
            ============================================================ -->
       <section class="grid grid-cols-1 lg:grid-cols-12 gap-4">
         <!-- Left: Smart Focus & Fast Training (7 Cols) -->
@@ -763,7 +822,7 @@
            ============================================================ -->
       <section class="p-4 sm:p-5 rounded-xl border border-dark-border bg-dark-card/60 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div>
-          <span class="kbd-cap text-[9px] text-emerald-400 border-emerald-500/30 bg-emerald-950/20 mb-1">TRACKER ÖKOSYSTEM</span>
+          <span class="kbd-cap text-[9px] text-emerald-400 border-emerald-500/30 bg-emerald-950/20 mb-1">Tracker-Ökosystem</span>
           <h3 class="text-sm font-bold text-white tracking-tight">Weitere IHK-Prüfungstrainer</h3>
           <p class="text-xs text-dark-muted mt-0.5">Vorbereitung auf Teil 1 oder Anwendungsentwicklung? Nutze die spezialisierten Open-Source-Tracker.</p>
         </div>
@@ -1443,10 +1502,10 @@
     <!-- ============================================================
          14. JAVASCRIPT BUNDLES & ENGINE
          ============================================================ -->
-    <script src="assets/js/confetti.js?v=3.1.5"></script>
-    <script src="assets/js/data.js?v=3.1.5"></script>
-    <script src="assets/js/questions.js?v=3.1.5.1"></script>
-    <script src="assets/js/lucide.min.js?v=3.1.5"></script>
+    <script src="assets/js/confetti.js?v=4.0.0"></script>
+    <script src="assets/js/data.js?v=4.0.0"></script>
+    <script src="assets/js/questions.js?v=4.0.0"></script>
+    <script src="assets/js/lucide.min.js?v=4.0.0"></script>
     <script>
       // Lucide SVGs initialisieren
       if (window.lucide) lucide.createIcons();
@@ -1468,13 +1527,13 @@
         if (e.key === "Escape") closeSupportModal();
       });
     </script>
-    <script src="assets/js/app.js?v=3.1.5.1"></script>
+    <script src="assets/js/app.js?v=4.0.0"></script>
 
     <!-- PWA Service Worker -->
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
-          navigator.serviceWorker.register("sw.js?v=3.1.5").catch(() => {});
+          navigator.serviceWorker.register("sw.js?v=4.0.0").catch(() => {});
         });
       }
 

@@ -961,7 +961,7 @@ const app = {
           particleCount: 100,
           spread: 70,
           origin: { y: 0.6 },
-          colors: ["#10b981", "#34d399"],
+          colors: ["#58aade", "#35c79a"],
         });
       }
     },
@@ -1184,7 +1184,7 @@ const app = {
     { min: 80, name: 'First Level Hero', color: '#0ea5e9' },
     { min: 200, name: 'Cable Management Pro', color: '#38bdf8' },
     { min: 400, name: 'Network Admin', color: '#0284c7' },
-    { min: 700, name: 'Security Architect', color: '#10b981' },
+    { min: 700, name: 'Security Architect', color: '#58aade' },
     { min: 1000, name: 'Cloud Specialist', color: '#8b5cf6' },
     { min: 1250, name: 'Server Overlord', color: '#f59e0b' },
     { min: 1450, name: 'Infrastructure Legend', color: '#ef4444' },
@@ -2106,7 +2106,7 @@ const app = {
           particleCount: 60,
           spread: 70,
           origin: { y: 0.6 },
-          colors: ['#a855f7', '#10b981'],
+          colors: ['#a855f7', '#58aade'],
         });
       }
     }
@@ -2134,7 +2134,7 @@ const app = {
               particleCount: 40,
               spread: 60,
               origin: { y: 0.7 },
-              colors: ['#a855f7', '#10b981'],
+              colors: ['#a855f7', '#58aade'],
             });
           }
         } else card.classList.remove('border-dark-accent/30');

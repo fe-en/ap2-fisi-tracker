@@ -15,18 +15,18 @@
     <link rel="apple-touch-icon" href="favicon.svg" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="theme-color" content="#09090b" />
+    <meta name="theme-color" content="#0a2438" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
     <!-- Local Font Preload -->
-    <link rel="preload" href="assets/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="assets/fonts/Inter-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="assets/fonts/Inter-Bold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/PlexSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/PlexSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/PlexSans-Bold.woff2" as="font" type="font/woff2" crossorigin />
 
     <!-- Tailwind 3 Engine (Local, Zero-CDN) -->
-    <script src="assets/js/tailwind.js?v=3.1.5"></script>
+    <script src="assets/js/tailwind.js?v=4.0.0"></script>
     <script>
       tailwind.config = {
         darkMode: "class",
@@ -34,7 +34,7 @@
           extend: {
             fontFamily: {
               sans: [
-                "Inter",
+                "IBM Plex Sans",
                 "system-ui",
                 "-apple-system",
                 "BlinkMacSystemFont",
@@ -43,8 +43,8 @@
                 "sans-serif",
               ],
               mono: [
+                "IBM Plex Mono",
                 "ui-monospace",
-                "SFMono-Regular",
                 "JetBrains Mono",
                 "Menlo",
                 "Monaco",
@@ -53,25 +53,27 @@
               ],
             },
             colors: {
-              dark: {
-                bg: "#09090b",
-                card: "#121215",
-                "card-hover": "#18181d",
-                border: "#23232a",
-                "border-subtle": "#191920",
-                strong: "#383842",
-                text: "#f4f4f5",
-                muted: "#a1a1aa",
-                dim: "#71717a",
-                accent: "#10b981",
-                "accent-hover": "#059669",
-                "accent-dim": "rgba(16, 185, 129, 0.12)",
-                success: "#10b981",
-                "success-dim": "rgba(16, 185, 129, 0.12)",
-                warning: "#f59e0b",
-                "warning-dim": "rgba(245, 158, 11, 0.12)",
-                danger: "#ef4444",
-                "danger-dim": "rgba(239, 68, 68, 0.12)",
+              emerald: {50:"#eef7fd",100:"#d9edfa",200:"#b0d8f2",300:"#7dbde7",400:"#58aade",500:"#3694cf",600:"#2e86b8",700:"#256d96",800:"#1f5678",900:"#173f59",950:"#0f2f47"},
+              zinc: {50:"#f2f8fc",100:"#e3eef6",200:"#c3d9e8",300:"#9dbfd6",400:"#729fba",500:"#4f7f9c",600:"#3f759c",700:"#33566f",800:"#1c425e",900:"#122f45",950:"#0a2438"},
+                            dark: {
+                bg: "#0a2438",
+                card: "#0f2f47",
+                "card-hover": "#143a56",
+                border: "#23506f",
+                "border-subtle": "#173a54",
+                strong: "#3f759c",
+                text: "#edf5fa",
+                muted: "#a8c2d4",
+                dim: "#7fa0b7",
+                accent: "#2e86b8",
+                "accent-hover": "#3694cf",
+                "accent-dim": "rgba(88, 170, 222, 0.13)",
+                success: "#35c79a",
+                "success-dim": "rgba(53, 199, 154, 0.12)",
+                warning: "#ffb224",
+                "warning-dim": "rgba(255, 178, 36, 0.12)",
+                danger: "#ff6b5e",
+                "danger-dim": "rgba(255, 107, 94, 0.12)",
               },
             },
           },
@@ -80,7 +82,7 @@
     </script>
 
     <!-- Stylesheets -->
-    <link href="assets/css/style.css?v=3.1.5" rel="stylesheet" />
+    <link href="assets/css/style.css?v=4.0.0" rel="stylesheet" />
 
     <style>
       .custom-scroll::-webkit-scrollbar {
@@ -88,14 +90,14 @@
         width: 6px;
       }
       .custom-scroll::-webkit-scrollbar-track {
-        background: #09090b;
+        background: #0a2438;
       }
       .custom-scroll::-webkit-scrollbar-thumb {
-        background: #23232a;
+        background: #23506f;
         border-radius: 4px;
       }
       .custom-scroll::-webkit-scrollbar-thumb:hover {
-        background: #3f3f46;
+        background: #3f759c;
       }
       .no-scrollbar::-webkit-scrollbar {
         display: none;
@@ -140,7 +142,7 @@
             </div>
           </a>
           <span class="hidden md:inline-flex items-center font-mono text-[10px] text-dark-dim border border-dark-border rounded px-2 py-0.5 uppercase tracking-wider">
-            Updates &amp; Roadmap · v3.1.5
+            Updates &amp; Roadmap · v4.0.0
           </span>
         </div>
 
@@ -274,7 +276,7 @@
             <div class="flex items-center gap-2 text-emerald-400 text-xs font-mono mb-2 uppercase tracking-wider">
               <span class="kbd-cap bg-emerald-600/15 border-emerald-500/30 text-emerald-400 px-2 py-0.5 text-[10px]">ENTWICKLUNGS-HISTORIE</span>
               <span class="text-dark-dim">·</span>
-              <span class="text-emerald-400 font-bold">v3.1.5 LIVE</span>
+              <span class="text-emerald-400 font-bold">v4.0.0 LIVE</span>
             </div>
             <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2.5">
               <span>Changelog &amp; Roadmap</span>
@@ -308,12 +310,34 @@
 
       <!-- TAB 1: UPDATES / CHANGELOG -->
       <div id="tabUpdatesContent" class="space-y-6">
-        <!-- v3.1.5 · AKTUELL -->
+        <!-- v4.0.0 · AKTUELL -->
         <article class="bg-dark-card border border-emerald-500/40 rounded-xl p-5 sm:p-6 space-y-3.5 shadow-sm relative">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-dark-border pb-3">
             <div class="flex items-center gap-2.5 flex-wrap">
               <span class="kbd-cap bg-emerald-600/20 border-emerald-500/50 text-emerald-400 font-mono text-xs font-bold px-2.5 py-0.5">
-                v3.1.5 · AKTUELL
+                v4.0.0 · AKTUELL
+              </span>
+              <h2 class="text-base sm:text-lg font-bold text-white">Neues Design: Blaupause</h2>
+            </div>
+            <span class="text-xs font-mono text-dark-dim">4. November 2026</span>
+          </div>
+          <p class="text-xs text-dark-muted leading-relaxed">
+            Der Tracker ist jetzt als Netzplan gezeichnet: Cyanotypie-Blau und Millimeterpapier statt Obsidian-Schwarz,
+            IBM Plex als Hausschrift, Themen als Rack-Einheiten im 19-Zoll-Schrank. Das Patchkabel-Orange markiert nur noch,
+            was zählt: Prüfungstermin und dein heutiger Fokus.
+          </p>
+          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-dark-muted pt-1">
+            <li class="flex items-start gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5"></i><span><strong class="text-dark-text font-semibold">Netzplan-Startseite:</strong> Topologie-Zeichnung mit Firewall, DMZ und Server als Einstieg.</span></li>
+            <li class="flex items-start gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5"></i><span><strong class="text-dark-text font-semibold">Weniger Ablenkung:</strong> Eine Signalfarbe, ruhige Linien, reduzierte Bewegung wird respektiert.</span></li>
+          </ul>
+        </article>
+
+        <!-- v3.1.5 -->
+        <article class="bg-dark-card border border-emerald-500/40 rounded-xl p-5 sm:p-6 space-y-3.5 shadow-sm relative">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-dark-border pb-3">
+            <div class="flex items-center gap-2.5 flex-wrap">
+              <span class="kbd-cap bg-emerald-600/20 border-emerald-500/50 text-emerald-400 font-mono text-xs font-bold px-2.5 py-0.5">
+                v3.1.5
               </span>
               <h2 class="text-base sm:text-lg font-bold text-white">
                 Subnetz-Präzisierung, Lernkarten-Nachschärfung &amp; Cache-Busting
@@ -410,7 +434,7 @@
             </li>
             <li class="flex items-start gap-2">
               <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5"></i>
-              <span><strong class="text-dark-text font-semibold">Obsidian-Zinc 3.0:</strong> Konsequentes Ultra-Dark Design (`#09090b`), Tailwind 3 Engine, optimierte Kontraste und lokale Inter-Schriftarten ohne externe CDN-Abhängigkeiten.</span>
+              <span><strong class="text-dark-text font-semibold">Obsidian-Zinc 3.0:</strong> Konsequentes Ultra-Dark Design (`#0a2438`), Tailwind 3 Engine, optimierte Kontraste und lokale Inter-Schriftarten ohne externe CDN-Abhängigkeiten.</span>
             </li>
             <li class="flex items-start gap-2">
               <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5"></i>
@@ -845,7 +869,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="assets/js/lucide.min.js?v=3.1.5"></script>
+    <script src="assets/js/lucide.min.js?v=4.0.0"></script>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         if (window.lucide) {
@@ -931,7 +955,7 @@
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
           navigator.serviceWorker
-            .register("sw.js?v=3.1.5")
+            .register("sw.js?v=4.0.0")
             .then((reg) => console.log("PWA Service Worker registered successfully", reg))
             .catch((err) => console.error("PWA Service Worker registration failed", err));
         });

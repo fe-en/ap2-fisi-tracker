@@ -1,6 +1,6 @@
-# AP2 Tracker FISI - Dein Lernbegleiter (v3.1.5 Update)
+# AP2 Tracker FISI - Dein Lernbegleiter (v4.0.0 Update)
 
-[![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)](https://github.com/cwillam/ap2-fisi-tracker) [![License](https://img.shields.io/badge/License-AGPLv3-blue?style=for-the-badge)](LICENSE) [![Hosting](https://img.shields.io/badge/Hosted_on-IONOS-003D51?style=for-the-badge&logo=ionos)](https://ap2-fisi.cwillam.de) [![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-10b981?style=for-the-badge)](https://ap2-fisi.cwillam.de) [![Google Play](https://img.shields.io/badge/Google_Play-AP2_FISI_Tracker-green?style=for-the-badge&logo=google-play)](https://play.google.com/store/apps/details?id=de.cwillam.ap2_fisi.tracker) [![Version](https://img.shields.io/badge/Version-v3.1.5-10b981?style=for-the-badge)](https://ap2-fisi.cwillam.de)
+[![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)](https://github.com/cwillam/ap2-fisi-tracker) [![License](https://img.shields.io/badge/License-AGPLv3-blue?style=for-the-badge)](LICENSE) [![Hosting](https://img.shields.io/badge/Hosted_on-IONOS-003D51?style=for-the-badge&logo=ionos)](https://ap2-fisi.cwillam.de) [![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-10b981?style=for-the-badge)](https://ap2-fisi.cwillam.de) [![Google Play](https://img.shields.io/badge/Google_Play-AP2_FISI_Tracker-green?style=for-the-badge&logo=google-play)](https://play.google.com/store/apps/details?id=de.cwillam.ap2_fisi.tracker) [![Version](https://img.shields.io/badge/Version-v4.0.0-2e86b8?style=for-the-badge)](https://ap2-fisi.cwillam.de)
 
 > 🐛 [**Bug melden**](https://github.com/cwillam/ap2-fisi-tracker/issues/new?template=bug.yml) · 💡 [**Feature wünschen**](https://github.com/cwillam/ap2-fisi-tracker/issues/new?template=feature.yml)
 
@@ -25,6 +25,12 @@ Im Fokus stehen die Kerngebiete der Systemintegration: Netzwerktechnik, Routing 
 
 ---
 
+### Highlights v4.0.0 (Design „Blaupause“)
+
+- **Neues Designsystem „Blaupause“:** Der Tracker ist als Netzplan gezeichnet — Cyanotypie-Blau (`#0a2438`) und Millimeterpapier statt Obsidian-Schwarz, Themen als Rack-Einheiten, eine einzige Signalfarbe (Patchkabel-Orange `#ff7a29`) für Prüfungstermin und Fokus.
+- **Neue Hausschrift:** IBM Plex Sans / IBM Plex Mono (woff2 lokal gehostet, Zero-CDN), Mono nur für echte Daten wie IPs, Zahlen und Code.
+- **Netzplan-Startseite:** Topologie-Zeichnung mit Core-Switch, Firewall, DMZ und Server als Einstieg, Schriftfeld mit Prüfungsdaten.
+
 ### Highlights v3.1.5 (Subnetz-Präzisierung, Lesezeichen & Quick-Dock)
 
 - **Fachliche Nachschärfung Subnetting (v3.1.5):** Präzisierung der Adressgrenzen und Kürzungsregeln (Karte 2.1.4_4: Netzadresse, Broadcast und Hostbereich bei /26) sowie RFC-5952-Regelwerk.
@@ -32,12 +38,12 @@ Im Fokus stehen die Kerngebiete der Systemintegration: Netzwerktechnik, Routing 
 - **Flexible Stapelgröße (Batch-Size):** Wähle vor dem Start 10, 20, 50 oder alle Karten für handliche Lerneinheiten unterwegs.
 - **Active-Recall-Wiederholung:** Fehlversuche am Rundenende mit einem Klick sofort wiederholen, bis der Stoff sitzt.
 - **3-Modul Quick-Dock:** Barrierefreie Leiste am unteren Bildschirmrand für den nahtlosen Wechsel zwischen Lernkarten, Skript-Labor und Subnetz-Trainer.
-- **Service Worker & Cache-Busting:** Zuverlässige Offline-Aktualisierung via Cache `v3.1.5`.
+- **Service Worker & Cache-Busting:** Zuverlässige Offline-Aktualisierung via Cache `v4.0.0`.
 
 ### Highlights v3.0.0 (Großes Redesign & Skript-Labor)
 
 - **Neues Skript- & Automatisierungs-Labor (`skripte.html`):** Interaktiver Terminal-Simulator für **Bash & PowerShell** mit prüfungsrelevanten Aufgaben (Backup-Automatisierung, Active Directory & LDAP, System-Monitoring, Incident Response, Log-Analyse) inklusive Syntax-Highlighting und 1-Klick-Code-Kopieren.
-- **Obsidian-Zinc Designsystem:** Konsequentes Ultra-Dark Interface (`#09090b`) mit FISI-Emerald-Akzenten (`#10b981`), Tailwind 3 Engine, optimierten Kontrasten und lokalen Inter-Fonts ohne fremde CDN-Abhängigkeiten.
+- **Blaupause-Designsystem (v4.0.0):** Cyanotypie-Blau (`#0a2438`), Millimeterpapier-Raster, Tailwind 3 Engine und lokale IBM-Plex-Fonts ohne fremde CDN-Abhängigkeiten.
 - **In-App Karten-Feedback:** Fehler, veraltete Prüfungsnormen oder Unklarheiten direkt auf jeder Lernkarte mit 1 Klick an die Redaktion melden.
 - **840 FISI-Lernkarten:** Vollständiger Content-Ausbau für GA1, GA2 und WiSo nach aktuellem IHK-Rahmenlehrplan mit Anki Spaced Repetition, Schwachstellen-Modus und Tastatur-Shortcuts (1–4, Space, Esc).
 - **Subnetz-Trainer & VLSM:** Interaktiver IPv4/IPv6-Trainer mit Bit-Visualisierung, Netzklassen, Host-Berechnung, Broadcast und Prefix-Ermittlung.
@@ -65,10 +71,10 @@ Dieses Projekt setzt auf maximale Ausführungsgeschwindigkeit, Barrierefreiheit 
 | Bereich | Technologie |
 | :--- | :--- |
 | **Markup & Struktur** | Semantic HTML5, WAI-ARIA Barrierefreiheit |
-| **Styling & Design** | Tailwind CSS (lokale Engine v3), CSS Custom Properties, Dark Mode (`#09090b`) |
+| **Styling & Design** | Tailwind CSS (lokale Engine v3), CSS Custom Properties, Dark Mode „Blaupause“ (`#0a2438`) |
 | **Logik & Interaktion** | Vanilla JavaScript (ES6+), kein schweres Framework-Overhead |
 | **Icons & Assets** | Lucide Icons (lokal eingebunden als Vektorgrafiken) |
-| **Typografie** | Inter (woff2 lokal gehostet, Zero-CDN) |
+| **Typografie** | IBM Plex Sans & IBM Plex Mono (woff2 lokal gehostet, Zero-CDN) |
 | **Offline & PWA** | Service Worker mit Stale-While-Revalidate Caching (`v3.0.0`), Web App Manifest |
 | **Datenschutz & Speicher** | 100 % Client-Side via `localStorage`, keine Tracking-Cookies |
 
@@ -105,7 +111,7 @@ python3 -m http.server 8080
 ├── datenschutz.html            # Datenschutzerklärung (DSGVO / § 25 TDDDG)
 ├── impressum.html              # Anbieterkennzeichnung (§ 5 DDG)
 ├── manifest.json               # PWA-Konfiguration
-├── sw.js                       # Service Worker (Offline-Cache v3.1.5)
+├── sw.js                       # Service Worker (Offline-Cache v4.0.0)
 ├── sitemap.xml                 # XML-Sitemap
 ├── robots.txt                  # Suchmaschinen-Steuerung
 ├── llms.txt                    # KI-Crawler Dokumentation
@@ -113,7 +119,7 @@ python3 -m http.server 8080
 │   └── report.php              # DSGVO-konformes Feedback-Relay
 └── assets/
     ├── css/style.css           # Styling & Keycaps
-    ├── fonts/                  # Lokale WOFF2-Schriftarten (Inter)
+    ├── fonts/                  # Lokale WOFF2-Schriftarten (IBM Plex)
     └── js/                     # Anwendungslogik & Kartendatenbank
 ```
 

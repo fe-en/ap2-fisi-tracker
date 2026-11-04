@@ -15,18 +15,18 @@
     <link rel="apple-touch-icon" href="favicon.svg" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="theme-color" content="#09090b" />
+    <meta name="theme-color" content="#0a2438" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
     <!-- Local Font Preload -->
-    <link rel="preload" href="assets/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="assets/fonts/Inter-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="assets/fonts/Inter-Bold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/PlexSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/PlexSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/PlexSans-Bold.woff2" as="font" type="font/woff2" crossorigin />
 
     <!-- Tailwind 3 Engine (Local, Zero-CDN) -->
-    <script src="assets/js/tailwind.js?v=3.1.5"></script>
+    <script src="assets/js/tailwind.js?v=4.0.0"></script>
     <script>
       tailwind.config = {
         darkMode: "class",
@@ -34,7 +34,7 @@
           extend: {
             fontFamily: {
               sans: [
-                "Inter",
+                "IBM Plex Sans",
                 "system-ui",
                 "-apple-system",
                 "BlinkMacSystemFont",
@@ -43,8 +43,8 @@
                 "sans-serif",
               ],
               mono: [
+                "IBM Plex Mono",
                 "ui-monospace",
-                "SFMono-Regular",
                 "JetBrains Mono",
                 "Menlo",
                 "Monaco",
@@ -53,25 +53,27 @@
               ],
             },
             colors: {
-              dark: {
-                bg: "#09090b",
-                card: "#121215",
-                "card-hover": "#18181d",
-                border: "#23232a",
-                "border-subtle": "#191920",
-                strong: "#383842",
-                text: "#f4f4f5",
-                muted: "#a1a1aa",
-                dim: "#71717a",
-                accent: "#10b981",
-                "accent-hover": "#059669",
-                "accent-dim": "rgba(16, 185, 129, 0.12)",
-                success: "#10b981",
-                "success-dim": "rgba(16, 185, 129, 0.12)",
-                warning: "#f59e0b",
-                "warning-dim": "rgba(245, 158, 11, 0.12)",
-                danger: "#ef4444",
-                "danger-dim": "rgba(239, 68, 68, 0.12)",
+              emerald: {50:"#eef7fd",100:"#d9edfa",200:"#b0d8f2",300:"#7dbde7",400:"#58aade",500:"#3694cf",600:"#2e86b8",700:"#256d96",800:"#1f5678",900:"#173f59",950:"#0f2f47"},
+              zinc: {50:"#f2f8fc",100:"#e3eef6",200:"#c3d9e8",300:"#9dbfd6",400:"#729fba",500:"#4f7f9c",600:"#3f759c",700:"#33566f",800:"#1c425e",900:"#122f45",950:"#0a2438"},
+                            dark: {
+                bg: "#0a2438",
+                card: "#0f2f47",
+                "card-hover": "#143a56",
+                border: "#23506f",
+                "border-subtle": "#173a54",
+                strong: "#3f759c",
+                text: "#edf5fa",
+                muted: "#a8c2d4",
+                dim: "#7fa0b7",
+                accent: "#2e86b8",
+                "accent-hover": "#3694cf",
+                "accent-dim": "rgba(88, 170, 222, 0.13)",
+                success: "#35c79a",
+                "success-dim": "rgba(53, 199, 154, 0.12)",
+                warning: "#ffb224",
+                "warning-dim": "rgba(255, 178, 36, 0.12)",
+                danger: "#ff6b5e",
+                "danger-dim": "rgba(255, 107, 94, 0.12)",
               },
             },
           },
@@ -80,7 +82,7 @@
     </script>
 
     <!-- Custom High-Craft CSS Tokens & Keycaps -->
-    <link href="assets/css/style.css?v=3.1.5" rel="stylesheet" />
+    <link href="assets/css/style.css?v=4.0.0" rel="stylesheet" />
 
     <style>
       .custom-scroll::-webkit-scrollbar {
@@ -88,14 +90,14 @@
         width: 6px;
       }
       .custom-scroll::-webkit-scrollbar-track {
-        background: #09090b;
+        background: #0a2438;
       }
       .custom-scroll::-webkit-scrollbar-thumb {
-        background: #23232a;
+        background: #23506f;
         border-radius: 4px;
       }
       .custom-scroll::-webkit-scrollbar-thumb:hover {
-        background: #3f3f46;
+        background: #3f759c;
       }
       .no-scrollbar::-webkit-scrollbar {
         display: none;
@@ -140,7 +142,7 @@
             </div>
           </a>
           <span class="hidden md:inline-flex items-center font-mono text-[10px] text-dark-dim border border-dark-border rounded px-2 py-0.5 uppercase tracking-wider">
-            Hilfe &amp; FAQ · v3.1.5
+            Hilfe &amp; FAQ · v4.0.0
           </span>
         </div>
 
@@ -253,7 +255,7 @@
         <div class="pt-4 border-t border-dark-border space-y-2 text-xs font-mono text-dark-dim">
           <div class="flex items-center justify-between">
             <span>AP2 FISI Tracker</span>
-            <span class="text-emerald-400">v3.1.5</span>
+            <span class="text-emerald-400">v4.0.0</span>
           </div>
           <div class="text-[11px] text-dark-dim">
             100% Offline-fähig &amp; Open Source
@@ -283,7 +285,7 @@
 
           <div class="flex items-center gap-2 shrink-0">
             <span class="font-mono text-xs text-dark-muted px-2.5 py-1 rounded border border-dark-border bg-dark-bg/60">
-              v3.1.5 · 100% Offline
+              v4.0.0 · 100% Offline
             </span>
           </div>
         </div>
@@ -1023,7 +1025,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="assets/js/lucide.min.js?v=3.1.5"></script>
+    <script src="assets/js/lucide.min.js?v=4.0.0"></script>
     <script>
       function openSupportModal() {
         const modal = document.getElementById("supportModal");
@@ -1137,7 +1139,7 @@
 
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
-          navigator.serviceWorker.register("sw.js?v=3.1.5").catch(() => {});
+          navigator.serviceWorker.register("sw.js?v=4.0.0").catch(() => {});
         });
       }
     </script>
