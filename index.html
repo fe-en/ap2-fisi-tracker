@@ -664,22 +664,50 @@
         <div class="lg:col-span-5 flex flex-col gap-4">
           <!-- Anki deck overview -->
           <div class="p-4 sm:p-5 rounded-xl border border-dark-border bg-dark-card">
-            <div class="flex items-center justify-between mb-3">
-              <div class="flex items-center gap-2">
-                <i data-lucide="layers" class="w-4 h-4 text-emerald-400"></i>
-                <span class="font-mono text-[11px] uppercase tracking-wider text-dark-muted font-bold">
-                  Lernkarten
-                </span>
-              </div>
-              <button
-                onclick="app.anki.openGlobalWeaknesses()"
-                class="px-2.5 py-1.5 rounded-lg border border-dark-border text-[10px] font-mono text-dark-muted hover:text-orange-400 hover:border-orange-500/50 transition-colors"
-              >
-                Schwächen
+            <div class="inline-flex w-full rounded-lg bg-dark-bg border border-dark-border p-1 text-xs font-mono mb-4">
+              <button id="dashboardRecommendationTab" type="button" onclick="app.showDashboardAnkiTab('recommendation')" class="flex-1 rounded-md bg-dark-card px-3 py-2 text-white transition-colors">
+                Empfehlung
+              </button>
+              <button id="dashboardLearningTab" type="button" onclick="app.showDashboardAnkiTab('learning')" class="flex-1 rounded-md px-3 py-2 text-dark-muted hover:text-white transition-colors">
+                Lernen
               </button>
             </div>
-            <p class="text-[11px] text-dark-dim mb-3">New, Learn und Due pro Deck</p>
-            <div id="dashboardAnkiDeckOverview"></div>
+            <div id="dashboardRecommendationView">
+              <div class="flex items-center gap-2 mb-2">
+                <i data-lucide="sparkles" class="w-4 h-4 text-emerald-400"></i>
+                <span class="font-mono text-[11px] uppercase tracking-wider text-dark-muted font-bold">
+                  Intelligente Lernempfehlung
+                </span>
+              </div>
+              <p id="dashboardRecShort" class="text-sm text-white leading-relaxed">
+                Berechne deinen optimalen Lernpfad anhand deiner bisherigen Antworten...
+              </p>
+              <button
+                onclick="app.startSmartFocus()"
+                class="w-full mt-4 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs font-mono flex items-center justify-center gap-2 transition-colors"
+              >
+                <i data-lucide="play" class="w-3.5 h-3.5 fill-white"></i>
+                Lernsitzung starten
+              </button>
+            </div>
+            <div id="dashboardLearningView" class="hidden">
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="layers" class="w-4 h-4 text-emerald-400"></i>
+                  <span class="font-mono text-[11px] uppercase tracking-wider text-dark-muted font-bold">
+                    Lernkarten
+                  </span>
+                </div>
+                <button
+                  onclick="app.anki.openGlobalWeaknesses()"
+                  class="px-2.5 py-1.5 rounded-lg border border-dark-border text-[10px] font-mono text-dark-muted hover:text-orange-400 hover:border-orange-500/50 transition-colors"
+                >
+                  Schwächen
+                </button>
+              </div>
+              <p class="text-[11px] text-dark-dim mb-3">New, Learn und Due pro Deck</p>
+              <div id="dashboardAnkiDeckOverview"></div>
+            </div>
           </div>
           <!-- 80-Days Activity Heatmap -->
           <div class="p-4 sm:p-5 rounded-xl border border-dark-border bg-dark-card flex-1 flex flex-col justify-between">

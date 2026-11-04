@@ -2496,6 +2496,11 @@ const app = {
           console.log('[AP2] ✅ Alle Themen erledigt!');
         }
       }
+      const dashboardRecShort = document.getElementById("dashboardRecShort");
+      if (dashboardRecShort && recShort) {
+        dashboardRecShort.textContent = recShort.textContent;
+        dashboardRecShort.title = recShort.title || "";
+      }
 
       // Globale Karteikarten-Statistiken berechnen
       let learnedCardsGlobal = 0;
@@ -2603,6 +2608,24 @@ const app = {
       this._statsRAF = null;
       this.updateStats();
     });
+  },
+
+  showDashboardAnkiTab(tab) {
+    const recommendation = document.getElementById("dashboardRecommendationView");
+    const learning = document.getElementById("dashboardLearningView");
+    const recommendationTab = document.getElementById("dashboardRecommendationTab");
+    const learningTab = document.getElementById("dashboardLearningTab");
+    if (!recommendation || !learning || !recommendationTab || !learningTab) return;
+
+    const showLearning = tab === "learning";
+    recommendation.classList.toggle("hidden", showLearning);
+    learning.classList.toggle("hidden", !showLearning);
+    recommendationTab.classList.toggle("bg-dark-card", !showLearning);
+    recommendationTab.classList.toggle("text-white", !showLearning);
+    recommendationTab.classList.toggle("text-dark-muted", showLearning);
+    learningTab.classList.toggle("bg-dark-card", showLearning);
+    learningTab.classList.toggle("text-white", showLearning);
+    learningTab.classList.toggle("text-dark-muted", !showLearning);
   },
 
   applyFilter() {
