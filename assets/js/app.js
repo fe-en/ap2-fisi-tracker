@@ -2367,6 +2367,34 @@ const app = {
 
       const strongestEl = document.getElementById("strongestTopic");
       const weakestEl = document.getElementById("weakestTopic");
+      const weaknessDistributionEl = document.getElementById("globalWeaknessDistribution");
+
+      const weaknessByTopic = [];
+      const weaknessCards = Object.entries(allQuestions).flatMap(([topicId, cards]) =>
+        cards.map((card) => ({ topicId, card })),
+      );
+      const now = Date.now();
+      const weaknessPool = weaknessCards.filter(({ card }) => {
+        const cardData = this.state.anki?.[card.id];
+        return cardData && (
+          (cardData.nextReview > 0 && cardData.nextReview <= now) ||
+          cardData.level <= 2 ||
+          cardData.confidence >= 2 ||
+          cardData.markedHard
+        );
+      });
+
+      AP2_DATA.forEach((category) => {
+        category.topics.forEach((topic) => {
+          const topicCards = weaknessPool.filter(({ topicId }) => topicId === topic.id);
+          if (topicCards.length === 0) return;
+          const due = topicCards.filter(({ card }) => {
+            const cardData = this.state.anki[card.id];
+            return cardData.nextReview > 0 && cardData.nextReview <= now;
+          }).length;
+          weaknessByTopic.push({ topic, count: topicCards.length, due });
+        });
+      });
 
       if (topicsWithStats.length > 0) {
         // Stärkstes (höchste Genauigkeit, dann mehr Antworten als Tie-Breaker)
@@ -2385,6 +2413,41 @@ const app = {
       } else {
         if (strongestEl) strongestEl.textContent = "—";
         if (weakestEl) weakestEl.textContent = "—";
+      }
+
+      if (weaknessDistributionEl) {
+        if (weaknessByTopic.length === 0) {
+          weaknessDistributionEl.classList.add("hidden");
+          weaknessDistributionEl.innerHTML = "";
+        } else {
+          const maxWeaknesses = Math.max(...weaknessByTopic.map(({ count }) => count));
+          const totalWeaknesses = weaknessPool.length;
+          weaknessByTopic.sort((a, b) => b.count - a.count || b.due - a.due);
+          weaknessDistributionEl.innerHTML = `
+            <div class="flex items-center justify-between gap-3 mb-2">
+              <span class="text-dark-dim text-[10px] uppercase tracking-widest">Globale Schwächen nach Thema</span>
+              <span class="text-dark-muted text-[10px]">${totalWeaknesses} Karten · ${weaknessByTopic.length} Themen</span>
+            </div>
+            <div class="space-y-2">
+              ${weaknessByTopic.map(({ topic, count, due }) => {
+                const share = Math.round((count / totalWeaknesses) * 100);
+                const width = Math.max(Math.round((count / maxWeaknesses) * 100), 4);
+                return `
+                  <div class="text-[11px] font-mono">
+                    <div class="flex items-center justify-between gap-2 mb-1">
+                      <span class="text-white truncate" title="${topic.title}">${topic.title}</span>
+                      <span class="text-dark-muted shrink-0">${count} · ${share}%${due > 0 ? ` · ${due} fällig` : ""}</span>
+                    </div>
+                    <div class="h-1.5 rounded-full bg-dark-border overflow-hidden">
+                      <div class="h-full rounded-full bg-orange-400" style="width: ${width}%"></div>
+                    </div>
+                  </div>
+                `;
+              }).join("")}
+            </div>
+          `;
+          weaknessDistributionEl.classList.remove("hidden");
+        }
       }
     } catch (err) {
       console.error('[AP2] updateStats Fehler:', err);
