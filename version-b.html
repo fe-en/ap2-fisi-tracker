@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Version B – Karten · AP2 FISI Vorschau</title>
+<link rel="stylesheet" href="assets/css/anki.css">
+</head>
+<body>
+<div class="wrap wide">
+  <h1>AP2 FISI</h1>
+  <p class="sub">Prüfung 25.11.2026 · 840 Karten</p>
+  <div class="bar">
+    <input type="search" id="q" placeholder="Thema suchen" aria-label="Thema suchen">
+    <a class="btn primary" href="version-c.html">Fällige lernen (demo)</a>
+    <a class="btn" href="versionen.html">Andere Versionen</a>
+  </div>
+  <div class="grid" id="grid"></div>
+  <p class="note">Vorschau mit Beispieldaten. „Lernen" öffnet die Fokus-Ansicht (Version C).</p>
+</div>
+<script>
+  var topics = [
+    ['1.1', 'Systemanalyse & Infrastrukturplanung', 100, 62, 14],
+    ['1.2', 'Administration & Systemmanagement', 90, 41, 9],
+    ['1.3', 'Datensicherung & Disaster Recovery', 60, 60, 0],
+    ['1.4', 'Automatisierung & Logik', 70, 33, 11],
+    ['2.1', 'Protokolle & Schichtenmodelle', 90, 18, 21],
+    ['2.2', 'Netzwerk-Design & Hardware', 60, 26, 8],
+    ['2.3', 'Security & Monitoring', 60, 44, 5],
+    ['3.1', 'Projektmanagement & Beratung', 60, 51, 3],
+    ['3.2', 'Qualität & IT-Sicherheit (Methodik)', 70, 70, 0],
+    ['4.1', 'Arbeits- & Tarifrecht', 50, 22, 6],
+    ['4.2', 'Der Betrieb & Markt', 50, 50, 0],
+    ['4.3', 'Finanzierung & Buchführung', 40, 31, 2],
+    ['4.4', 'Nachhaltigkeit & Gesellschaft', 40, 40, 0]
+  ];
+  var grid = document.getElementById('grid');
+  function render(filter) {
+    grid.innerHTML = topics
+      .filter(function (t) { return t[1].toLowerCase().includes(filter); })
+      .map(function (t) {
+        return '<article class="card"><h2>' + t[0] + ' ' + t[1] + '</h2>' +
+          '<div class="counts"><span>' + t[2] + ' Karten</span><span class="new">' + t[3] + ' neu</span><span class="due">' + t[4] + ' fällig</span></div>' +
+          '<a class="btn" href="version-c.html">Lernen</a></article>';
+      }).join('') || '<p>Kein Thema gefunden.</p>';
+  }
+  render('');
+  document.getElementById('q').addEventListener('input', function (e) { render(e.target.value.toLowerCase()); });
+</script>
+</body>
+</html>
