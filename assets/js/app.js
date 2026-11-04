@@ -207,6 +207,9 @@ const app = {
       }
 
       this.renderBatchSelector();
+      document.getElementById("globalWeaknessTabs")?.classList.add("hidden");
+      document.getElementById("globalWeaknessDistribution")?.classList.add("hidden");
+      document.getElementById("globalWeaknessCardsControls")?.classList.remove("hidden");
 
       const statsContainer = document.getElementById("ankiTopicStats");
       if (statsContainer) {
@@ -269,6 +272,9 @@ const app = {
       }
 
       this.renderBatchSelector();
+      document.getElementById("globalWeaknessTabs")?.classList.add("hidden");
+      document.getElementById("globalWeaknessDistribution")?.classList.add("hidden");
+      document.getElementById("globalWeaknessCardsControls")?.classList.remove("hidden");
 
       // Statistiken laden
       if (!app.state.ankiStats) app.state.ankiStats = {};
@@ -403,6 +409,9 @@ const app = {
         statsContainer.classList.remove("hidden");
         app.refreshIcons();
       }
+      document.getElementById("globalWeaknessTabs")?.classList.remove("hidden");
+      this.renderGlobalWeaknessDistribution();
+      this.showGlobalWeaknessTab("cards");
 
       this.renderBatchSelector();
       document.getElementById("ankiModeView").classList.remove("hidden");
@@ -413,6 +422,89 @@ const app = {
       document.getElementById("ankiProgress").style.width = "0%";
       document.getElementById("ankiModal").classList.remove("hidden");
       document.body.style.overflow = "hidden";
+    },
+
+    showGlobalWeaknessTab(tab) {
+      const distribution = document.getElementById("globalWeaknessDistribution");
+      const cardsTab = document.getElementById("globalWeaknessCardsTab");
+      const distributionTab = document.getElementById("globalWeaknessDistributionTab");
+      if (!distribution || !cardsTab || !distributionTab) return;
+
+      const showDistribution = tab === "distribution";
+      distribution.classList.toggle("hidden", !showDistribution);
+      document.getElementById("ankiTopicStats")?.classList.toggle("hidden", showDistribution);
+      document.getElementById("globalWeaknessCardsControls")?.classList.toggle("hidden", showDistribution);
+      document.querySelector("#ankiModeView > .grid")?.classList.toggle("hidden", showDistribution);
+      cardsTab.classList.toggle("bg-dark-card", !showDistribution);
+      cardsTab.classList.toggle("text-white", !showDistribution);
+      cardsTab.classList.toggle("text-dark-muted", showDistribution);
+      distributionTab.classList.toggle("bg-dark-card", showDistribution);
+      distributionTab.classList.toggle("text-white", showDistribution);
+      distributionTab.classList.toggle("text-dark-muted", !showDistribution);
+    },
+
+    renderGlobalWeaknessDistribution() {
+      const container = document.getElementById("globalWeaknessDistribution");
+      if (!container) return;
+      const allQuestions = window.ANKI_QUESTIONS || {};
+      const now = Date.now();
+      const weaknessCards = Object.entries(allQuestions).flatMap(([topicId, cards]) =>
+        cards.map((card) => ({ topicId, card })),
+      ).filter(({ card }) => {
+        const cardData = app.state.anki?.[card.id];
+        return cardData && (
+          (cardData.nextReview > 0 && cardData.nextReview <= now) ||
+          cardData.level <= 2 ||
+          cardData.confidence >= 2 ||
+          cardData.markedHard
+        );
+      });
+      const weaknessByTopic = [];
+      AP2_DATA.forEach((category) => {
+        category.topics.forEach((topic) => {
+          const topicCards = weaknessCards.filter(({ topicId }) => topicId === topic.id);
+          if (topicCards.length === 0) return;
+          const due = topicCards.filter(({ card }) => {
+            const cardData = app.state.anki[card.id];
+            return cardData.nextReview > 0 && cardData.nextReview <= now;
+          }).length;
+          weaknessByTopic.push({ topic, count: topicCards.length, due });
+        });
+      });
+      if (weaknessByTopic.length === 0) {
+        container.innerHTML = '<p class="text-xs text-dark-muted text-center py-4">Noch keine globalen Schwächen erfasst.</p>';
+        return;
+      }
+      const maxWeaknesses = Math.max(...weaknessByTopic.map(({ count }) => count));
+      const totalWeaknesses = weaknessCards.length;
+      weaknessByTopic.sort((a, b) => b.count - a.count || b.due - a.due);
+      container.innerHTML = `
+        <div class="flex items-center justify-between gap-3 mb-3">
+          <div>
+            <h4 class="text-sm font-bold text-white">Verteilung nach Thema</h4>
+            <p class="text-[11px] text-dark-muted mt-0.5">${totalWeaknesses} Karten in ${weaknessByTopic.length} Themen</p>
+          </div>
+          <i data-lucide="bar-chart-3" class="w-4 h-4 text-orange-400"></i>
+        </div>
+        <div class="space-y-3">
+          ${weaknessByTopic.map(({ topic, count, due }) => {
+            const share = Math.round((count / totalWeaknesses) * 100);
+            const width = Math.max(Math.round((count / maxWeaknesses) * 100), 4);
+            return `
+              <div class="text-[11px] font-mono">
+                <div class="flex items-center justify-between gap-2 mb-1">
+                  <span class="text-white truncate" title="${topic.title}">${topic.title}</span>
+                  <span class="text-dark-muted shrink-0">${count} · ${share}%${due > 0 ? ` · ${due} fällig` : ""}</span>
+                </div>
+                <div class="h-1.5 rounded-full bg-dark-border overflow-hidden">
+                  <div class="h-full rounded-full bg-orange-400" style="width: ${width}%"></div>
+                </div>
+              </div>
+            `;
+          }).join("")}
+        </div>
+      `;
+      app.refreshIcons();
     },
 
     start(mode) {
@@ -2367,34 +2459,6 @@ const app = {
 
       const strongestEl = document.getElementById("strongestTopic");
       const weakestEl = document.getElementById("weakestTopic");
-      const weaknessDistributionEl = document.getElementById("globalWeaknessDistribution");
-
-      const weaknessByTopic = [];
-      const weaknessCards = Object.entries(allQuestions).flatMap(([topicId, cards]) =>
-        cards.map((card) => ({ topicId, card })),
-      );
-      const now = Date.now();
-      const weaknessPool = weaknessCards.filter(({ card }) => {
-        const cardData = this.state.anki?.[card.id];
-        return cardData && (
-          (cardData.nextReview > 0 && cardData.nextReview <= now) ||
-          cardData.level <= 2 ||
-          cardData.confidence >= 2 ||
-          cardData.markedHard
-        );
-      });
-
-      AP2_DATA.forEach((category) => {
-        category.topics.forEach((topic) => {
-          const topicCards = weaknessPool.filter(({ topicId }) => topicId === topic.id);
-          if (topicCards.length === 0) return;
-          const due = topicCards.filter(({ card }) => {
-            const cardData = this.state.anki[card.id];
-            return cardData.nextReview > 0 && cardData.nextReview <= now;
-          }).length;
-          weaknessByTopic.push({ topic, count: topicCards.length, due });
-        });
-      });
 
       if (topicsWithStats.length > 0) {
         // Stärkstes (höchste Genauigkeit, dann mehr Antworten als Tie-Breaker)
@@ -2415,40 +2479,6 @@ const app = {
         if (weakestEl) weakestEl.textContent = "—";
       }
 
-      if (weaknessDistributionEl) {
-        if (weaknessByTopic.length === 0) {
-          weaknessDistributionEl.classList.add("hidden");
-          weaknessDistributionEl.innerHTML = "";
-        } else {
-          const maxWeaknesses = Math.max(...weaknessByTopic.map(({ count }) => count));
-          const totalWeaknesses = weaknessPool.length;
-          weaknessByTopic.sort((a, b) => b.count - a.count || b.due - a.due);
-          weaknessDistributionEl.innerHTML = `
-            <div class="flex items-center justify-between gap-3 mb-2">
-              <span class="text-dark-dim text-[10px] uppercase tracking-widest">Globale Schwächen nach Thema</span>
-              <span class="text-dark-muted text-[10px]">${totalWeaknesses} Karten · ${weaknessByTopic.length} Themen</span>
-            </div>
-            <div class="space-y-2">
-              ${weaknessByTopic.map(({ topic, count, due }) => {
-                const share = Math.round((count / totalWeaknesses) * 100);
-                const width = Math.max(Math.round((count / maxWeaknesses) * 100), 4);
-                return `
-                  <div class="text-[11px] font-mono">
-                    <div class="flex items-center justify-between gap-2 mb-1">
-                      <span class="text-white truncate" title="${topic.title}">${topic.title}</span>
-                      <span class="text-dark-muted shrink-0">${count} · ${share}%${due > 0 ? ` · ${due} fällig` : ""}</span>
-                    </div>
-                    <div class="h-1.5 rounded-full bg-dark-border overflow-hidden">
-                      <div class="h-full rounded-full bg-orange-400" style="width: ${width}%"></div>
-                    </div>
-                  </div>
-                `;
-              }).join("")}
-            </div>
-          `;
-          weaknessDistributionEl.classList.remove("hidden");
-        }
-      }
     } catch (err) {
       console.error('[AP2] updateStats Fehler:', err);
       const recShort = document.getElementById('recShort');
