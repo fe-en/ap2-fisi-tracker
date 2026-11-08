@@ -37,6 +37,3 @@ build/
 *.log
 npm-debug.log*
 
-# Backups and progress tracking
-ap2_fisi_backup_*.json
-lernfortschritt_*.md
